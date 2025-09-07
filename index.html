@@ -1,38 +1,55 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>GPI</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GPI Jemaat Bersinar</title>
+  <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="style.css">
 </head>
-<body>
-  <header>
-    <h1>GPI Jemaat Bersinar</h1>
-    <p id="datetime"></p>
+<body class="bg-gray-50 text-gray-800 flex flex-col min-h-screen">
+
+  <!-- Header -->
+  <header class="bg-blue-900 text-white py-6 shadow-md">
+    <div class="container mx-auto text-center">
+      <h1 class="text-3xl font-bold">GPI Jemaat Bersinar</h1>
+      <p id="datetime" class="mt-2 text-sm"></p>
+    </div>
   </header>
 
-  <main>
-    <section class="jadwal">
-      <h2>Jadwal Ibadah</h2>
-      <ul>
-        <li>Minggu, 10:00 WIB</li>
-        <li>Kamis, 19:00 WIB</li>
+  <!-- Jadwal Ibadah -->
+  <section class="container mx-auto my-8 px-4">
+    <h2 class="text-2xl font-semibold mb-4 text-center">Jadwal Ibadah</h2>
+    <div class="max-w-md mx-auto bg-white rounded-2xl shadow-md p-6">
+      <ul class="space-y-2 text-center">
+        <li class="bg-blue-100 py-2 rounded-md">Minggu • 10:00 WIB</li>
+        <li class="bg-blue-100 py-2 rounded-md">Kamis • 19:00 WIB</li>
+        <li class="bg-blue-100 py-2 rounded-md">Sabtu (Pemuda) • 17:00 WIB</li>
       </ul>
-    </section>
+    </div>
+  </section>
 
-    <section class="galeri">
-      <h2>Galeri</h2>
-      <div class="grid">
-        <img src="images/poster.jpg" alt="Poster Ibadah">
-        <img src="images/foto1.jpg" alt="Foto 1">
-        <img src="images/foto2.jpg" alt="Foto 2">
-      </div>
-    </section>
-  </main>
+  <!-- Poster -->
+  <section class="container mx-auto my-8 px-4">
+    <h2 class="text-2xl font-semibold mb-4 text-center">Poster Ibadah</h2>
+    <div class="flex justify-center">
+      <img src="images/poster.jpg" alt="Poster Ibadah"
+           class="rounded-2xl shadow-lg max-h-[500px] object-contain">
+    </div>
+  </section>
 
-  <footer>
-    <p>&copy; 2025 GPI Jemaat Bersinar</p>
+  <!-- Galeri -->
+  <section class="container mx-auto my-8 px-4 flex-1">
+    <h2 class="text-2xl font-semibold mb-4 text-center">Galeri Foto</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+      <img src="images/foto1.jpg" alt="Foto 1" class="rounded-xl shadow-md hover:scale-105 transition">
+      <img src="images/foto2.jpg" alt="Foto 2" class="rounded-xl shadow-md hover:scale-105 transition">
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-gray-900 text-white text-center py-4 mt-auto">
+    <p>&copy; 2025 GPI Jemaat Bersinar | Jl. Kapten Raden Sulian, Belawan</p>
   </footer>
 
   <script src="script.js"></script>
