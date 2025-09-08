@@ -1,9 +1,13 @@
-@keyframes scroll {
-  0% { transform: translateX(100%); }
-  100% { transform: translateX(-100%); }
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background: #f7f7f7;
 }
-
-.animate-scroll {
-  display: flex;
-  animation: scroll 40s linear infinite;
+header, footer {
+  background-color: #1e3a8a;
+  color: white;
+}
+section {
+  background: white;
 }
