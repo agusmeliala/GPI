@@ -1,9 +1,8 @@
-@keyframes scroll {
-  0% { transform: translateX(100%); }
-  100% { transform: translateX(-100%); }
+.animate-scroll {
+  animation: scroll 20s linear infinite;
 }
 
-.animate-scroll {
-  display: flex;
-  animation: scroll 40s linear infinite;
+@keyframes scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
 }
