@@ -57,89 +57,150 @@
   </div>
 </section>
 
-<!-- GALERI FINAL (PASTI JALAN) -->
-<section style="max-width:1000px; margin:40px auto; padding:10px;">
-  <h2 style="text-align:center; font-size:24px; font-weight:bold; margin-bottom:20px;">
-    Galeri Foto
-  </h2>
+<style>
+/* === GALERI === */
+.gallery-container {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  background: #000;
+}
 
-  <div id="slider" style="display:flex; overflow:hidden; gap:10px;">
+.gallery-track {
+  display: flex;
+  width: calc(300px * 60);
+  animation: scroll 40s linear infinite;
+}
 
-    <!-- FOTO -->
-    <img src="images/foto1.jpg"  width="180">
-    <img src="images/foto2.jpg"  width="180">
-    <img src="images/foto3.jpg"  width="180">
-    <img src="images/foto4.jpg"  width="180">
-    <img src="images/foto5.jpg"  width="180">
-    <img src="images/foto6.jpg"  width="180">
-    <img src="images/foto7.jpg"  width="180">
-    <img src="images/foto8.jpg"  width="180">
-    <img src="images/foto9.jpg"  width="180">
-    <img src="images/foto10.jpg" width="180">
-    <img src="images/foto11.jpg" width="180">
-    <img src="images/foto12.jpg" width="180">
-    <img src="images/foto13.jpg" width="180">
-    <img src="images/foto14.jpg" width="180">
-    <img src="images/foto15.jpg" width="180">
-    <img src="images/foto16.jpg" width="180">
-    <img src="images/foto17.jpg" width="180">
-    <img src="images/foto18.jpg" width="180">
-    <img src="images/foto19.jpg" width="180">
-    <img src="images/foto20.jpg" width="180">
-    <img src="images/foto21.jpg" width="180">
-    <img src="images/foto22.jpg" width="180">
-    <img src="images/foto23.jpg" width="180">
-    <img src="images/foto24.jpg" width="180">
-    <img src="images/foto25.jpg" width="180">
-    <img src="images/foto26.jpg" width="180">
-    <img src="images/foto27.jpg" width="180">
-    <img src="images/foto28.jpg" width="180">
-    <img src="images/foto29.jpg" width="180">
-    <img src="images/foto30.jpg" width="180">
+.gallery-item {
+  width: 300px;
+  height: 200px;
+  flex-shrink: 0;
+  margin: 5px;
+  cursor: pointer;
+  transition: transform 0.3s;
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+/* Smooth jalan */
+@keyframes scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* Hover efek */
+.gallery-item:hover {
+  transform: scale(1.05);
+}
+
+/* Fullscreen */
+.fullscreen {
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  width: 100vw !important;
+  height: 100vh !important;
+  background: #000;
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.fullscreen img {
+  width: auto;
+  height: 90%;
+}
+</style>
+
+
+<div class="gallery-container">
+  <div class="gallery-track" id="galleryTrack">
+    
+    <!-- 30 FOTO (ulang 2x supaya smooth loop) -->
+    
+    <!-- Ganti nama file sesuai punyamu -->
+    
+    <!-- 1-30 -->
+    <div class="gallery-item"><img src="foto1.jpg"></div>
+    <div class="gallery-item"><img src="foto2.jpg"></div>
+    <div class="gallery-item"><img src="foto3.jpg"></div>
+    <div class="gallery-item"><img src="foto4.jpg"></div>
+    <div class="gallery-item"><img src="foto5.jpg"></div>
+    <div class="gallery-item"><img src="foto6.jpg"></div>
+    <div class="gallery-item"><img src="foto7.jpg"></div>
+    <div class="gallery-item"><img src="foto8.jpg"></div>
+    <div class="gallery-item"><img src="foto9.jpg"></div>
+    <div class="gallery-item"><img src="foto10.jpg"></div>
+    <div class="gallery-item"><img src="foto11.jpg"></div>
+    <div class="gallery-item"><img src="foto12.jpg"></div>
+    <div class="gallery-item"><img src="foto13.jpg"></div>
+    <div class="gallery-item"><img src="foto14.jpg"></div>
+    <div class="gallery-item"><img src="foto15.jpg"></div>
+    <div class="gallery-item"><img src="foto16.jpg"></div>
+    <div class="gallery-item"><img src="foto17.jpg"></div>
+    <div class="gallery-item"><img src="foto18.jpg"></div>
+    <div class="gallery-item"><img src="foto19.jpg"></div>
+    <div class="gallery-item"><img src="foto20.jpg"></div>
+    <div class="gallery-item"><img src="foto21.jpg"></div>
+    <div class="gallery-item"><img src="foto22.jpg"></div>
+    <div class="gallery-item"><img src="foto23.jpg"></div>
+    <div class="gallery-item"><img src="foto24.jpg"></div>
+    <div class="gallery-item"><img src="foto25.jpg"></div>
+    <div class="gallery-item"><img src="foto26.jpg"></div>
+    <div class="gallery-item"><img src="foto27.jpg"></div>
+    <div class="gallery-item"><img src="foto28.jpg"></div>
+    <div class="gallery-item"><img src="foto29.jpg"></div>
+    <div class="gallery-item"><img src="foto30.jpg"></div>
+
+    <!-- ulang lagi supaya loop halus -->
+    <div class="gallery-item"><img src="foto1.jpg"></div>
+    <div class="gallery-item"><img src="foto2.jpg"></div>
+    <div class="gallery-item"><img src="foto3.jpg"></div>
+    <div class="gallery-item"><img src="foto4.jpg"></div>
+    <div class="gallery-item"><img src="foto5.jpg"></div>
+    <div class="gallery-item"><img src="foto6.jpg"></div>
+    <div class="gallery-item"><img src="foto7.jpg"></div>
+    <div class="gallery-item"><img src="foto8.jpg"></div>
+    <div class="gallery-item"><img src="foto9.jpg"></div>
+    <div class="gallery-item"><img src="foto10.jpg"></div>
+    <div class="gallery-item"><img src="foto11.jpg"></div>
+    <div class="gallery-item"><img src="foto12.jpg"></div>
+    <div class="gallery-item"><img src="foto13.jpg"></div>
+    <div class="gallery-item"><img src="foto14.jpg"></div>
+    <div class="gallery-item"><img src="foto15.jpg"></div>
+    <div class="gallery-item"><img src="foto16.jpg"></div>
+    <div class="gallery-item"><img src="foto17.jpg"></div>
+    <div class="gallery-item"><img src="foto18.jpg"></div>
+    <div class="gallery-item"><img src="foto19.jpg"></div>
+    <div class="gallery-item"><img src="foto20.jpg"></div>
+    <div class="gallery-item"><img src="foto21.jpg"></div>
+    <div class="gallery-item"><img src="foto22.jpg"></div>
+    <div class="gallery-item"><img src="foto23.jpg"></div>
+    <div class="gallery-item"><img src="foto24.jpg"></div>
+    <div class="gallery-item"><img src="foto25.jpg"></div>
+    <div class="gallery-item"><img src="foto26.jpg"></div>
+    <div class="gallery-item"><img src="foto27.jpg"></div>
+    <div class="gallery-item"><img src="foto28.jpg"></div>
+    <div class="gallery-item"><img src="foto29.jpg"></div>
+    <div class="gallery-item"><img src="foto30.jpg"></div>
 
   </div>
-</section>
-
-<!-- FULLSCREEN -->
-<div id="full" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:black; justify-content:center; align-items:center;">
-  <img id="fullimg" style="max-width:90%; max-height:90%;">
 </div>
 
 <script>
-window.onload = function() {
-
-  const slider = document.getElementById("slider");
-
-  // DUPLIKAT (biar jalan terus)
-  slider.innerHTML += slider.innerHTML;
-
-  let jalan = 0;
-
-  setInterval(function() {
-    jalan++;
-    slider.scrollLeft = jalan;
-
-    if (jalan >= slider.scrollWidth / 2) {
-      jalan = 0;
-    }
-  }, 15); // makin kecil makin halus
-
-  // FULLSCREEN
-  const full = document.getElementById("full");
-  const fullimg = document.getElementById("fullimg");
-
-  document.querySelectorAll("#slider img").forEach(img => {
-    img.onclick = function() {
-      full.style.display = "flex";
-      fullimg.src = this.src;
-    }
+/* FULLSCREEN CLICK */
+document.querySelectorAll('.gallery-item').forEach(item => {
+  item.addEventListener('click', function () {
+    this.classList.toggle('fullscreen');
   });
-
-  full.onclick = function() {
-    full.style.display = "none";
-  }
-
-}
+});
 </script>
   <!-- Renungan Harian -->
   <section class="container mx-auto my-8 px-4">
