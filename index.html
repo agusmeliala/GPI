@@ -67,16 +67,15 @@
     
     <div id="galeriSlider" class="flex space-x-4 overflow-x-hidden">
 
-      <!-- 30 FOTO -->
-      <img src="images/foto1.jpg"  class="w-48 h-32 object-cover rounded-xl shadow cursor-pointer">
-      <img src="images/foto2.jpg"  class="w-48 h-32 object-cover rounded-xl shadow cursor-pointer">
-      <img src="images/foto3.jpg"  class="w-48 h-32 object-cover rounded-xl shadow cursor-pointer">
-      <img src="images/foto4.jpg"  class="w-48 h-32 object-cover rounded-xl shadow cursor-pointer">
-      <img src="images/foto5.jpg"  class="w-48 h-32 object-cover rounded-xl shadow cursor-pointer">
-      <img src="images/foto6.jpg"  class="w-48 h-32 object-cover rounded-xl shadow cursor-pointer">
-      <img src="images/foto7.jpg"  class="w-48 h-32 object-cover rounded-xl shadow cursor-pointer">
-      <img src="images/foto8.jpg"  class="w-48 h-32 object-cover rounded-xl shadow cursor-pointer">
-      <img src="images/foto9.jpg"  class="w-48 h-32 object-cover rounded-xl shadow cursor-pointer">
+      <img src="images/foto1.jpg" class="w-48 h-32 object-cover rounded-xl shadow cursor-pointer">
+      <img src="images/foto2.jpg" class="w-48 h-32 object-cover rounded-xl shadow cursor-pointer">
+      <img src="images/foto3.jpg" class="w-48 h-32 object-cover rounded-xl shadow cursor-pointer">
+      <img src="images/foto4.jpg" class="w-48 h-32 object-cover rounded-xl shadow cursor-pointer">
+      <img src="images/foto5.jpg" class="w-48 h-32 object-cover rounded-xl shadow cursor-pointer">
+      <img src="images/foto6.jpg" class="w-48 h-32 object-cover rounded-xl shadow cursor-pointer">
+      <img src="images/foto7.jpg" class="w-48 h-32 object-cover rounded-xl shadow cursor-pointer">
+      <img src="images/foto8.jpg" class="w-48 h-32 object-cover rounded-xl shadow cursor-pointer">
+      <img src="images/foto9.jpg" class="w-48 h-32 object-cover rounded-xl shadow cursor-pointer">
       <img src="images/foto10.jpg" class="w-48 h-32 object-cover rounded-xl shadow cursor-pointer">
       <img src="images/foto11.jpg" class="w-48 h-32 object-cover rounded-xl shadow cursor-pointer">
       <img src="images/foto12.jpg" class="w-48 h-32 object-cover rounded-xl shadow cursor-pointer">
@@ -108,19 +107,15 @@
   <img id="fullscreenImg" class="max-w-full max-h-full rounded-lg shadow-2xl">
 </div>
 
-<!-- SCRIPT (PASTI JALAN) -->
 <script>
 document.addEventListener("DOMContentLoaded", function () {
 
   const slider = document.getElementById("galeriSlider");
 
-  // duplikat isi untuk loop halus
   slider.innerHTML += slider.innerHTML;
 
-  let speed = 1; // kecepatan (bisa ubah 0.5 lebih halus)
-
   function scrollLoop() {
-    slider.scrollLeft += speed;
+    slider.scrollLeft += 1;
 
     if (slider.scrollLeft >= slider.scrollWidth / 2) {
       slider.scrollLeft = 0;
@@ -131,7 +126,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
   scrollLoop();
 
-  // FULLSCREEN
   const modal = document.getElementById("fullscreenModal");
   const modalImg = document.getElementById("fullscreenImg");
 
