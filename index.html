@@ -58,22 +58,92 @@
 </section>
 
   <!-- Galeri -->
-  <section class="container mx-auto my-8 px-4">
-    <h2 class="text-2xl font-semibold mb-4 text-center">Galeri Foto</h2>
-    <div class="max-w-3xl mx-auto bg-white rounded-2xl shadow-md p-4 overflow-hidden">
-      <div class="flex animate-scroll space-x-4">
-        <img src="images/foto1.jpg" alt="Foto 1" class="w-40 h-28 object-cover rounded-lg shadow">
-        <img src="images/foto2.jpg" alt="Foto 2" class="w-40 h-28 object-cover rounded-lg shadow">
-        <img src="images/foto3.jpg" alt="Foto 3" class="w-40 h-28 object-cover rounded-lg shadow">
-        <img src="images/foto4.jpg" alt="Foto 4" class="w-40 h-28 object-cover rounded-lg shadow">
-        <img src="images/foto5.jpg" alt="Foto 5" class="w-40 h-28 object-cover rounded-lg shadow">
-        <img src="images/foto6.jpg" alt="Foto 6" class="w-40 h-28 object-cover rounded-lg shadow">
-        <img src="images/foto7.jpg" alt="Foto 7" class="w-40 h-28 object-cover rounded-lg shadow">
-        <img src="images/foto8.jpg" alt="Foto 8" class="w-40 h-28 object-cover rounded-lg shadow">
-      </div>
-    </div>
-  </section>
+  <!-- Galeri -->
+<section class="container mx-auto my-10 px-4">
+  <h2 class="text-3xl font-bold mb-6 text-center text-gray-800">
+    Galeri Foto
+  </h2>
 
+  <div class="max-w-5xl mx-auto bg-white rounded-3xl shadow-xl p-4 overflow-hidden">
+    
+    <!-- Slider -->
+    <div id="galeriSlider" class="flex space-x-4 overflow-x-auto scroll-smooth">
+
+      <!-- FOTO (bisa sampai 30) -->
+      <img src="images/foto1.jpg"  class="w-48 h-32 object-cover rounded-xl shadow cursor-pointer">
+      <img src="images/foto2.jpg"  class="w-48 h-32 object-cover rounded-xl shadow cursor-pointer">
+      <img src="images/foto3.jpg"  class="w-48 h-32 object-cover rounded-xl shadow cursor-pointer">
+      <img src="images/foto4.jpg"  class="w-48 h-32 object-cover rounded-xl shadow cursor-pointer">
+      <img src="images/foto5.jpg"  class="w-48 h-32 object-cover rounded-xl shadow cursor-pointer">
+      <img src="images/foto6.jpg"  class="w-48 h-32 object-cover rounded-xl shadow cursor-pointer">
+      <img src="images/foto7.jpg"  class="w-48 h-32 object-cover rounded-xl shadow cursor-pointer">
+      <img src="images/foto8.jpg"  class="w-48 h-32 object-cover rounded-xl shadow cursor-pointer">
+      <img src="images/foto9.jpg"  class="w-48 h-32 object-cover rounded-xl shadow cursor-pointer">
+      <img src="images/foto10.jpg" class="w-48 h-32 object-cover rounded-xl shadow cursor-pointer">
+      <img src="images/foto11.jpg" class="w-48 h-32 object-cover rounded-xl shadow cursor-pointer">
+      <img src="images/foto12.jpg" class="w-48 h-32 object-cover rounded-xl shadow cursor-pointer">
+      <img src="images/foto13.jpg" class="w-48 h-32 object-cover rounded-xl shadow cursor-pointer">
+      <img src="images/foto14.jpg" class="w-48 h-32 object-cover rounded-xl shadow cursor-pointer">
+      <img src="images/foto15.jpg" class="w-48 h-32 object-cover rounded-xl shadow cursor-pointer">
+      <img src="images/foto16.jpg" class="w-48 h-32 object-cover rounded-xl shadow cursor-pointer">
+      <img src="images/foto17.jpg" class="w-48 h-32 object-cover rounded-xl shadow cursor-pointer">
+      <img src="images/foto18.jpg" class="w-48 h-32 object-cover rounded-xl shadow cursor-pointer">
+      <img src="images/foto19.jpg" class="w-48 h-32 object-cover rounded-xl shadow cursor-pointer">
+      <img src="images/foto20.jpg" class="w-48 h-32 object-cover rounded-xl shadow cursor-pointer">
+      <img src="images/foto21.jpg" class="w-48 h-32 object-cover rounded-xl shadow cursor-pointer">
+      <img src="images/foto22.jpg" class="w-48 h-32 object-cover rounded-xl shadow cursor-pointer">
+      <img src="images/foto23.jpg" class="w-48 h-32 object-cover rounded-xl shadow cursor-pointer">
+      <img src="images/foto24.jpg" class="w-48 h-32 object-cover rounded-xl shadow cursor-pointer">
+      <img src="images/foto25.jpg" class="w-48 h-32 object-cover rounded-xl shadow cursor-pointer">
+      <img src="images/foto26.jpg" class="w-48 h-32 object-cover rounded-xl shadow cursor-pointer">
+      <img src="images/foto27.jpg" class="w-48 h-32 object-cover rounded-xl shadow cursor-pointer">
+      <img src="images/foto28.jpg" class="w-48 h-32 object-cover rounded-xl shadow cursor-pointer">
+      <img src="images/foto29.jpg" class="w-48 h-32 object-cover rounded-xl shadow cursor-pointer">
+      <img src="images/foto30.jpg" class="w-48 h-32 object-cover rounded-xl shadow cursor-pointer">
+
+    </div>
+  </div>
+</section>
+
+<!-- FULLSCREEN MODAL -->
+<div id="fullscreenModal" class="fixed inset-0 bg-black bg-opacity-90 hidden items-center justify-center z-50">
+  <img id="fullscreenImg" class="max-w-full max-h-full rounded-lg shadow-2xl">
+</div>
+
+<!-- SCRIPT GALERI -->
+<script>
+  const slider = document.getElementById("galeriSlider");
+
+  // AUTO SLIDE
+  let scrollAmount = 0;
+  setInterval(() => {
+    slider.scrollLeft += 200;
+    
+    // balik ke awal kalau sudah habis
+    if (slider.scrollLeft + slider.clientWidth >= slider.scrollWidth) {
+      slider.scrollTo({ left: 0, behavior: "smooth" });
+    }
+  }, 2000);
+
+  // FULLSCREEN
+  const images = slider.querySelectorAll("img");
+  const modal = document.getElementById("fullscreenModal");
+  const modalImg = document.getElementById("fullscreenImg");
+
+  images.forEach(img => {
+    img.addEventListener("click", () => {
+      modal.classList.remove("hidden");
+      modal.classList.add("flex");
+      modalImg.src = img.src;
+    });
+  });
+
+  // klik untuk keluar fullscreen
+  modal.addEventListener("click", () => {
+    modal.classList.add("hidden");
+    modal.classList.remove("flex");
+  });
+</script>
   <!-- Renungan Harian -->
   <section class="container mx-auto my-8 px-4">
     <h2 class="text-2xl font-semibold mb-4 text-center">Renungan Harian</h2>
