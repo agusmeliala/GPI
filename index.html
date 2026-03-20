@@ -57,7 +57,7 @@
   </div>
 </section>
 
- <!-- Galeri -->
+<!-- Galeri -->
 <section class="container mx-auto my-10 px-4">
   <h2 class="text-3xl font-bold mb-6 text-center text-gray-800">
     Galeri Foto
@@ -108,48 +108,47 @@
   <img id="fullscreenImg" class="max-w-full max-h-full rounded-lg shadow-2xl">
 </div>
 
-<!-- SCRIPT -->
+<!-- SCRIPT (PASTI JALAN) -->
 <script>
+document.addEventListener("DOMContentLoaded", function () {
+
   const slider = document.getElementById("galeriSlider");
 
-  // DUPLIKAT agar loop halus (infinite)
+  // duplikat isi untuk loop halus
   slider.innerHTML += slider.innerHTML;
 
-  // AUTO SCROLL HALUS
-  function autoScroll() {
-    slider.scrollLeft += 0.5;
+  let speed = 1; // kecepatan (bisa ubah 0.5 lebih halus)
+
+  function scrollLoop() {
+    slider.scrollLeft += speed;
 
     if (slider.scrollLeft >= slider.scrollWidth / 2) {
       slider.scrollLeft = 0;
     }
 
-    requestAnimationFrame(autoScroll);
+    requestAnimationFrame(scrollLoop);
   }
 
-  autoScroll();
+  scrollLoop();
 
-  // FULLSCREEN (klik sekali buka, klik lagi tutup)
+  // FULLSCREEN
   const modal = document.getElementById("fullscreenModal");
   const modalImg = document.getElementById("fullscreenImg");
 
   slider.querySelectorAll("img").forEach(img => {
     img.addEventListener("click", () => {
-      if (modal.classList.contains("hidden")) {
-        modal.classList.remove("hidden");
-        modal.classList.add("flex");
-        modalImg.src = img.src;
-      } else {
-        modal.classList.add("hidden");
-        modal.classList.remove("flex");
-      }
+      modal.classList.remove("hidden");
+      modal.classList.add("flex");
+      modalImg.src = img.src;
     });
   });
 
-  // klik background juga bisa tutup
   modal.addEventListener("click", () => {
     modal.classList.add("hidden");
     modal.classList.remove("flex");
   });
+
+});
 </script>
   <!-- Renungan Harian -->
   <section class="container mx-auto my-8 px-4">
