@@ -57,8 +57,7 @@
   </div>
 </section>
 
-  <!-- Galeri -->
-  <!-- Galeri -->
+ <!-- Galeri -->
 <section class="container mx-auto my-10 px-4">
   <h2 class="text-3xl font-bold mb-6 text-center text-gray-800">
     Galeri Foto
@@ -66,10 +65,9 @@
 
   <div class="max-w-5xl mx-auto bg-white rounded-3xl shadow-xl p-4 overflow-hidden">
     
-    <!-- Slider -->
-    <div id="galeriSlider" class="flex space-x-4 overflow-x-auto scroll-smooth">
+    <div id="galeriSlider" class="flex space-x-4 overflow-x-hidden">
 
-      <!-- FOTO (bisa sampai 30) -->
+      <!-- 30 FOTO -->
       <img src="images/foto1.jpg"  class="w-48 h-32 object-cover rounded-xl shadow cursor-pointer">
       <img src="images/foto2.jpg"  class="w-48 h-32 object-cover rounded-xl shadow cursor-pointer">
       <img src="images/foto3.jpg"  class="w-48 h-32 object-cover rounded-xl shadow cursor-pointer">
@@ -105,40 +103,49 @@
   </div>
 </section>
 
-<!-- FULLSCREEN MODAL -->
+<!-- FULLSCREEN -->
 <div id="fullscreenModal" class="fixed inset-0 bg-black bg-opacity-90 hidden items-center justify-center z-50">
   <img id="fullscreenImg" class="max-w-full max-h-full rounded-lg shadow-2xl">
 </div>
 
-<!-- SCRIPT GALERI -->
+<!-- SCRIPT -->
 <script>
   const slider = document.getElementById("galeriSlider");
 
-  // AUTO SLIDE
-  let scrollAmount = 0;
-  setInterval(() => {
-    slider.scrollLeft += 200;
-    
-    // balik ke awal kalau sudah habis
-    if (slider.scrollLeft + slider.clientWidth >= slider.scrollWidth) {
-      slider.scrollTo({ left: 0, behavior: "smooth" });
-    }
-  }, 2000);
+  // DUPLIKAT agar loop halus (infinite)
+  slider.innerHTML += slider.innerHTML;
 
-  // FULLSCREEN
-  const images = slider.querySelectorAll("img");
+  // AUTO SCROLL HALUS
+  function autoScroll() {
+    slider.scrollLeft += 0.5;
+
+    if (slider.scrollLeft >= slider.scrollWidth / 2) {
+      slider.scrollLeft = 0;
+    }
+
+    requestAnimationFrame(autoScroll);
+  }
+
+  autoScroll();
+
+  // FULLSCREEN (klik sekali buka, klik lagi tutup)
   const modal = document.getElementById("fullscreenModal");
   const modalImg = document.getElementById("fullscreenImg");
 
-  images.forEach(img => {
+  slider.querySelectorAll("img").forEach(img => {
     img.addEventListener("click", () => {
-      modal.classList.remove("hidden");
-      modal.classList.add("flex");
-      modalImg.src = img.src;
+      if (modal.classList.contains("hidden")) {
+        modal.classList.remove("hidden");
+        modal.classList.add("flex");
+        modalImg.src = img.src;
+      } else {
+        modal.classList.add("hidden");
+        modal.classList.remove("flex");
+      }
     });
   });
 
-  // klik untuk keluar fullscreen
+  // klik background juga bisa tutup
   modal.addEventListener("click", () => {
     modal.classList.add("hidden");
     modal.classList.remove("flex");
