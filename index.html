@@ -29,13 +29,27 @@
   </section>
 
   <!-- Poster -->
-  <section class="container mx-auto my-8 px-4">
-    <h2 class="text-2xl font-semibold mb-4 text-center">Poster Ibadah</h2>
-    <div class="max-w-3xl mx-auto bg-white rounded-2xl shadow-md p-4 flex justify-center">
-      <img src="images/poster.jpg" alt="Poster Ibadah"
-           class="rounded-xl shadow max-h-[400px] object-contain">
+  <section class="container mx-auto my-12 px-4">
+  <div class="text-center mb-8">
+    <h2 class="text-3xl md:text-4xl font-bold text-gray-800">
+      Poster Ibadah
+    </h2>
+    <p id="hariSekarang" class="text-gray-500 mt-2"></p>
+  </div>
+
+  <div class="max-w-4xl mx-auto">
+    <div class="bg-white rounded-3xl shadow-xl p-4 md:p-6">
+
+      <div class="overflow-hidden rounded-2xl">
+        <img id="posterImg"
+             src="images/poster1.jpg"
+             alt="Poster Ibadah"
+             class="w-full h-auto max-h-[500px] object-contain transition duration-500 hover:scale-105">
+      </div>
+
     </div>
-  </section>
+  </div>
+</section>
 
   <!-- Galeri -->
   <section class="container mx-auto my-8 px-4">
@@ -71,5 +85,32 @@
   </footer>
 
   <script src="script.js"></script>
+  <script>
+  const posterList = [
+    "images/poster1.jpg", // Senin
+    "images/poster2.jpg", // Selasa
+    "images/poster3.jpg", // Rabu
+    "images/poster4.jpg", // Kamis
+    "images/poster5.jpg", // Jumat
+    "images/poster6.jpg", // Sabtu
+    "images/poster7.jpg"  // Minggu
+  ];
+
+  const hariNama = [
+    "Minggu","Senin","Selasa","Rabu","Kamis","Jumat","Sabtu"
+  ];
+
+  const today = new Date().getDay();
+
+  // Atur index (Senin = 0, Minggu = 6)
+  const index = today === 0 ? 6 : today - 1;
+
+  // Ganti gambar otomatis
+  document.getElementById("posterImg").src = posterList[index];
+
+  // Tampilkan nama hari
+  document.getElementById("hariSekarang").innerText =
+    "Poster untuk hari " + hariNama[today];
+</script>
 </body>
 </html>
