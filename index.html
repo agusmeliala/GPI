@@ -57,92 +57,89 @@
   </div>
 </section>
 
-<!-- Galeri -->
-<section class="container mx-auto my-10 px-4">
-  <h2 class="text-3xl font-bold mb-6 text-center text-gray-800">
+<!-- GALERI FINAL (PASTI JALAN) -->
+<section style="max-width:1000px; margin:40px auto; padding:10px;">
+  <h2 style="text-align:center; font-size:24px; font-weight:bold; margin-bottom:20px;">
     Galeri Foto
   </h2>
 
-  <div class="max-w-5xl mx-auto bg-white rounded-3xl shadow-xl p-4 overflow-hidden">
-    
-    <div id="galeriSlider" class="flex space-x-4 overflow-x-hidden">
+  <div id="slider" style="display:flex; overflow:hidden; gap:10px;">
 
-      <img src="images/foto1.jpg" class="w-48 h-32 object-cover rounded-xl shadow cursor-pointer">
-      <img src="images/foto2.jpg" class="w-48 h-32 object-cover rounded-xl shadow cursor-pointer">
-      <img src="images/foto3.jpg" class="w-48 h-32 object-cover rounded-xl shadow cursor-pointer">
-      <img src="images/foto4.jpg" class="w-48 h-32 object-cover rounded-xl shadow cursor-pointer">
-      <img src="images/foto5.jpg" class="w-48 h-32 object-cover rounded-xl shadow cursor-pointer">
-      <img src="images/foto6.jpg" class="w-48 h-32 object-cover rounded-xl shadow cursor-pointer">
-      <img src="images/foto7.jpg" class="w-48 h-32 object-cover rounded-xl shadow cursor-pointer">
-      <img src="images/foto8.jpg" class="w-48 h-32 object-cover rounded-xl shadow cursor-pointer">
-      <img src="images/foto9.jpg" class="w-48 h-32 object-cover rounded-xl shadow cursor-pointer">
-      <img src="images/foto10.jpg" class="w-48 h-32 object-cover rounded-xl shadow cursor-pointer">
-      <img src="images/foto11.jpg" class="w-48 h-32 object-cover rounded-xl shadow cursor-pointer">
-      <img src="images/foto12.jpg" class="w-48 h-32 object-cover rounded-xl shadow cursor-pointer">
-      <img src="images/foto13.jpg" class="w-48 h-32 object-cover rounded-xl shadow cursor-pointer">
-      <img src="images/foto14.jpg" class="w-48 h-32 object-cover rounded-xl shadow cursor-pointer">
-      <img src="images/foto15.jpg" class="w-48 h-32 object-cover rounded-xl shadow cursor-pointer">
-      <img src="images/foto16.jpg" class="w-48 h-32 object-cover rounded-xl shadow cursor-pointer">
-      <img src="images/foto17.jpg" class="w-48 h-32 object-cover rounded-xl shadow cursor-pointer">
-      <img src="images/foto18.jpg" class="w-48 h-32 object-cover rounded-xl shadow cursor-pointer">
-      <img src="images/foto19.jpg" class="w-48 h-32 object-cover rounded-xl shadow cursor-pointer">
-      <img src="images/foto20.jpg" class="w-48 h-32 object-cover rounded-xl shadow cursor-pointer">
-      <img src="images/foto21.jpg" class="w-48 h-32 object-cover rounded-xl shadow cursor-pointer">
-      <img src="images/foto22.jpg" class="w-48 h-32 object-cover rounded-xl shadow cursor-pointer">
-      <img src="images/foto23.jpg" class="w-48 h-32 object-cover rounded-xl shadow cursor-pointer">
-      <img src="images/foto24.jpg" class="w-48 h-32 object-cover rounded-xl shadow cursor-pointer">
-      <img src="images/foto25.jpg" class="w-48 h-32 object-cover rounded-xl shadow cursor-pointer">
-      <img src="images/foto26.jpg" class="w-48 h-32 object-cover rounded-xl shadow cursor-pointer">
-      <img src="images/foto27.jpg" class="w-48 h-32 object-cover rounded-xl shadow cursor-pointer">
-      <img src="images/foto28.jpg" class="w-48 h-32 object-cover rounded-xl shadow cursor-pointer">
-      <img src="images/foto29.jpg" class="w-48 h-32 object-cover rounded-xl shadow cursor-pointer">
-      <img src="images/foto30.jpg" class="w-48 h-32 object-cover rounded-xl shadow cursor-pointer">
+    <!-- FOTO -->
+    <img src="images/foto1.jpg"  width="180">
+    <img src="images/foto2.jpg"  width="180">
+    <img src="images/foto3.jpg"  width="180">
+    <img src="images/foto4.jpg"  width="180">
+    <img src="images/foto5.jpg"  width="180">
+    <img src="images/foto6.jpg"  width="180">
+    <img src="images/foto7.jpg"  width="180">
+    <img src="images/foto8.jpg"  width="180">
+    <img src="images/foto9.jpg"  width="180">
+    <img src="images/foto10.jpg" width="180">
+    <img src="images/foto11.jpg" width="180">
+    <img src="images/foto12.jpg" width="180">
+    <img src="images/foto13.jpg" width="180">
+    <img src="images/foto14.jpg" width="180">
+    <img src="images/foto15.jpg" width="180">
+    <img src="images/foto16.jpg" width="180">
+    <img src="images/foto17.jpg" width="180">
+    <img src="images/foto18.jpg" width="180">
+    <img src="images/foto19.jpg" width="180">
+    <img src="images/foto20.jpg" width="180">
+    <img src="images/foto21.jpg" width="180">
+    <img src="images/foto22.jpg" width="180">
+    <img src="images/foto23.jpg" width="180">
+    <img src="images/foto24.jpg" width="180">
+    <img src="images/foto25.jpg" width="180">
+    <img src="images/foto26.jpg" width="180">
+    <img src="images/foto27.jpg" width="180">
+    <img src="images/foto28.jpg" width="180">
+    <img src="images/foto29.jpg" width="180">
+    <img src="images/foto30.jpg" width="180">
 
-    </div>
   </div>
 </section>
 
 <!-- FULLSCREEN -->
-<div id="fullscreenModal" class="fixed inset-0 bg-black bg-opacity-90 hidden items-center justify-center z-50">
-  <img id="fullscreenImg" class="max-w-full max-h-full rounded-lg shadow-2xl">
+<div id="full" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:black; justify-content:center; align-items:center;">
+  <img id="fullimg" style="max-width:90%; max-height:90%;">
 </div>
 
 <script>
-document.addEventListener("DOMContentLoaded", function () {
+window.onload = function() {
 
-  const slider = document.getElementById("galeriSlider");
+  const slider = document.getElementById("slider");
 
+  // DUPLIKAT (biar jalan terus)
   slider.innerHTML += slider.innerHTML;
 
-  function scrollLoop() {
-    slider.scrollLeft += 1;
+  let jalan = 0;
 
-    if (slider.scrollLeft >= slider.scrollWidth / 2) {
-      slider.scrollLeft = 0;
+  setInterval(function() {
+    jalan++;
+    slider.scrollLeft = jalan;
+
+    if (jalan >= slider.scrollWidth / 2) {
+      jalan = 0;
     }
+  }, 15); // makin kecil makin halus
 
-    requestAnimationFrame(scrollLoop);
+  // FULLSCREEN
+  const full = document.getElementById("full");
+  const fullimg = document.getElementById("fullimg");
+
+  document.querySelectorAll("#slider img").forEach(img => {
+    img.onclick = function() {
+      full.style.display = "flex";
+      fullimg.src = this.src;
+    }
+  });
+
+  full.onclick = function() {
+    full.style.display = "none";
   }
 
-  scrollLoop();
-
-  const modal = document.getElementById("fullscreenModal");
-  const modalImg = document.getElementById("fullscreenImg");
-
-  slider.querySelectorAll("img").forEach(img => {
-    img.addEventListener("click", () => {
-      modal.classList.remove("hidden");
-      modal.classList.add("flex");
-      modalImg.src = img.src;
-    });
-  });
-
-  modal.addEventListener("click", () => {
-    modal.classList.add("hidden");
-    modal.classList.remove("flex");
-  });
-
-});
+}
 </script>
   <!-- Renungan Harian -->
   <section class="container mx-auto my-8 px-4">
