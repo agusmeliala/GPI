@@ -57,151 +57,44 @@
   </div>
 </section>
 
-<style>
-/* === GALERI === */
-.gallery-container {
-  width: 100%;
-  overflow: hidden;
-  position: relative;
-  background: #000;
-}
-
-.gallery-track {
-  display: flex;
-  width: calc(300px * 60);
-  animation: scroll 40s linear infinite;
-}
-
-.gallery-item {
-  width: 300px;
-  height: 200px;
-  flex-shrink: 0;
-  margin: 5px;
-  cursor: pointer;
-  transition: transform 0.3s;
-}
-
-.gallery-item img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 10px;
-}
-
-/* Smooth jalan */
-@keyframes scroll {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
-}
-
-/* Hover efek */
-.gallery-item:hover {
-  transform: scale(1.05);
-}
-
-/* Fullscreen */
-.fullscreen {
-  position: fixed !important;
-  top: 0;
-  left: 0;
-  width: 100vw !important;
-  height: 100vh !important;
-  background: #000;
-  z-index: 9999;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.fullscreen img {
-  width: auto;
-  height: 90%;
-}
-</style>
-
-
-<div class="gallery-container">
-  <div class="gallery-track" id="galleryTrack">
-    
-    <!-- 30 FOTO (ulang 2x supaya smooth loop) -->
-    
-    <!-- Ganti nama file sesuai punyamu -->
-    
-    <!-- 1-30 -->
-    <div class="gallery-item"><img src="foto1.jpg"></div>
-    <div class="gallery-item"><img src="foto2.jpg"></div>
-    <div class="gallery-item"><img src="foto3.jpg"></div>
-    <div class="gallery-item"><img src="foto4.jpg"></div>
-    <div class="gallery-item"><img src="foto5.jpg"></div>
-    <div class="gallery-item"><img src="foto6.jpg"></div>
-    <div class="gallery-item"><img src="foto7.jpg"></div>
-    <div class="gallery-item"><img src="foto8.jpg"></div>
-    <div class="gallery-item"><img src="foto9.jpg"></div>
-    <div class="gallery-item"><img src="foto10.jpg"></div>
-    <div class="gallery-item"><img src="foto11.jpg"></div>
-    <div class="gallery-item"><img src="foto12.jpg"></div>
-    <div class="gallery-item"><img src="foto13.jpg"></div>
-    <div class="gallery-item"><img src="foto14.jpg"></div>
-    <div class="gallery-item"><img src="foto15.jpg"></div>
-    <div class="gallery-item"><img src="foto16.jpg"></div>
-    <div class="gallery-item"><img src="foto17.jpg"></div>
-    <div class="gallery-item"><img src="foto18.jpg"></div>
-    <div class="gallery-item"><img src="foto19.jpg"></div>
-    <div class="gallery-item"><img src="foto20.jpg"></div>
-    <div class="gallery-item"><img src="foto21.jpg"></div>
-    <div class="gallery-item"><img src="foto22.jpg"></div>
-    <div class="gallery-item"><img src="foto23.jpg"></div>
-    <div class="gallery-item"><img src="foto24.jpg"></div>
-    <div class="gallery-item"><img src="foto25.jpg"></div>
-    <div class="gallery-item"><img src="foto26.jpg"></div>
-    <div class="gallery-item"><img src="foto27.jpg"></div>
-    <div class="gallery-item"><img src="foto28.jpg"></div>
-    <div class="gallery-item"><img src="foto29.jpg"></div>
-    <div class="gallery-item"><img src="foto30.jpg"></div>
-
-    <!-- ulang lagi supaya loop halus -->
-    <div class="gallery-item"><img src="foto1.jpg"></div>
-    <div class="gallery-item"><img src="foto2.jpg"></div>
-    <div class="gallery-item"><img src="foto3.jpg"></div>
-    <div class="gallery-item"><img src="foto4.jpg"></div>
-    <div class="gallery-item"><img src="foto5.jpg"></div>
-    <div class="gallery-item"><img src="foto6.jpg"></div>
-    <div class="gallery-item"><img src="foto7.jpg"></div>
-    <div class="gallery-item"><img src="foto8.jpg"></div>
-    <div class="gallery-item"><img src="foto9.jpg"></div>
-    <div class="gallery-item"><img src="foto10.jpg"></div>
-    <div class="gallery-item"><img src="foto11.jpg"></div>
-    <div class="gallery-item"><img src="foto12.jpg"></div>
-    <div class="gallery-item"><img src="foto13.jpg"></div>
-    <div class="gallery-item"><img src="foto14.jpg"></div>
-    <div class="gallery-item"><img src="foto15.jpg"></div>
-    <div class="gallery-item"><img src="foto16.jpg"></div>
-    <div class="gallery-item"><img src="foto17.jpg"></div>
-    <div class="gallery-item"><img src="foto18.jpg"></div>
-    <div class="gallery-item"><img src="foto19.jpg"></div>
-    <div class="gallery-item"><img src="foto20.jpg"></div>
-    <div class="gallery-item"><img src="foto21.jpg"></div>
-    <div class="gallery-item"><img src="foto22.jpg"></div>
-    <div class="gallery-item"><img src="foto23.jpg"></div>
-    <div class="gallery-item"><img src="foto24.jpg"></div>
-    <div class="gallery-item"><img src="foto25.jpg"></div>
-    <div class="gallery-item"><img src="foto26.jpg"></div>
-    <div class="gallery-item"><img src="foto27.jpg"></div>
-    <div class="gallery-item"><img src="foto28.jpg"></div>
-    <div class="gallery-item"><img src="foto29.jpg"></div>
-    <div class="gallery-item"><img src="foto30.jpg"></div>
-
-  </div>
-</div>
-
-<script>
-/* FULLSCREEN CLICK */
-document.querySelectorAll('.gallery-item').forEach(item => {
-  item.addEventListener('click', function () {
-    this.classList.toggle('fullscreen');
-  });
-});
-</script>
+<!-- Galeri -->
+  <section class="container mx-auto my-8 px-4">
+    <h2 class="text-2xl font-semibold mb-4 text-center">Galeri Foto</h2>
+    <div class="max-w-3xl mx-auto bg-white rounded-2xl shadow-md p-4 overflow-hidden">
+      <div class="flex animate-scroll space-x-4">
+        <img src="images/foto1.jpg" alt="Foto 1" class="w-40 h-28 object-cover rounded-lg shadow">
+        <img src="images/foto2.jpg" alt="Foto 2" class="w-40 h-28 object-cover rounded-lg shadow">
+        <img src="images/foto3.jpg" alt="Foto 3" class="w-40 h-28 object-cover rounded-lg shadow">
+        <img src="images/foto4.jpg" alt="Foto 4" class="w-40 h-28 object-cover rounded-lg shadow">
+        <img src="images/foto5.jpg" alt="Foto 5" class="w-40 h-28 object-cover rounded-lg shadow">
+        <img src="images/foto6.jpg" alt="Foto 6" class="w-40 h-28 object-cover rounded-lg shadow">
+        <img src="images/foto7.jpg" alt="Foto 7" class="w-40 h-28 object-cover rounded-lg shadow">
+        <img src="images/foto8.jpg" alt="Foto 8" class="w-40 h-28 object-cover rounded-lg shadow">
+        <img src="images/foto9.jpg" alt="Foto 9" class="w-40 h-28 object-cover rounded-lg shadow">
+        <img src="images/foto10.jpg" alt="Foto 10" class="w-40 h-28 object-cover rounded-lg shadow">
+        <img src="images/foto11.jpg" alt="Foto 11" class="w-40 h-28 object-cover rounded-lg shadow">
+        <img src="images/foto12.jpg" alt="Foto 12" class="w-40 h-28 object-cover rounded-lg shadow">
+        <img src="images/foto13.jpg" alt="Foto 13" class="w-40 h-28 object-cover rounded-lg shadow">
+        <img src="images/foto14.jpg" alt="Foto 14" class="w-40 h-28 object-cover rounded-lg shadow">
+        <img src="images/foto15.jpg" alt="Foto 15" class="w-40 h-28 object-cover rounded-lg shadow">
+        <img src="images/foto16.jpg" alt="Foto 16" class="w-40 h-28 object-cover rounded-lg shadow">
+        <img src="images/foto17.jpg" alt="Foto 17" class="w-40 h-28 object-cover rounded-lg shadow">
+        <img src="images/foto18.jpg" alt="Foto 18" class="w-40 h-28 object-cover rounded-lg shadow">
+        <img src="images/foto19.jpg" alt="Foto 19" class="w-40 h-28 object-cover rounded-lg shadow">
+        <img src="images/foto20.jpg" alt="Foto 20" class="w-40 h-28 object-cover rounded-lg shadow">
+        <img src="images/foto21.jpg" alt="Foto 21" class="w-40 h-28 object-cover rounded-lg shadow">
+        <img src="images/foto22.jpg" alt="Foto 22" class="w-40 h-28 object-cover rounded-lg shadow">
+        <img src="images/foto23.jpg" alt="Foto 23" class="w-40 h-28 object-cover rounded-lg shadow">
+        <img src="images/foto24.jpg" alt="Foto 24" class="w-40 h-28 object-cover rounded-lg shadow">
+        <img src="images/foto25.jpg" alt="Foto 25" class="w-40 h-28 object-cover rounded-lg shadow">
+        <img src="images/foto26.jpg" alt="Foto 26" class="w-40 h-28 object-cover rounded-lg shadow">
+        <img src="images/foto27.jpg" alt="Foto 27" class="w-40 h-28 object-cover rounded-lg shadow">
+        <img src="images/foto28.jpg" alt="Foto 28" class="w-40 h-28 object-cover rounded-lg shadow">
+        <img src="images/foto29.jpg" alt="Foto 29" class="w-40 h-28 object-cover rounded-lg shadow">
+        <img src="images/foto30.jpg" alt="Foto 30" class="w-40 h-28 object-cover rounded-lg shadow">
+      </div>
+    </div>
+  </section>
   <!-- Renungan Harian -->
   <section class="container mx-auto my-8 px-4">
     <h2 class="text-2xl font-semibold mb-4 text-center">Renungan Harian</h2>
