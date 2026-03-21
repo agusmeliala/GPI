@@ -6,3 +6,35 @@
   0% { transform: translateX(0); }
   100% { transform: translateX(-50%); }
 }
+/* JUDUL */
+.judul {
+  text-align: center;
+  font-size: 22px;
+  font-weight: bold;
+  margin-top: 20px;
+}
+
+/* CARD (kotak rapi seperti header) */
+.card {
+  max-width: 500px;
+  margin: 10px auto;
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  padding: 15px;
+}
+
+/* LIST JADWAL */
+#jadwal {
+  list-style: none;
+  padding: 0;
+}
+
+#jadwal li {
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+#jadwal li:last-child {
+  border-bottom: none;
+}
