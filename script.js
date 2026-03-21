@@ -7,3 +7,21 @@ document.querySelectorAll(".hari").forEach(function(el) {
     el.style.display = "none";
   }
 });
+// =====================
+// JADWAL
+// =====================
+fetch("data/jadwal.json")
+  .then(res => res.json())
+  .then(data => {
+    const ul = document.getElementById("jadwal");
+    if (!ul) return;
+
+    ul.innerHTML = "";
+
+    data.forEach(j => {
+      const li = document.createElement("li");
+      li.innerText = j;
+      ul.appendChild(li);
+    });
+  })
+  .catch(err => console.log("ERROR JADWAL:", err));
