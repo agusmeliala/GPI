@@ -28,15 +28,20 @@
 </div>
 
   <!-- Poster -->
- <script>
-fetch('poster.json')
-  .then(response => response.json())
+const defaultPoster = "images/poster1.jpg";
+
+document.getElementById("poster-harian").src = defaultPoster;
+
+fetch('./poster.json')
+  .then(res => res.json())
   .then(data => {
     const posters = data.posters;
     const today = new Date().getDay();
     document.getElementById("poster-harian").src = posters[today];
   })
-  .catch(error => console.error('Error:', error));
+  .catch(() => {
+    console.log("Gagal load JSON, pakai default");
+  });
 </script>
 
 <script>
