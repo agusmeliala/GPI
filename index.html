@@ -35,15 +35,28 @@
       Poster Mingguan
     </h2>
 
-    <div>
-      <img id="poster-harian"
-           src="images/poster1.jpg"
-           alt="Poster Gereja"
-           class="w-full max-h-[500px] object-contain rounded-xl mx-auto transition duration-500">
-    </div>
+    <img id="poster-harian"
+         src="images/poster1.jpg"
+         alt="Poster Gereja"
+         class="w-full rounded-xl mx-auto">
 
   </div>
 </section>
+
+<script>
+const posters = [
+  "images/poster1.jpg",
+  "images/poster2.jpg",
+  "images/poster3.jpg",
+  "images/poster4.jpg",
+  "images/poster5.jpg",
+  "images/poster6.jpg",
+  "images/poster7.jpg"
+];
+
+const today = new Date().getDay();
+document.getElementById("poster-harian").src = posters[today];
+</script>
 
 <!-- Galeri -->
   <section class="container mx-auto my-8 px-4">
