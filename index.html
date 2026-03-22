@@ -28,22 +28,10 @@
 </div>
 
   <!-- Poster -->
-<script>
-const defaultPoster = "images/poster1.jpg";
-
-document.getElementById("poster-harian").src = defaultPoster;
-
-fetch('./poster.json')
-  .then(res => res.json())
-  .then(data => {
-    const posters = data.posters;
-    const today = new Date().getDay();
-    document.getElementById("poster-harian").src = posters[today];
-  })
-  .catch(() => {
-    console.log("pakai default");
-  });
-</script>
+<img id="poster-harian"
+     src="images/poster1.jpg"
+     alt="Poster Gereja"
+     class="w-full rounded-xl mx-auto">
 
 <script>
 const posters = [
