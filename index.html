@@ -28,6 +28,7 @@
 </div>
 
   <!-- Poster -->
+<script>
 const defaultPoster = "images/poster1.jpg";
 
 document.getElementById("poster-harian").src = defaultPoster;
@@ -40,7 +41,7 @@ fetch('./poster.json')
     document.getElementById("poster-harian").src = posters[today];
   })
   .catch(() => {
-    console.log("Gagal load JSON, pakai default");
+    console.log("pakai default");
   });
 </script>
 
