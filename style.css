@@ -38,3 +38,6 @@
 #jadwal li:last-child {
   border-bottom: none;
 }
+#poster-harian {
+  transition: all 0.5s ease-in-out;
+}
