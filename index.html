@@ -1,22 +1,61 @@
-<section class="max-w-5xl mx-auto px-4 mt-8">
-  <div class="flex items-center justify-between mb-5 border-l-4 border-blue-600 pl-4">
-    <div>
-      <h2 class="text-2xl font-bold text-gray-800 tracking-tight">Jadwal Ibadah</h2>
-      <p class="text-sm text-gray-500">Informasi pelaksanaan ibadah jemaat</p>
-    </div>
-    <span class="hidden md:block text-xs font-semibold bg-blue-50 text-blue-600 px-3 py-1 rounded-full border border-blue-100">
-      Update Terbaru
-    </span>
-  </div>
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GPI Jemaat Bersinar</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 text-gray-800 flex flex-col min-h-screen font-sans">
 
-  <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-    <ul id="jadwal" class="divide-y divide-gray-100">
-      <li class="p-10 text-center">
-        <div class="animate-pulse text-gray-400 font-medium">Menyusun jadwal...</div>
-      </li>
-    </ul>
-  </div>
-</section>
-<script src="script.js"></script>
+    <div class="max-w-5xl mx-auto w-full px-4 mb-20">
+        
+        <header class="bg-white shadow-md rounded-b-3xl overflow-hidden py-4 mt-2 border-b">
+            <div class="w-full">
+                <img src="images/kop-surat.png" alt="Kop Surat" class="w-full h-auto block mx-auto">
+                <div class="flex justify-end mt-4 pr-4">
+                    <div class="bg-blue-50 px-4 py-2 rounded-full border border-blue-100 shadow-sm">
+                        <p id="datetime" class="text-[10px] md:text-xs font-black text-blue-700 uppercase tracking-tighter"></p>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <section class="mt-10">
+            <div class="flex items-center justify-between mb-6 border-l-8 border-blue-600 pl-4 bg-white py-2 rounded-r-lg shadow-sm">
+                <h2 class="text-2xl font-black tracking-tight uppercase">Jadwal Ibadah</h2>
+                <span class="text-[10px] font-bold bg-blue-600 text-white px-3 py-1 rounded-full">Update</span>
+            </div>
+            <div class="bg-white rounded-3xl shadow-xl border border-gray-100 overflow-hidden text-left">
+                <ul id="jadwal" class="divide-y divide-gray-100">
+                    <li class="p-12 text-center text-gray-400 italic font-medium">Memuat jadwal...</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="mt-14 text-left">
+            <div class="bg-white rounded-[2rem] shadow-2xl border border-gray-100 overflow-hidden">
+                <div class="bg-gray-50 px-8 py-5 border-b border-gray-100 font-bold uppercase">Informasi & Poster</div>
+                <div class="p-6 md:p-12 flex justify-center bg-white">
+                    <img id="poster-harian" src="images/poster1.jpg" alt="Poster" class="w-full max-w-2xl h-auto rounded-2xl shadow-xl transition-all duration-500 hover:scale-[1.02]">
+                </div>
+            </div>
+        </section>
+
+        <section class="max-w-3xl mx-auto mt-14">
+            <div class="bg-white rounded-[2.5rem] shadow-2xl border-t-[12px] border-blue-600 p-10 text-center">
+                <div id="konten-renungan">
+                    <p class="text-gray-400 italic animate-pulse font-bold text-xs uppercase">Menyiapkan renungan...</p>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <footer class="mt-auto py-12 text-center text-gray-400 text-[10px] font-bold uppercase tracking-widest border-t bg-white">
+        &copy; 2026 GPI Jemaat Bersinar • Medan Labuhan
+    </footer>
+
+    <script src="script.js"></script>
 </body>
 </html>
