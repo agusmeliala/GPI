@@ -1,9 +1,9 @@
 // 1. DATA
 const posterList = ["images/poster7.jpg", "images/poster1.jpg", "images/poster2.jpg", "images/poster3.jpg", "images/poster4.jpg", "images/poster5.jpg", "images/poster6.jpg"];
 const daftarJadwal = [
-    { nama: "Ibadah Subuh", jam: "06:00 WIB", kategori: "Rutin" },
-    { nama: "Ibadah Minggu Raya 1", jam: "09:00 WIB", kategori: "Utama" },
-    { nama: "Ibadah Minggu Raya 2", jam: "17:00 WIB", kategori: "Utama" }
+    { nama: "Anak Sekolah Minggu", jam: "08:30 WIB", kategori: "Utama" },
+    { nama: "Ibadah Umum", jam: "10:30 WIB", kategori: "Utama" },
+    { nama: "Ibadah Rumah tangga", jam: "19:00 WIB", kategori: "Bergilir" }
 ];
 const daftarRenungan = [
     { hari: "Minggu / Sunday", nats: "Mazmur 118:24", isiInd: "Inilah hari yang dijadikan TUHAN, marilah kita bersorak-sorak dan bersukacita karenanya!", isiEng: "This is the day the LORD has made; let us rejoice and be glad in it." },
