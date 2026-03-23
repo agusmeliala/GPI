@@ -34,7 +34,7 @@ function updateOtomatis() {
   const hariIni = sekarang.getDay(); // 0-6
 
   // A. UPDATE JAM DI HEADER
-  const elWaktu = document.getElementById('datetime');
+  const elWaktu.innerText = sekarang.toLocaleDateString('id-ID', opsi).replace('pukul', '|');
   if (elWaktu) {
     const opsi = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
     elWaktu.innerText = sekarang.toLocaleDateString('id-ID', opsi) + " WIB";
