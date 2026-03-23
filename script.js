@@ -1,15 +1,23 @@
 // 1. DATA POSTER (Minggu s/d Sabtu)
 const posterList = [
-  "images/poster7.jpg", // Minggu
-  "images/poster1.jpg", // Senin
-  "images/poster2.jpg", // Selasa
+  "images/poster7.jpg", // Minggu (Index 0)
+  "images/poster1.jpg", // Senin (Index 1)
+  "images/poster2.jpg", // Selasa (Index 2)
   "images/poster3.jpg", // Rabu
   "images/poster4.jpg", // Kamis
   "images/poster5.jpg", // Jumat
   "images/poster6.jpg"  // Sabtu
 ];
 
-// 2. DATA RENUNGAN BILINGUAL
+// 2. DATA JADWAL IBADAH
+const daftarJadwal = [
+  { nama: "Ibadah Subuh", jam: "06:00 WIB", kategori: "Rutin" },
+  { nama: "Ibadah Minggu Raya 1", jam: "09:00 WIB", kategori: "Utama" },
+  { nama: "Ibadah Minggu Raya 2", jam: "17:00 WIB", kategori: "Utama" },
+  { nama: "Ibadah Pemuda (Sabtu)", jam: "18:00 WIB", kategori: "Kategorial" }
+];
+
+// 3. DATA RENUNGAN BILINGUAL
 const daftarRenungan = [
   { hari: "Minggu / Sunday", nats: "Mazmur 118:24", isiInd: "Inilah hari yang dijadikan TUHAN, marilah kita bersorak-sorak dan bersukacita karenanya!", isiEng: "This is the day the LORD has made; let us rejoice and be glad in it." },
   { hari: "Senin / Monday", nats: "Mazmur 23:1", isiInd: "TUHAN adalah gembalaku, takkan kekurangan aku.", isiEng: "The LORD is my shepherd, I shall not be in want." },
@@ -20,10 +28,10 @@ const daftarRenungan = [
   { hari: "Sabtu / Saturday", nats: "1 Korintus 16:14", isiInd: "Lakukanlah segala pekerjaanmu dalam kasih!", isiEng: "Do everything in love." }
 ];
 
-// 3. FUNGSI UTAMA UNTUK UPDATE SEMUA KONTEN
+// FUNGSI UTAMA UNTUK UPDATE SEMUA KONTEN
 function updateOtomatis() {
   const sekarang = new Date();
-  const hariIni = sekarang.getDay(); // Mendapatkan angka hari (0-6)
+  const hariIni = sekarang.getDay(); // 0-6
 
   // A. UPDATE JAM DI HEADER
   const elWaktu = document.getElementById('datetime');
@@ -38,7 +46,27 @@ function updateOtomatis() {
     elPoster.src = posterList[hariIni];
   }
 
-  // C. UPDATE RENUNGAN BILINGUAL
+  // C. UPDATE JADWAL IBADAH (Bagian yang sebelumnya hilang)
+  const elJadwal = document.getElementById('jadwal');
+  if (elJadwal) {
+    elJadwal.innerHTML = ""; // Bersihkan teks loading
+    daftarJadwal.forEach((item) => {
+      const li = document.createElement('li');
+      li.className = "flex justify-between items-center p-5 hover:bg-blue-50 transition border-b border-gray-50";
+      li.innerHTML = `
+        <div class="flex flex-col text-left">
+          <span class="text-[10px] font-bold text-blue-500 uppercase tracking-widest">${item.kategori}</span>
+          <span class="text-lg font-semibold text-gray-700">${item.nama}</span>
+        </div>
+        <div class="bg-gray-100 text-gray-700 font-bold px-4 py-2 rounded-lg border text-sm">
+          ${item.jam}
+        </div>
+      `;
+      elJadwal.appendChild(li);
+    });
+  }
+
+  // D. UPDATE RENUNGAN BILINGUAL
   const elRenungan = document.getElementById('konten-renungan');
   if (elRenungan) {
     const r = daftarRenungan[hariIni];
@@ -52,9 +80,8 @@ function updateOtomatis() {
   }
 }
 
-// 4. JALANKAN SAAT HALAMAN SELESAI DIMUAT
+// JALANKAN SAAT HALAMAN SELESAI DIMUAT
 document.addEventListener('DOMContentLoaded', () => {
   updateOtomatis();
-  // Refresh jam & konten setiap 1 menit agar selalu tepat
-  setInterval(updateOtomatis, 60000);
+  setInterval(updateOtomatis, 60000); // Update setiap menit
 });
