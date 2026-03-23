@@ -59,8 +59,12 @@ function updateOtomatis() {
     }
 }
 
-// 3. JALANKAN
+// JALANKAN SAAT HALAMAN SELESAI DIMUAT
 document.addEventListener('DOMContentLoaded', () => {
+    // Jalankan pertama kali saat halaman dibuka
     updateOtomatis();
-    setInterval(updateOtomatis, 60000);
+    
+    // Ubah interval menjadi 1000ms (1 detik) agar jam selalu akurat setiap detik
+    // Ini memastikan menit berpindah tepat waktu dan tidak telat
+    setInterval(updateOtomatis, 1000); 
 });
