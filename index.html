@@ -192,24 +192,7 @@ document.getElementById("poster-harian").src = posters[today];
   const hariNama = [
     "Minggu","Senin","Selasa","Rabu","Kamis","Jumat","Sabtu"
   ];
-
-  const today = new Date().getDay();
-
-  // Atur index (Senin = 0, Minggu = 6)
-  const index = today === 0 ? 6 : today - 1;
-
-  // Ganti gambar otomatis
-  document.getElementById("posterImg").src = posterList[index];
-
-</script>
-  </div>
-<script>
-  function updateDateTime() {
-    const el = document.getElementById("datetime");
-    if (!el) return;
-
-    const now = new Date();
     
-<script src="script.js"></script>  
+    <script src="script.js"></script>
 </body>
 </html>
