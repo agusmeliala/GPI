@@ -1,62 +1,51 @@
-// 1. Data Jadwal (Kamu bisa tambah atau ubah di sini)
-const daftarJadwal = [
-  { nama: "Ibadah Subuh", jam: "06:00 WIB", kategori: "Rutin" },
-  { nama: "Ibadah Minggu Raya 1", jam: "09:00 WIB", kategori: "Utama" },
-  { nama: "Ibadah Minggu Raya 2", jam: "17:00 WIB", kategori: "Utama" },
-  { nama: "Ibadah Pemuda (Sabtu)", jam: "19:00 WIB", kategori: "Kategorial" }
+// DATA POSTER BERDASARKAN HARI
+const posterList = [
+  "images/poster7.jpg", // Minggu (Index 0)
+  "images/poster1.jpg", // Senin (Index 1)
+  "images/poster2.jpg", // Selasa (Index 2)
+  "images/poster3.jpg", // Rabu
+  "images/poster4.jpg", // Kamis
+  "images/poster5.jpg", // Jumat
+  "images/poster6.jpg"  // Sabtu
 ];
 
-// 2. Fungsi untuk menampilkan waktu di Header
-function tampilkanWaktu() {
-  const jamElement = document.getElementById('datetime');
-  if (!jamElement) return;
+// DATA JADWAL (Contoh)
+const daftarJadwal = [
+  { nama: "Ibadah Minggu Raya", jam: "09:00 WIB", kategori: "Utama" },
+  { nama: "Ibadah Pemuda", jam: "18:00 WIB", kategori: "Kategorial" }
+];
 
+function updateHalaman() {
   const sekarang = new Date();
-  const opsi = { 
-    weekday: 'long', 
-    year: 'numeric', 
-    month: 'long', 
-    day: 'numeric',
-    hour: '2-digit',
-    minute: '2-digit'
-  };
   
-  jamElement.innerText = sekarang.toLocaleDateString('id-ID', opsi) + " WIB";
+  // 1. Update Waktu di Header
+  const elWaktu = document.getElementById('datetime');
+  if (elWaktu) {
+    const opsi = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
+    elWaktu.innerText = sekarang.toLocaleDateString('id-ID', opsi) + " WIB";
+  }
+
+  // 2. Update Poster Otomatis
+  const elPoster = document.getElementById('poster-harian');
+  if (elPoster) {
+    const hariIni = sekarang.getDay(); // 0 = Minggu, 1 = Senin, dst.
+    elPoster.src = posterList[hariIni];
+  }
+
+  // 3. Render Jadwal
+  const elJadwal = document.getElementById('jadwal');
+  if (elJadwal) {
+    elJadwal.innerHTML = daftarJadwal.map(j => `
+      <li class="flex justify-between items-center p-4 hover:bg-blue-50 transition border-b">
+        <div class="flex flex-col">
+          <span class="text-xs font-bold text-blue-500 uppercase">${j.kategori}</span>
+          <span class="text-lg font-semibold text-gray-700">${j.nama}</span>
+        </div>
+        <span class="bg-gray-100 px-3 py-1 rounded font-bold text-gray-700">${j.jam}</span>
+      </li>
+    `).join('');
+  }
 }
 
-// 3. Fungsi untuk merender list Jadwal ke HTML
-function renderJadwal() {
-  const container = document.getElementById('jadwal');
-  if (!container) return;
-
-  // Bersihkan loading text
-  container.innerHTML = "";
-
-  daftarJadwal.forEach((item) => {
-    const li = document.createElement('li');
-    li.className = "flex justify-between items-center p-5 hover:bg-blue-50/30 transition-all duration-200 group";
-    
-    li.innerHTML = `
-      <div class="flex flex-col">
-        <span class="text-xs font-bold text-blue-500 uppercase tracking-widest mb-1">${item.kategori}</span>
-        <span class="text-lg font-semibold text-gray-700 group-hover:text-blue-700 transition-colors">${item.nama}</span>
-      </div>
-      <div class="text-right">
-        <span class="inline-block bg-gray-100 text-gray-700 font-mono font-bold px-4 py-2 rounded-lg border border-gray-200 shadow-sm group-hover:bg-blue-600 group-hover:text-white group-hover:border-blue-600 transition-all">
-          ${item.jam}
-        </span>
-      </div>
-    `;
-    
-    container.appendChild(li);
-  });
-}
-
-// 4. Jalankan semua fungsi saat halaman siap
-document.addEventListener('DOMContentLoaded', () => {
-  tampilkanWaktu();
-  renderJadwal();
-  
-  // Update jam setiap menit
-  setInterval(tampilkanWaktu, 60000);
-});
+// Jalankan saat web dibuka
+document.addEventListener('DOMContentLoaded', updateHalaman);
