@@ -1,70 +1,103 @@
-// 1. DATA
-const posterList = ["images/poster7.jpg", "images/poster1.jpg", "images/poster2.jpg", "images/poster3.jpg", "images/poster4.jpg", "images/poster5.jpg", "images/poster6.jpg"];
+/**
+ * DATA CONFIGURATION
+ */
+const posterList = [
+    "images/poster7.jpg", "images/poster1.jpg", "images/poster2.jpg", 
+    "images/poster3.jpg", "images/poster4.jpg", "images/poster5.jpg", "images/poster6.jpg"
+];
+
 const daftarJadwal = [
-    { nama: "Anak Sekolah Minggu", jam: "08:30 WIB", kategori: "Utama" },
-    { nama: "Ibadah Umum", jam: "10:30 WIB", kategori: "Utama" },
-    { nama: "Ibadah Rumah tangga", jam: "19:00 WIB", kategori: "Bergilir" }
+    { nama: "Anak Sekolah Minggu", jam: "08:30", kategori: "Utama", desc: "Gedung Sekolah Minggu" },
+    { nama: "Ibadah Umum", jam: "10:30", kategori: "Utama", desc: "Gedung Utama" },
+    { nama: "Ibadah Rumah Tangga", jam: "19:00", kategori: "Sektoral", desc: "Sektor 1-4" }
 ];
+
 const daftarRenungan = [
-    { hari: "Minggu / Sunday", nats: "Mazmur 118:24", isiInd: "Inilah hari yang dijadikan TUHAN, marilah kita bersorak-sorak dan bersukacita karenanya!", isiEng: "This is the day the LORD has made; let us rejoice and be glad in it." },
-    { hari: "Senin / Monday", nats: "Mazmur 23:1", isiInd: "TUHAN adalah gembalaku, takkan kekurangan aku.", isiEng: "The LORD is my shepherd, I shall not be in want." },
-    { hari: "Selasa / Tuesday", nats: "Filipi 4:6", isiInd: "Janganlah hendaknya kamu kuatir tentang apapun juga.", isiEng: "Do not be anxious about anything." },
-    { hari: "Rabu / Wednesday", nats: "Amsal 3:5", isiInd: "Percayalah kepada TUHAN dengan segenap hatimu.", isiEng: "Trust in the LORD with all your heart." },
-    { hari: "Kamis / Thursday", nats: "Yesaya 41:10", isiInd: "Janganlah takut, sebab Aku menyertai engkau.", isiEng: "So do not fear, for I am with you." },
-    { hari: "Jumat / Friday", nats: "Yohanes 14:6", isiInd: "Akulah jalan dan kebenaran dan hidup.", isiEng: "I am the way and the truth and the life." },
-    { hari: "Sabtu / Saturday", nats: "1 Korintus 16:14", isiInd: "Lakukanlah segala pekerjaanmu dalam kasih!", isiEng: "Do everything in love." }
+    { hari: "Minggu / Sunday", nats: "Mazmur 118:24", isi: "Inilah hari yang dijadikan TUHAN, marilah kita bersorak-sorak!", eng: "This is the day the LORD has made; let us rejoice!" },
+    { hari: "Senin / Monday", nats: "Mazmur 23:1", isi: "TUHAN adalah gembalaku, takkan kekurangan aku.", eng: "The LORD is my shepherd, I shall not be in want." },
+    { hari: "Selasa / Tuesday", nats: "Filipi 4:6", isi: "Janganlah hendaknya kamu kuatir tentang apapun juga.", eng: "Do not be anxious about anything." },
+    { hari: "Rabu / Wednesday", nats: "Amsal 3:5", isi: "Percayalah kepada TUHAN dengan segenap hatimu.", eng: "Trust in the LORD with all your heart." },
+    { hari: "Kamis / Thursday", nats: "Yesaya 41:10", isi: "Janganlah takut, sebab Aku menyertai engkau.", eng: "So do not fear, for I am with you." },
+    { hari: "Jumat / Friday", nats: "Yohanes 14:6", isi: "Akulah jalan dan kebenaran dan hidup.", eng: "I am the way and the truth and the life." },
+    { hari: "Sabtu / Saturday", nats: "1 Korintus 16:14", isi: "Lakukanlah segala pekerjaanmu dalam kasih!", eng: "Do everything in love." }
 ];
 
-// 2. FUNGSI UPDATE
-function updateOtomatis() {
-    const sekarang = new Date();
-    const hariIni = sekarang.getDay();
+/**
+ * CORE FUNCTIONS
+ */
+function updatePortal() {
+    const now = new Date();
+    const dayIndex = now.getDay();
 
-    // Jam di Header
-    const elWaktu = document.getElementById('datetime');
-    if (elWaktu) {
-        const opsi = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
-        elWaktu.innerText = sekarang.toLocaleDateString('id-ID', opsi) + " WIB";
+    // 1. Digital Clock & Date
+    const elTime = document.getElementById('datetime');
+    if (elTime) {
+        const options = { weekday: 'long', day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit', second: '2-digit' };
+        elTime.innerText = now.toLocaleDateString('id-ID', options).replace(/\./g, ':');
     }
 
-    // Poster
+    // 2. Daily Poster
     const elPoster = document.getElementById('poster-harian');
-    if (elPoster) elPoster.src = posterList[hariIni];
+    if (elPoster) elPoster.src = posterList[dayIndex];
 
-    // Jadwal
-    const elJadwal = document.getElementById('jadwal');
-    if (elJadwal) {
+    // 3. Jadwal Ibadah
+    const elJadwal = document.getElementById('jadwal-container');
+    if (elJadwal && elJadwal.children.length === 0) { // Hanya render sekali untuk performa
         elJadwal.innerHTML = daftarJadwal.map(item => `
-            <li class="flex justify-between items-center p-5 hover:bg-blue-50 transition border-b border-gray-50">
-                <div class="flex flex-col text-left">
-                    <span class="text-[10px] font-bold text-blue-500 uppercase tracking-widest">${item.kategori}</span>
-                    <span class="text-lg font-semibold text-gray-700">${item.nama}</span>
+            <div class="flex justify-between items-center p-6 hover:bg-slate-50 transition duration-300">
+                <div>
+                    <p class="text-[9px] font-black text-blue-600 uppercase tracking-widest mb-1">${item.kategori}</p>
+                    <h3 class="text-lg font-bold text-slate-800">${item.nama}</h3>
+                    <p class="text-xs text-slate-400 italic">${item.desc}</p>
                 </div>
-                <div class="bg-gray-100 text-gray-700 font-bold px-4 py-2 rounded-lg border text-sm">${item.jam}</div>
-            </li>
+                <div class="bg-white border-2 border-slate-100 px-4 py-2 rounded-2xl shadow-sm">
+                    <span class="font-black text-slate-900 text-sm">${item.jam}</span>
+                    <span class="text-[10px] text-slate-400 font-bold ml-1">WIB</span>
+                </div>
+            </div>
         `).join('');
     }
 
-    // Renungan
-    const elRenungan = document.getElementById('konten-renungan');
+    // 4. Renungan Harian
+    const elRenungan = document.getElementById('renungan-container');
     if (elRenungan) {
-        const r = daftarRenungan[hariIni];
+        const r = daftarRenungan[dayIndex];
         elRenungan.innerHTML = `
-            <div class="mb-2"><span class="text-blue-600 font-bold uppercase tracking-wider text-xs">${r.hari}</span></div>
-            <h4 class="text-2xl font-extrabold text-gray-800 mb-4">${r.nats}</h4>
-            <p class="text-lg text-gray-700 leading-relaxed mb-4">"${r.isiInd}"</p>
-            <div class="w-12 h-px bg-gray-200 mx-auto mb-4"></div>
-            <p class="text-md text-gray-500 leading-relaxed italic">"${r.isiEng}"</p>
+            <span class="inline-block px-4 py-1 rounded-full bg-blue-500/20 text-blue-300 text-[10px] font-black uppercase tracking-widest mb-6 border border-blue-500/30">${r.hari}</span>
+            <h4 class="text-2xl md:text-3xl font-extrabold mb-6 leading-tight">${r.nats}</h4>
+            <p class="text-lg md:text-xl font-medium text-slate-200 mb-8 leading-relaxed italic">"${r.isi}"</p>
+            <div class="w-12 h-0.5 bg-slate-600 mx-auto mb-8"></div>
+            <p class="text-sm text-slate-400 italic font-light">"${r.eng}"</p>
         `;
     }
 }
 
-// JALANKAN SAAT HALAMAN SELESAI DIMUAT
+/**
+ * LIGHTBOX LOGIC
+ */
+function openLightbox(src) {
+    const lb = document.getElementById('lightbox');
+    const lbImg = document.getElementById('lightbox-img');
+    lbImg.src = src;
+    lb.classList.add('active');
+    document.body.style.overflow = 'hidden'; // Stop scroll
+}
+
+function closeLightbox() {
+    const lb = document.getElementById('lightbox');
+    lb.classList.remove('active');
+    document.body.style.overflow = ''; // Resume scroll
+}
+
+// Close on 'Esc' key
+document.addEventListener('keydown', (e) => {
+    if (e.key === "Escape") closeLightbox();
+});
+
+/**
+ * INITIALIZE
+ */
 document.addEventListener('DOMContentLoaded', () => {
-    // Jalankan pertama kali saat halaman dibuka
-    updateOtomatis();
-    
-    // Ubah interval menjadi 1000ms (1 detik) agar jam selalu akurat setiap detik
-    // Ini memastikan menit berpindah tepat waktu dan tidak telat
-    setInterval(updateOtomatis, 1000); 
+    updatePortal();
+    setInterval(updatePortal, 1000);
 });
