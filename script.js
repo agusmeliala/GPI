@@ -63,7 +63,7 @@ function updatePortal() {
             <h4 class="text-2xl md:text-3xl font-extrabold mb-6 leading-tight">${r.nats}</h4>
             <p class="text-lg md:text-xl font-medium text-slate-200 mb-8 italic">"${r.isi}"</p>
             <div class="w-12 h-0.5 bg-slate-600 mx-auto mb-8"></div>
-            <p class="text-sm text-slate-400 italic">"${r.eng}"</p>
+            <p class="text-lg text-slate-300 italic font-medium opacity-90">"${r.eng}"</p>
         `;
     }
 }
