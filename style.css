@@ -25,19 +25,19 @@
 }
 
 /* LIST JADWAL */
-#jadwal {
-  list-style: none;
-  padding: 0;
+/* Merapatkan tipografi secara global di area widget */
+#jadwal-container h4, 
+#jadwal-container p,
+#renungan-container h4,
+#renungan-container p {
+    margin: 0 !important;
+    padding: 0 !important;
 }
 
-#jadwal li {
-  padding: 10px;
-  border-bottom: 1px solid #eee;
-}
-
-#jadwal li:last-child {
-  border-bottom: none;
-}
-#poster-harian {
-  transition: all 0.5s ease-in-out;
+/* Pastikan poster dan gallery tidak pecah */
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
 }
