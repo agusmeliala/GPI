@@ -1,146 +1,15 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-    <title>GPI Jemaat Bersinar | Official Portal</title>
-    
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
-    
-    <style>
-        body { font-family: 'Plus Jakarta Sans', sans-serif; scroll-behavior: smooth; overflow-x: hidden; }
-        .glass-effect { background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
-        
-        /* Animasi Galeri Tanpa Putus */
-        @keyframes scrollInfinite {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
-        }
-        .gallery-container {
-            display: flex;
-            width: max-content;
-            animation: scrollInfinite 80s linear infinite;
-        }
-        .gallery-container:hover { animation-play-state: paused; }
-        .gallery-item {
-            flex: 0 0 auto;
-            width: 280px;
-            height: 200px;
-            margin-right: 16px;
-            border-radius: 1.5rem;
-            overflow: hidden;
-            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
-            cursor: pointer;
-            transition: transform 0.3s ease;
-        }
-        .gallery-item:hover { transform: scale(1.02); }
-        @media (max-width: 640px) {
-            .gallery-item { width: 220px; height: 160px; }
-        }
+<div class="bg-[#1e293b]/50 p-6 rounded-[2rem] border border-white/5">
+    <h3 class="text-white font-bold mb-4 flex items-center gap-2 text-sm uppercase tracking-widest">
+        <span class="w-1.5 h-1.5 bg-blue-500 rounded-full animate-pulse"></span>
+        Jadwal Ibadah
+    </h3>
+    <div id="jadwal-container" class="space-y-0">
+        </div>
+</div>
 
-        /* Lightbox Overlay */
-        #lightbox { display: none; }
-        #lightbox.active { display: flex; animation: fadeIn 0.3s ease; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-    </style>
-</head>
-<body class="bg-[#F8FAFC] text-slate-900 min-h-screen flex flex-col">
-
-    <div id="lightbox" class="fixed inset-0 z-[100] bg-black/95 items-center justify-center p-4" onclick="closeLightbox()">
-        <button class="absolute top-6 right-6 text-white text-4xl">&times;</button>
-        <img id="lightbox-img" src="" class="max-w-full max-h-[90vh] rounded-lg object-contain">
-    </div>
-
-    <div class="max-w-2xl mx-auto w-full px-0 sm:px-6">
-        
-        <header class="bg-white shadow-sm rounded-b-[2.5rem] border-x border-b border-slate-100 overflow-hidden sticky top-0 z-40 glass-effect">
-            <img src="images/kop-surat.png" alt="Kop Surat" class="w-full h-auto">
-            <div class="flex justify-center md:justify-end px-6 py-4 -mt-2">
-                <div class="inline-flex items-center gap-2 bg-blue-50 border border-blue-100 px-4 py-1.5 rounded-full">
-                    <span class="w-2 h-2 bg-blue-600 rounded-full animate-pulse"></span>
-                    <p id="datetime" class="text-[10px] md:text-xs font-bold text-blue-700 uppercase tracking-tight"></p>
-                </div>
+<section class="mt-16 max-w-2xl mx-auto px-4">
+    <div class="bg-slate-900/40 rounded-[3rem] p-8 md:p-12 text-center border border-white/5">
+        <div id="renungan-container">
             </div>
-        </header>
-
-        <section class="mt-12 px-4 sm:px-0">
-            <div class="flex items-center gap-3 mb-6">
-                <div class="h-8 w-1.5 bg-blue-600 rounded-full"></div>
-                <h2 class="text-2xl font-800 tracking-tight">Jadwal Ibadah</h2>
-            </div>
-            <div class="bg-white rounded-[2rem] shadow-xl border border-slate-50 overflow-hidden">
-               <div id="jadwal-container" class="space-y-1">
-    </div>
-        </section>
-
-        <section class="mt-16 text-center px-4 sm:px-0">
-    <p class="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em] mb-4 italic">
-        Informasi & Warta Jemaat
-    </p>
-
-    <div class="bg-slate-200 rounded-[1.5rem] p-2 md:p-3 shadow-inner w-1/2 mx-auto overflow-hidden border border-slate-100">
-        <img id="poster-harian" 
-             src="" 
-             alt="Poster Harian" 
-             class="w-full h-auto rounded-[1rem] cursor-pointer transition-transform duration-500 hover:scale-105 shadow-sm" 
-             onclick="openLightbox(this.src)" 
-             loading="lazy">
     </div>
 </section>
-
-        <section class="mt-16 overflow-hidden">
-            <h2 class="text-2xl font-800 tracking-tight mb-8 px-6 text-slate-800">Galeri Jemaat</h2>
-            <div class="w-full overflow-hidden py-4 bg-white border-y border-slate-100">
-                <div class="gallery-container" id="gallery-track">
-                    <div class="gallery-item" onclick="openLightbox('images/foto1.jpg')"><img src="images/foto1.jpg" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/400x300?text=Foto+1'"></div>
-                    <div class="gallery-item" onclick="openLightbox('images/foto2.jpg')"><img src="images/foto2.jpg" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/400x300?text=Foto+2'"></div>
-                    <div class="gallery-item" onclick="openLightbox('images/foto3.jpg')"><img src="images/foto3.jpg" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/400x300?text=Foto+3'"></div>
-                    <div class="gallery-item" onclick="openLightbox('images/foto4.jpg')"><img src="images/foto4.jpg" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/400x300?text=Foto+4'"></div>
-                    <div class="gallery-item" onclick="openLightbox('images/foto5.jpg')"><img src="images/foto5.jpg" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/400x300?text=Foto+5'"></div>
-                    <div class="gallery-item" onclick="openLightbox('images/foto6.jpg')"><img src="images/foto6.jpg" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/400x300?text=Foto+6'"></div>
-                    <div class="gallery-item" onclick="openLightbox('images/foto7.jpg')"><img src="images/foto7.jpg" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/400x300?text=Foto+7'"></div>
-                    <div class="gallery-item" onclick="openLightbox('images/foto8.jpg')"><img src="images/foto8.jpg" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/400x300?text=Foto+8'"></div>
-                    <div class="gallery-item" onclick="openLightbox('images/foto9.jpg')"><img src="images/foto9.jpg" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/400x300?text=Foto+9'"></div>
-                    <div class="gallery-item" onclick="openLightbox('images/foto10.jpg')"><img src="images/foto10.jpg" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/400x300?text=Foto+10'"></div>
-                    <div class="gallery-item" onclick="openLightbox('images/foto11.jpg')"><img src="images/foto11.jpg" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/400x300?text=Foto+11'"></div>
-                    <div class="gallery-item" onclick="openLightbox('images/foto12.jpg')"><img src="images/foto12.jpg" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/400x300?text=Foto+12'"></div>
-                    <div class="gallery-item" onclick="openLightbox('images/foto13.jpg')"><img src="images/foto13.jpg" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/400x300?text=Foto+13'"></div>
-                    <div class="gallery-item" onclick="openLightbox('images/foto14.jpg')"><img src="images/foto14.jpg" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/400x300?text=Foto+14'"></div>
-                    <div class="gallery-item" onclick="openLightbox('images/foto15.jpg')"><img src="images/foto15.jpg" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/400x300?text=Foto+15'"></div>
-                    <div class="gallery-item" onclick="openLightbox('images/foto16.jpg')"><img src="images/foto16.jpg" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/400x300?text=Foto+16'"></div>
-                    <div class="gallery-item" onclick="openLightbox('images/foto17.jpg')"><img src="images/foto17.jpg" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/400x300?text=Foto+17'"></div>
-                    <div class="gallery-item" onclick="openLightbox('images/foto18.jpg')"><img src="images/foto18.jpg" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/400x300?text=Foto+18'"></div>
-                    <div class="gallery-item" onclick="openLightbox('images/foto19.jpg')"><img src="images/foto19.jpg" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/400x300?text=Foto+19'"></div>
-                    <div class="gallery-item" onclick="openLightbox('images/foto20.jpg')"><img src="images/foto20.jpg" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/400x300?text=Foto+20'"></div>
-                    <div class="gallery-item" onclick="openLightbox('images/foto21.jpg')"><img src="images/foto21.jpg" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/400x300?text=Foto+21'"></div>
-                    <div class="gallery-item" onclick="openLightbox('images/foto22.jpg')"><img src="images/foto22.jpg" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/400x300?text=Foto+22'"></div>
-                    <div class="gallery-item" onclick="openLightbox('images/foto23.jpg')"><img src="images/foto23.jpg" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/400x300?text=Foto+23'"></div>
-                    <div class="gallery-item" onclick="openLightbox('images/foto24.jpg')"><img src="images/foto24.jpg" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/400x300?text=Foto+24'"></div>
-                    <div class="gallery-item" onclick="openLightbox('images/foto25.jpg')"><img src="images/foto25.jpg" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/400x300?text=Foto+25'"></div>
-                    <div class="gallery-item" onclick="openLightbox('images/foto26.jpg')"><img src="images/foto26.jpg" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/400x300?text=Foto+26'"></div>
-                    <div class="gallery-item" onclick="openLightbox('images/foto27.jpg')"><img src="images/foto27.jpg" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/400x300?text=Foto+27'"></div>
-                    <div class="gallery-item" onclick="openLightbox('images/foto28.jpg')"><img src="images/foto28.jpg" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/400x300?text=Foto+28'"></div>
-                    <div class="gallery-item" onclick="openLightbox('images/foto29.jpg')"><img src="images/foto29.jpg" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/400x300?text=Foto+29'"></div>
-                    <div class="gallery-item" onclick="openLightbox('images/foto30.jpg')"><img src="images/foto30.jpg" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/400x300?text=Foto+30'"></div>
-                </div>
-            </div>
-        </section>
-
-        <section class="mt-16 max-w-2xl mx-auto px-4 sm:px-0">
-            <div class="bg-[#1e293b] rounded-[3rem] p-8 md:p-12 text-center text-white shadow-2xl relative overflow-hidden">
-                <div id="renungan-container" class="relative z-10"></div>
-            </div>
-        </section>
-
-    </div>
-
-    <footer class="mt-auto py-12 text-center bg-white border-t border-slate-100">
-        <p class="text-slate-400 text-[10px] font-bold uppercase tracking-[0.4em]">
-            &copy; 2026 GPI Jemaat Bersinar • Medan Labuhan
-        </p>
-    </footer>
-
-    <script src="script.js"></script>
-</body>
-</html>
