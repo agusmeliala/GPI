@@ -60,14 +60,17 @@
         <section class="mt-24 overflow-hidden">
             <div class="gallery-wrapper">
                 <div id="gallery-track" class="gallery-container">
-                    <div class="gallery-item" onclick="openLightbox('images/foto1.jpg')"><img src="images/foto1.jpg" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/400x300?text=Foto+1'"></div>
-                    <div class="gallery-item" onclick="openLightbox('images/foto2.jpg')"><img src="images/foto2.jpg" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/400x300?text=Foto+2'"></div>
+                    <div class="gallery-item" onclick="openLightbox('images/foto1.jpg')"><img src="images/foto1.jpg" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/400x300?text=1'"></div>
+                    <div class="gallery-item" onclick="openLightbox('images/foto2.jpg')"><img src="images/foto2.jpg" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/400x300?text=2'"></div>
                     </div>
             </div>
         </section>
     </main>
 
-    <div id="lightbox" onclick="this.classList.remove('active')"><img id="lightbox-img" class="max-w-[90%] max-h-[90%] rounded-lg"></div>
+    <div id="lightbox" onclick="this.classList.remove('active')">
+        <img id="lightbox-img" class="max-w-[90%] max-h-[90%] rounded-lg shadow-2xl" src="">
+    </div>
+
     <script src="script.js"></script>
 </body>
 </html>
