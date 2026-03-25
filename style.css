@@ -1,11 +1,29 @@
+/* Layout Fixes */
 #jadwal-container h4, #jadwal-container p, 
 #renungan-container h4, #renungan-container p {
     margin: 0 !important;
     padding: 0 !important;
 }
-.gallery-item img {
+
+/* Image & Poster Handling */
+#poster-img, .gallery-item img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     display: block;
+    border-radius: 1rem;
+}
+
+/* Scrollbar Style */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #0f172a; }
+::-webkit-scrollbar-thumb { background: #334155; border-radius: 10px; }
+
+/* Galeri Hover */
+.gallery-item {
+    transition: transform 0.3s ease;
+}
+.gallery-item:hover {
+    transform: scale(1.05);
+    z-index: 10;
 }
