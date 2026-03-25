@@ -4,95 +4,70 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
     <title>GPI Jemaat Bersinar | Official Portal</title>
-    
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
-    
     <style>
-        body { font-family: 'Plus Jakarta Sans', sans-serif; scroll-behavior: smooth; background-color: #0f172a; color: white; overflow-x: hidden; }
-        
-        /* UI UX Enhancements */
-        .glass-card { background: rgba(30, 41, 59, 0.6); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.05); }
-        
-        /* Galeri Animasi Tanpa Putus */
+        body { font-family: 'Plus Jakarta Sans', sans-serif; scroll-behavior: smooth; overflow-x: hidden; background-color: #0f172a; color: white; }
+        .glass-card { background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.05); }
         @keyframes scrollInfinite { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-        .gallery-container { display: flex; width: max-content; animation: scrollInfinite 60s linear infinite; }
+        .gallery-container { display: flex; width: max-content; animation: scrollInfinite 80s linear infinite; }
         .gallery-container:hover { animation-play-state: paused; }
-        .gallery-item { flex: 0 0 auto; width: 280px; height: 200px; margin-right: 16px; border-radius: 1.5rem; overflow: hidden; }
-
-        /* Reset Margin agar Jadwal Rapat Total */
-        #jadwal-container div, #jadwal-container h4, #jadwal-container p, 
-        #renungan-container h4, #renungan-container p { margin: 0 !important; }
-    </style>
+        .gallery-item { flex: 0 0 auto; width: 280px; height: 200px; margin-right: 16px; border-radius: 2rem; overflow: hidden; cursor: pointer; transition: transform 0.3s ease; }
+        #jadwal-container h4, #jadwal-container p { margin: 0 !important; line-height: 1.2; }
+        #lightbox { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 1000; justify-content: center; align-items: center; }
+        #lightbox.active { display: flex; }
+    </marquee></style>
 </head>
 <body>
-
-    <header class="relative min-h-[50vh] flex items-center justify-center p-6">
+    <header class="relative min-h-[50vh] flex items-center justify-center p-6 overflow-hidden">
         <div class="absolute inset-0 z-0">
             <img id="poster-img" src="images/poster7.jpg" class="w-full h-full object-cover opacity-30" alt="Hero">
-            <div class="absolute inset-0 bg-gradient-to-b from-slate-900/0 to-slate-900"></div>
+            <div class="absolute inset-0 bg-gradient-to-b from-transparent to-slate-900"></div>
         </div>
         <div class="relative z-10 text-center">
-            <h1 class="text-5xl md:text-7xl font-extrabold tracking-tighter bg-clip-text text-transparent bg-gradient-to-r from-white to-slate-400">
-                GPI JEMAAT BERSINAR
-            </h1>
+            <h1 class="text-5xl md:text-7xl font-extrabold tracking-tighter text-white">GPI JEMAAT BERSINAR</h1>
             <p class="text-slate-400 mt-4 text-lg">Berakar, Bertumbuh, dan Berbuah dalam Kasih</p>
         </div>
     </header>
 
     <main class="max-w-7xl mx-auto px-4 -mt-16 relative z-20 pb-20">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
-            
             <aside class="lg:col-span-4">
                 <div class="glass-card p-6 rounded-[2.5rem]">
                     <h3 class="text-blue-400 font-bold text-xs uppercase tracking-widest mb-6 flex items-center gap-2">
-                        <span class="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></span>
-                        Jadwal Mingguan
+                        <span class="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></span>Jadwal Ibadah
                     </h3>
-                    
-                    <div id="jadwal-container" class="space-y-0">
-                        </div>
+                    <div id="jadwal-container" class="space-y-0"></div>
                 </div>
             </aside>
 
             <section class="lg:col-span-8 space-y-6">
                 <div class="glass-card rounded-[2.5rem] overflow-hidden aspect-video">
-                    <img src="images/poster7.jpg" class="w-full h-full object-cover" alt="Banner">
+                    <img id="main-banner" src="images/poster7.jpg" class="w-full h-full object-cover" alt="Banner">
                 </div>
-
                 <div class="glass-card py-4 px-6 rounded-2xl flex items-center gap-4">
                     <span class="bg-blue-600 text-[10px] font-black px-2 py-1 rounded">INFO</span>
-                    <marquee class="text-sm text-slate-300 font-medium">Selamat Datang di Portal Resmi GPI Jemaat Bersinar. Tuhan Yesus Memberkati.</marquee>
+                    <marquee class="text-sm text-slate-300">Selamat Datang di Portal Resmi GPI Jemaat Bersinar.</marquee>
                 </div>
             </section>
         </div>
 
-        <section class="mt-20">
-            <div class="max-w-3xl mx-auto">
-                <div class="bg-slate-900/40 rounded-[3rem] p-10 md:p-16 text-center border border-white/5 backdrop-blur-md">
-                    <div id="renungan-container">
-                        </div>
-                </div>
+        <section class="mt-20 max-w-3xl mx-auto">
+            <div class="bg-slate-800/40 rounded-[3rem] p-10 text-center border border-white/5">
+                <div id="renungan-container"></div>
             </div>
         </section>
 
         <section class="mt-20 overflow-hidden">
-            <h2 class="text-center font-black text-2xl mb-10 italic">DOKUMENTASI JEMAAT</h2>
-            <div class="gallery-wrapper">
-                <div id="gallery-track" class="gallery-container">
-                    <div class="gallery-item"><img src="images/foto1.jpg" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/400x300?text=Foto+1'"></div>
-                    <div class="gallery-item"><img src="images/foto2.jpg" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/400x300?text=Foto+2'"></div>
-                    <div class="gallery-item"><img src="images/foto3.jpg" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/400x300?text=Foto+3'"></div>
-                    <div class="gallery-item"><img src="images/foto4.jpg" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/400x300?text=Foto+4'"></div>
-                </div>
+            <div id="gallery-track" class="gallery-container">
+                <div class="gallery-item" onclick="openLightbox('images/foto1.jpg')"><img src="images/foto1.jpg" class="w-full h-full object-cover"></div>
+                <div class="gallery-item" onclick="openLightbox('images/foto2.jpg')"><img src="images/foto2.jpg" class="w-full h-full object-cover"></div>
+                <div class="gallery-item" onclick="openLightbox('images/foto3.jpg')"><img src="images/foto3.jpg" class="w-full h-full object-cover"></div>
             </div>
         </section>
     </main>
 
-    <footer class="py-10 text-center text-slate-600 text-xs tracking-widest uppercase">
-        &copy; 2026 GPI Jemaat Bersinar
-    </footer>
-
+    <div id="lightbox" onclick="this.classList.remove('active')"><img id="lightbox-img" class="max-w-[90%] max-h-[90%] rounded-lg shadow-2xl"></div>
     <script src="script.js"></script>
 </body>
 </html>
