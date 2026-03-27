@@ -1,39 +1,85 @@
-<style>
-    body { font-family: 'Plus Jakarta Sans', sans-serif; scroll-behavior: smooth; overflow-x: hidden; }
-    .glass-effect { background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
-    .font-800 { font-weight: 800; }
-    body.lightbox-open { overflow: hidden; }
-    img { display: block; max-width: 100%; }
-    
-    /* Animasi Galeri Tanpa Putus */
-    @keyframes scrollInfinite {
-        0% { transform: translateX(0); }
-        100% { transform: translateX(-50%); }
-    }
-    .gallery-container {
-        display: flex;
-        width: max-content;
-        animation: scrollInfinite 80s linear infinite;
-    }
-    .gallery-container:hover { animation-play-state: paused; }
-    .gallery-item {
-        flex: 0 0 auto;
-        width: 280px;
-        height: 200px;
-        margin-right: 16px;
-        border-radius: 1.5rem;
-        overflow: hidden;
-        box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
-        cursor: pointer;
-        transition: transform 0.3s ease;
-    }
-    .gallery-item:hover { transform: scale(1.02); }
-    @media (max-width: 640px) {
-        .gallery-item { width: 220px; height: 160px; }
-    }
+html {
+  scroll-behavior: smooth;
+}
 
-    /* Lightbox Overlay */
-    #lightbox { display: none; }
-    #lightbox.active { display: flex; animation: fadeIn 0.3s ease; }
-    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-</style>
+body {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  overflow-x: hidden;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+.font-800 {
+  font-weight: 800;
+}
+
+.glass-effect {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+/* Galeri */
+@keyframes scrollInfinite {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.gallery-container {
+  display: flex;
+  width: max-content;
+  animation: scrollInfinite 80s linear infinite;
+}
+
+.gallery-container:hover {
+  animation-play-state: paused;
+}
+
+.gallery-item {
+  flex: 0 0 auto;
+  width: 280px;
+  height: 200px;
+  margin-right: 16px;
+  border-radius: 1.5rem;
+  overflow: hidden;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.gallery-item:hover {
+  transform: scale(1.02);
+}
+
+@media (max-width: 640px) {
+  .gallery-item {
+    width: 220px;
+    height: 160px;
+  }
+}
+
+/* Lightbox */
+#lightbox {
+  display: none;
+}
+
+#lightbox.active {
+  display: flex;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+body.lightbox-open {
+  overflow: hidden;
+}
