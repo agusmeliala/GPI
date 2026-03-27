@@ -1,76 +1,96 @@
 <!DOCTYPE html>
 <html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-    <title>GPI Jemaat Bersinar | Official Portal</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
-    <style>
-        body { font-family: 'Plus Jakarta Sans', sans-serif; scroll-behavior: smooth; overflow-x: hidden; background-color: #0f172a; color: white; }
-        .glass-effect { background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.05); }
-        @keyframes scrollInfinite { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-        .gallery-container { display: flex; width: max-content; animation: scrollInfinite 80s linear infinite; }
-        .gallery-container:hover { animation-play-state: paused; }
-        .gallery-item { flex: 0 0 auto; width: 280px; height: 200px; margin-right: 16px; border-radius: 2rem; overflow: hidden; cursor: pointer; }
-        #jadwal-container h4, #jadwal-container p { margin: 0 !important; line-height: 1.2; }
-        #lightbox { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 1000; justify-content: center; align-items: center; }
-        #lightbox.active { display: flex; }
-    </style>
-</head>
-<body>
-    <header class="relative min-h-[50vh] flex items-center justify-center p-6 overflow-hidden">
-        <div class="absolute inset-0 z-0">
-            <img id="poster-img" src="images/poster7.jpg" class="w-full h-full object-cover opacity-30">
-            <div class="absolute inset-0 bg-gradient-to-b from-transparent to-slate-900"></div>
-        </div>
-        <div class="relative z-10 text-center">
-            <h1 class="text-5xl md:text-7xl font-extrabold tracking-tighter">GPI JEMAAT BERSINAR</h1>
-            <p class="text-slate-400 mt-4 text-lg">Berakar, Bertumbuh, dan Berbuah dalam Kasih</p>
-        </div>
-    </header>
-
-    <main class="max-w-7xl mx-auto px-4 -mt-16 relative z-20 pb-20">
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
-            <aside class="lg:col-span-4">
-                <div class="glass-effect p-6 rounded-[2.5rem]">
-                    <h3 class="text-blue-400 font-bold text-xs uppercase tracking-widest mb-6 flex items-center gap-2">
-                        <span class="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></span>JADWAL IBADAH
-                    </h3>
-                    <div id="jadwal-container" class="space-y-0"></div>
-                </div>
-            </aside>
-            <section class="lg:col-span-8 space-y-6">
-                <div class="glass-effect rounded-[2.5rem] overflow-hidden aspect-video">
-                    <img id="main-banner" src="images/poster7.jpg" class="w-full h-full object-cover">
-                </div>
-                <div class="glass-effect py-4 px-6 rounded-2xl flex items-center gap-4">
-                    <span class="bg-blue-600 text-[10px] font-black px-2 py-1 rounded">INFO</span>
-                    <marquee class="text-sm text-slate-300">Selamat Datang di Portal Resmi GPI Jemaat Bersinar.</marquee>
-                </div>
-            </section>
-        </div>
-
-        <section class="mt-20 max-w-2xl mx-auto">
-            <div class="bg-slate-800/50 rounded-[3rem] p-10 text-center border border-white/5 backdrop-blur-md">
-                <div id="renungan-container"></div>
-            </div>
-        </section>
-
-        <section class="mt-24 overflow-hidden">
-            <div class="gallery-wrapper">
-                <div id="gallery-track" class="gallery-container">
-                    <div class="gallery-item" onclick="openLightbox('images/foto1.jpg')"><img src="images/foto1.jpg" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/400x300?text=1'"></div>
-                    <div class="gallery-item" onclick="openLightbox('images/foto2.jpg')"><img src="images/foto2.jpg" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/400x300?text=2'"></div>
-                    </div>
-            </div>
-        </section>
-    </main>
-
-    <div id="lightbox" onclick="this.classList.remove('active')">
-        <img id="lightbox-img" class="max-w-[90%] max-h-[90%] rounded-lg shadow-2xl" src="">
+<header class="w-full bg-white shadow-sm border-b border-gray-100 py-4 mb-6">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+    
+    <div class="flex flex-col items-center">
+      <img src="images/kop-surat.png" 
+           alt="Kop Surat GPI" 
+           class="w-full h-auto object-contain drop-shadow-sm" 
+           style="image-rendering: -webkit-optimize-contrast; max-height: 180px;">
     </div>
 
-    <script src="script.js"></script>
+    <div class="flex justify-end mt-3 border-t border-gray-50 pt-2">
+      <div class="flex items-center space-x-2 text-gray-500 bg-gray-50 px-3 py-1 rounded-full">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        <p id="datetime" class="text-xs md:text-sm font-medium tracking-wide uppercase"></p>
+      </div>
+    </div>
+
+  </div>
+</header>
+<body class="bg-gray-50 text-gray-800 flex flex-col min-h-screen">
+
+  <!-- Header -->
+<header class="flex justify-center mt-2 mb-4">
+  <img src="images/kop-surat.png" 
+       class="w-full max-w-5xl block mx-auto"
+       style="image-rendering: crisp-edges;">
+</header>
+  <!-- Jadwal Ibadah -->
+  <section class="max-w-5xl mx-auto px-4 mt-8">
+  <div class="flex items-center justify-between mb-5 border-l-4 border-blue-600 pl-4">
+    <div>
+      <h2 class="text-2xl font-bold text-gray-800 tracking-tight">Jadwal Ibadah</h2>
+      <p class="text-sm text-gray-500">Informasi pelaksanaan ibadah jemaat</p>
+    </div>
+    <span class="hidden md:block text-xs font-semibold bg-blue-50 text-blue-600 px-3 py-1 rounded-full border border-blue-100">
+      Update Terbaru
+    </span>
+  </div>
+
+  <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+    <ul id="jadwal" class="divide-y divide-gray-100">
+      <li class="p-10 text-center">
+        <div class="animate-pulse text-gray-400 font-medium">Menyusun jadwal...</div>
+      </li>
+    </ul>
+  </div>
+</section>
+  <!-- Poster -->
+  <section class="container mx-auto my-8 px-4">
+    <h2 class="text-2xl font-semibold mb-4 text-center">Poster Ibadah</h2>
+    <div class="max-w-3xl mx-auto bg-white rounded-2xl shadow-md p-4 flex justify-center">
+      <img src="images/poster.jpg" alt="Poster Ibadah"
+           class="rounded-xl shadow max-h-[400px] object-contain">
+    </div>
+  </section>
+
+  <!-- Galeri -->
+  <section class="container mx-auto my-8 px-4">
+    <h2 class="text-2xl font-semibold mb-4 text-center">Galeri Foto</h2>
+    <div class="max-w-3xl mx-auto bg-white rounded-2xl shadow-md p-4 overflow-hidden">
+      <div class="flex animate-scroll space-x-4">
+        <img src="images/foto1.jpg" alt="Foto 1" class="w-40 h-28 object-cover rounded-lg shadow">
+        <img src="images/foto2.jpg" alt="Foto 2" class="w-40 h-28 object-cover rounded-lg shadow">
+        <img src="images/foto3.jpg" alt="Foto 3" class="w-40 h-28 object-cover rounded-lg shadow">
+        <img src="images/foto4.jpg" alt="Foto 4" class="w-40 h-28 object-cover rounded-lg shadow">
+        <img src="images/foto5.jpg" alt="Foto 5" class="w-40 h-28 object-cover rounded-lg shadow">
+        <img src="images/foto6.jpg" alt="Foto 6" class="w-40 h-28 object-cover rounded-lg shadow">
+        <img src="images/foto7.jpg" alt="Foto 7" class="w-40 h-28 object-cover rounded-lg shadow">
+        <img src="images/foto8.jpg" alt="Foto 8" class="w-40 h-28 object-cover rounded-lg shadow">
+      </div>
+    </div>
+  </section>
+
+  <!-- Renungan Harian -->
+  <section class="container mx-auto my-8 px-4">
+    <h2 class="text-2xl font-semibold mb-4 text-center">Renungan Harian</h2>
+    <div class="max-w-3xl mx-auto bg-white rounded-2xl shadow-md p-6 text-center">
+      <p id="renungan-ayat" class="text-lg font-bold text-blue-800 mb-2"></p>
+      <p id="renungan-keterangan" class="text-gray-700"></p>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="py-6">
+    <div class="max-w-3xl mx-auto bg-gray-900 text-white rounded-2xl shadow-md py-4 text-center">
+      <p>&copy; 2025 GPI Jemaat Bersinar | Jl. Kapten Raden Sulian, Belawan</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
 </body>
 </html>
