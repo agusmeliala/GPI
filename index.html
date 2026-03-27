@@ -3,203 +3,100 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>GPI Jemaat Bersinar | Official Portal</title>
-
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <title>GPI Jemaat Bersinar</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
 </head>
-<body class="bg-gray-50 text-gray-800 flex flex-col min-h-screen">
+<body>
+  <header class="site-header">
+    <div class="container">
+      <img
+        src="images/kop-surat.png"
+        alt="Kop Surat GPI Jemaat Bersinar"
+        class="kop-surat"
+        onerror="this.style.display='none'"
+      />
 
-  <!-- HEADER -->
-  <header class="w-full bg-white shadow-sm border-b border-gray-100 py-4 mb-6">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex flex-col items-center">
-        <img
-          src="images/kop-surat.png"
-          alt="Kop Surat GPI"
-          class="w-full h-auto object-contain drop-shadow-sm"
-          style="image-rendering: -webkit-optimize-contrast; max-height: 180px;"
-          onerror="this.src='https://placehold.co/1200x180?text=GPI+Jemaat+Bersinar';"
-        />
-      </div>
-
-      <div class="flex justify-end mt-3 border-t border-gray-50 pt-2">
-        <div class="flex items-center space-x-2 text-gray-500 bg-gray-50 px-3 py-1 rounded-full">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-          </svg>
-          <p id="datetime" class="text-xs md:text-sm font-medium tracking-wide uppercase"></p>
+      <div class="header-row">
+        <div class="datetime-box">
+          <span class="datetime-label">Tanggal & Waktu</span>
+          <span id="datetime">Memuat...</span>
         </div>
       </div>
     </div>
   </header>
 
-  <!-- MAIN -->
-  <main class="flex-1">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10 pb-12">
+  <main class="container main-content">
+    <section class="section-card" id="jadwal">
+      <div class="section-head">
+        <h2>Jadwal Ibadah</h2>
+        <p>3 jadwal utama kegiatan jemaat.</p>
+      </div>
+      <div id="jadwal-list" class="jadwal-grid">
+        <p class="loading-text">Memuat jadwal...</p>
+      </div>
+    </section>
 
-      <!-- HERO -->
-      <section class="bg-gradient-to-br from-blue-700 via-blue-600 to-cyan-500 text-white rounded-3xl shadow-xl overflow-hidden">
-        <div class="px-6 py-10 md:px-10 md:py-14">
-          <div class="max-w-3xl">
-            <p class="uppercase tracking-[0.25em] text-white/80 text-xs md:text-sm font-bold mb-3">
-              Official Portal
-            </p>
-            <h1 class="text-3xl md:text-5xl font-extrabold leading-tight mb-4">
-              GPI Jemaat Bersinar
-            </h1>
-            <p class="text-sm md:text-lg text-white/90 leading-relaxed">
-              Selamat datang di portal resmi jemaat. Temukan jadwal ibadah, poster harian,
-              dan dokumentasi kegiatan pelayanan dalam satu halaman yang mudah diakses.
-            </p>
+    <section class="section-card" id="poster">
+      <div class="section-head">
+        <h2>Poster Harian</h2>
+        <p id="poster-day">Poster hari ini</p>
+      </div>
 
-            <div class="mt-6 flex flex-wrap gap-3">
-              <a href="#jadwal" class="inline-flex items-center rounded-full bg-white text-blue-700 px-5 py-3 text-sm font-bold shadow hover:bg-blue-50 transition">
-                Lihat Jadwal Ibadah
-              </a>
-              <a href="#galeri" class="inline-flex items-center rounded-full bg-white/15 border border-white/20 text-white px-5 py-3 text-sm font-bold hover:bg-white/20 transition">
-                Buka Galeri
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
+      <div class="poster-wrap">
+        <button class="poster-button" type="button" onclick="openLightboxFromElement('poster-image')">
+          <img id="poster-image" src="" alt="Poster Harian" class="poster-image" />
+        </button>
+      </div>
+    </section>
 
-      <!-- INFO UTAMA -->
-      <section class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <div class="bg-white rounded-3xl shadow-md border border-gray-100 p-6">
-          <div class="w-12 h-12 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center mb-4">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10m-11 9h12a2 2 0 002-2V7a2 2 0 00-2-2H6a2 2 0 00-2 2v11a2 2 0 002 2z" />
-            </svg>
-          </div>
-          <h2 class="text-xl font-extrabold mb-2">Jadwal Ibadah</h2>
-          <p class="text-gray-600 text-sm leading-relaxed">
-            Informasi jadwal ibadah rutin dan kegiatan pelayanan jemaat yang diperbarui secara berkala.
-          </p>
-        </div>
+    <section class="section-card" id="renungan">
+      <div class="section-head">
+        <h2>Renungan Harian 2 Bahasa</h2>
+        <p id="renungan-day">Renungan hari ini</p>
+      </div>
 
-        <div class="bg-white rounded-3xl shadow-md border border-gray-100 p-6">
-          <div class="w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center mb-4">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14m-6 4h6a2 2 0 002-2V8a2 2 0 00-2-2H9a2 2 0 00-2 2v8a2 2 0 002 2z" />
-            </svg>
-          </div>
-          <h2 class="text-xl font-extrabold mb-2">Dokumentasi</h2>
-          <p class="text-gray-600 text-sm leading-relaxed">
-            Galeri visual kegiatan gereja, pelayanan, dan momen kebersamaan jemaat.
-          </p>
-        </div>
+      <div class="renungan-grid">
+        <article class="renungan-card">
+          <div class="language-badge">Bahasa Indonesia</div>
+          <h3 id="judul-id">Memuat...</h3>
+          <p id="ayat-id" class="ayat"></p>
+          <p id="isi-id" class="isi-renungan"></p>
+        </article>
 
-        <div class="bg-white rounded-3xl shadow-md border border-gray-100 p-6">
-          <div class="w-12 h-12 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center mb-4">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
-            </svg>
-          </div>
-          <h2 class="text-xl font-extrabold mb-2">Poster Harian</h2>
-          <p class="text-gray-600 text-sm leading-relaxed">
-            Poster informasi atau renungan harian yang dapat dilihat langsung dari halaman ini.
-          </p>
-        </div>
-      </section>
+        <article class="renungan-card">
+          <div class="language-badge english">English</div>
+          <h3 id="judul-en">Loading...</h3>
+          <p id="ayat-en" class="ayat"></p>
+          <p id="isi-en" class="isi-renungan"></p>
+        </article>
+      </div>
+    </section>
 
-      <!-- JADWAL + POSTER -->
-      <section class="grid grid-cols-1 xl:grid-cols-3 gap-6" id="jadwal">
-        <!-- Jadwal -->
-        <div class="xl:col-span-2 bg-white rounded-3xl shadow-md border border-gray-100 overflow-hidden">
-          <div class="px-6 py-5 border-b border-gray-100 bg-gradient-to-r from-slate-50 to-white">
-            <h2 class="text-2xl font-extrabold tracking-tight text-slate-800">
-              Jadwal Ibadah
-            </h2>
-            <p class="text-sm text-slate-500 mt-1">
-              Jadwal akan dimuat otomatis dari file JSON.
-            </p>
-          </div>
+    <section class="section-card" id="galeri">
+      <div class="section-head">
+        <h2>Galeri Kegiatan</h2>
+        <p>30 foto dokumentasi kegiatan jemaat.</p>
+      </div>
 
-          <div id="jadwal-container" class="divide-y divide-slate-100">
-            <div class="p-6 text-sm text-slate-500">Memuat jadwal...</div>
-          </div>
-        </div>
-
-        <!-- Poster -->
-        <div class="bg-white rounded-3xl shadow-md border border-gray-100 overflow-hidden">
-          <div class="px-6 py-5 border-b border-gray-100 bg-gradient-to-r from-slate-50 to-white">
-            <h2 class="text-2xl font-extrabold tracking-tight text-slate-800">
-              Poster Harian
-            </h2>
-            <p class="text-sm text-slate-500 mt-1">
-              Gambar diambil dari <code>data/content.json</code>.
-            </p>
-          </div>
-
-          <div class="p-4">
-            <img
-              id="poster-harian"
-              src=""
-              alt="Poster Harian"
-              class="w-full rounded-2xl shadow object-cover"
-            />
-          </div>
-        </div>
-      </section>
-
-      <!-- GALERI -->
-      <section id="galeri" class="space-y-4">
-        <div class="flex items-end justify-between gap-4 flex-wrap">
-          <div>
-            <h2 class="text-2xl md:text-3xl font-extrabold tracking-tight text-slate-800">
-              Galeri Kegiatan
-            </h2>
-            <p class="text-sm text-slate-500 mt-1">
-              Klik gambar untuk memperbesar.
-            </p>
-          </div>
-        </div>
-
-        <div class="overflow-hidden rounded-3xl">
-          <div id="gallery-track" class="gallery-container py-2">
-            <div class="gallery-item" onclick="openLightbox('images/foto1.jpg')">
-              <img src="images/foto1.jpg" alt="Foto 1" onerror="this.src='https://placehold.co/600x400?text=Foto+1';" />
-            </div>
-            <div class="gallery-item" onclick="openLightbox('images/foto2.jpg')">
-              <img src="images/foto2.jpg" alt="Foto 2" onerror="this.src='https://placehold.co/600x400?text=Foto+2';" />
-            </div>
-            <div class="gallery-item" onclick="openLightbox('images/foto3.jpg')">
-              <img src="images/foto3.jpg" alt="Foto 3" onerror="this.src='https://placehold.co/600x400?text=Foto+3';" />
-            </div>
-            <div class="gallery-item" onclick="openLightbox('images/foto4.jpg')">
-              <img src="images/foto4.jpg" alt="Foto 4" onerror="this.src='https://placehold.co/600x400?text=Foto+4';" />
-            </div>
-            <div class="gallery-item" onclick="openLightbox('images/foto5.jpg')">
-              <img src="images/foto5.jpg" alt="Foto 5" onerror="this.src='https://placehold.co/600x400?text=Foto+5';" />
-            </div>
-            <div class="gallery-item" onclick="openLightbox('images/foto6.jpg')">
-              <img src="images/foto6.jpg" alt="Foto 6" onerror="this.src='https://placehold.co/600x400?text=Foto+6';" />
-            </div>
-          </div>
-        </div>
-      </section>
-    </div>
+      <div id="gallery-grid" class="gallery-grid">
+        <p class="loading-text">Memuat galeri...</p>
+      </div>
+    </section>
   </main>
 
-  <!-- FOOTER -->
-  <footer class="mt-auto border-t border-gray-200 bg-white">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6 text-sm text-gray-500 flex flex-col md:flex-row justify-between gap-2">
-      <p>&copy; 2026 GPI Jemaat Bersinar. All rights reserved.</p>
-      <p>Website jemaat berbasis GitHub Pages.</p>
+  <footer class="site-footer">
+    <div class="container footer-content">
+      <p>© <span id="current-year"></span> GPI Jemaat Bersinar.</p>
+      <p>Website jemaat · Jadwal, poster, renungan harian 2 bahasa, dan galeri kegiatan.</p>
     </div>
   </footer>
 
-  <!-- LIGHTBOX -->
-  <div id="lightbox" class="fixed inset-0 bg-black/80 z-50 items-center justify-center p-4">
-    <img
-      id="lightbox-img"
-      src=""
-      alt="Preview Gambar"
-      class="max-w-full max-h-[90vh] rounded-2xl shadow-2xl"
-    />
+  <div id="lightbox" class="lightbox" aria-hidden="true">
+    <button class="lightbox-close" type="button" onclick="closeLightbox()">✕</button>
+    <img id="lightbox-img" src="" alt="Preview Gambar" class="lightbox-image" />
   </div>
 
   <script src="script.js"></script>
