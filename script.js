@@ -1,10 +1,21 @@
-document.addEventListener("DOMContentLoaded", () => {
+const DAY_NAMES = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"];
+
+document.addEventListener("DOMContentLoaded", async () => {
   updateDateTime();
   setInterval(updateDateTime, 1000);
 
-  loadContent();
-  setupGalleryLoop();
+  const yearEl = document.getElementById("current-year");
+  if (yearEl) yearEl.textContent = new Date().getFullYear();
+
   setupLightboxEvents();
+
+  try {
+    const data = await loadContent();
+    renderPage(data);
+  } catch (error) {
+    console.error("Gagal memuat content.json:", error);
+    showLoadError();
+  }
 });
 
 function updateDateTime() {
@@ -26,127 +37,87 @@ function updateDateTime() {
 }
 
 async function loadContent() {
-  try {
-    const response = await fetch("data/content.json", { cache: "no-store" });
-    if (!response.ok) {
-      throw new Error(`Gagal memuat JSON: ${response.status}`);
-    }
-
-    const data = await response.json();
-
-    renderPoster(data.posterHarian);
-    renderJadwal(data.jadwalIbadah || []);
-  } catch (error) {
-    console.error("Error loadContent():", error);
-    renderPoster("https://placehold.co/800x1200?text=Poster+Harian");
-    renderJadwal([]);
+  const response = await fetch("data/content.json", { cache: "no-store" });
+  if (!response.ok) {
+    throw new Error(`HTTP ${response.status}`);
   }
+  return response.json();
 }
 
-function renderPoster(src) {
-  const poster = document.getElementById("poster-harian");
-  if (!poster) return;
+function renderPage(data) {
+  const todayName = DAY_NAMES[new Date().getDay()];
 
-  poster.src = src || "https://placehold.co/800x1200?text=Poster+Harian";
-  poster.onerror = function () {
-    this.src = "https://placehold.co/800x1200?text=Poster+Harian";
-  };
+  renderJadwal(data.jadwalIbadah || []);
+  renderPoster(data.posterByDay || {}, todayName);
+  renderRenungan(data.renunganByDay || {}, todayName);
+  renderGallery(data.gallery || []);
 }
 
 function renderJadwal(items) {
-  const container = document.getElementById("jadwal-container");
+  const container = document.getElementById("jadwal-list");
   if (!container) return;
 
   if (!items.length) {
-    container.innerHTML = `
-      <div class="p-6 text-sm text-slate-500">
-        Jadwal ibadah belum tersedia.
-      </div>
-    `;
+    container.innerHTML = `<p class="loading-text">Jadwal belum tersedia.</p>`;
     return;
   }
 
-  container.innerHTML = items.map((item) => `
-    <div class="p-5 sm:p-6 flex items-start justify-between gap-4 border-b border-slate-100 last:border-b-0">
-      <div class="min-w-0">
-        <h3 class="text-lg font-extrabold text-slate-800 leading-tight">
-          ${escapeHtml(item.nama || "-")}
-        </h3>
-        <p class="text-sm text-slate-500 mt-1">
-          ${escapeHtml(item.hari || "-")}
-          ${item.tanggal ? " • " + escapeHtml(item.tanggal) : ""}
-        </p>
-        <p class="text-sm text-slate-500">
-          ${escapeHtml(item.lokasi || "")}
-        </p>
+  container.innerHTML = items.map(item => `
+    <article class="jadwal-card">
+      <h3>${escapeHtml(item.nama || "-")}</h3>
+      <div class="jadwal-meta">
+        <div><strong>Hari:</strong> ${escapeHtml(item.hari || "-")}</div>
+        <div><strong>Waktu:</strong> ${escapeHtml(item.jam || "-")}</div>
+        <div><strong>Lokasi:</strong> ${escapeHtml(item.lokasi || "-")}</div>
       </div>
-      <div class="shrink-0 bg-blue-50 border border-blue-100 text-blue-700 px-4 py-2 rounded-full text-sm font-bold whitespace-nowrap">
-        ${escapeHtml(item.jam || "-")}
-      </div>
-    </div>
+    </article>
   `).join("");
 }
 
-function openLightbox(src) {
-  const lightbox = document.getElementById("lightbox");
-  const image = document.getElementById("lightbox-img");
+function renderPoster(posterByDay, todayName) {
+  const posterImage = document.getElementById("poster-image");
+  const posterDay = document.getElementById("poster-day");
+  if (!posterImage || !posterDay) return;
 
-  if (!lightbox || !image) return;
+  const posterSrc = posterByDay[todayName] || posterByDay["Minggu"] || "";
 
-  image.src = src;
-  lightbox.classList.add("active");
-  document.body.classList.add("lightbox-open");
+  posterDay.textContent = `Poster untuk hari ${todayName}`;
+  posterImage.src = posterSrc;
+  posterImage.alt = `Poster Harian ${todayName}`;
+  posterImage.onerror = function () {
+    this.src = "https://placehold.co/800x1200?text=Poster+Tidak+Ditemukan";
+  };
 }
 
-function closeLightbox() {
-  const lightbox = document.getElementById("lightbox");
-  const image = document.getElementById("lightbox-img");
+function renderRenungan(renunganByDay, todayName) {
+  const item = renunganByDay[todayName] || renunganByDay["Minggu"];
+  if (!item) return;
 
-  if (!lightbox || !image) return;
+  const renunganDay = document.getElementById("renungan-day");
+  const judulId = document.getElementById("judul-id");
+  const ayatId = document.getElementById("ayat-id");
+  const isiId = document.getElementById("isi-id");
+  const judulEn = document.getElementById("judul-en");
+  const ayatEn = document.getElementById("ayat-en");
+  const isiEn = document.getElementById("isi-en");
 
-  lightbox.classList.remove("active");
-  image.src = "";
-  document.body.classList.remove("lightbox-open");
+  if (renunganDay) renunganDay.textContent = `Renungan untuk hari ${todayName}`;
+  if (judulId) judulId.textContent = item.judulId || "";
+  if (ayatId) ayatId.textContent = item.ayatId || "";
+  if (isiId) isiId.textContent = item.isiId || "";
+  if (judulEn) judulEn.textContent = item.judulEn || "";
+  if (ayatEn) ayatEn.textContent = item.ayatEn || "";
+  if (isiEn) isiEn.textContent = item.isiEn || "";
 }
 
-function setupLightboxEvents() {
-  const lightbox = document.getElementById("lightbox");
-  const image = document.getElementById("lightbox-img");
+function renderGallery(items) {
+  const container = document.getElementById("gallery-grid");
+  if (!container) return;
 
-  if (lightbox) {
-    lightbox.addEventListener("click", closeLightbox);
+  if (!items.length) {
+    container.innerHTML = `<p class="loading-text">Galeri belum tersedia.</p>`;
+    return;
   }
 
-  if (image) {
-    image.addEventListener("click", (e) => {
-      e.stopPropagation();
-    });
-  }
-
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") {
-      closeLightbox();
-    }
-  });
-}
-
-function setupGalleryLoop() {
-  const track = document.getElementById("gallery-track");
-  if (!track) return;
-  if (track.dataset.cloned === "true") return;
-
-  track.innerHTML += track.innerHTML;
-  track.dataset.cloned = "true";
-}
-
-function escapeHtml(text) {
-  return String(text)
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;")
-    .replaceAll("'", "&#039;");
-}
-
-window.openLightbox = openLightbox;
-window.closeLightbox = closeLightbox;
+  container.innerHTML = items.map((item, index) => `
+    <button class="gallery
