@@ -1,26 +1,121 @@
 {
-  "posterHarian": "images/poster-harian.jpg",
   "jadwalIbadah": [
     {
       "nama": "Ibadah Minggu Umum",
       "hari": "Minggu",
-      "tanggal": "Setiap Minggu",
       "jam": "09.00 WITA",
       "lokasi": "GPI Jemaat Bersinar"
     },
     {
       "nama": "Ibadah Doa",
       "hari": "Rabu",
-      "tanggal": "Setiap Rabu",
       "jam": "18.00 WITA",
       "lokasi": "Gedung Gereja"
     },
     {
       "nama": "Persekutuan Pemuda",
       "hari": "Jumat",
-      "tanggal": "Setiap Jumat",
       "jam": "19.00 WITA",
       "lokasi": "Aula Jemaat"
     }
+  ],
+  "posterByDay": {
+    "Minggu": "images/poster1.jpg",
+    "Senin": "images/poster2.jpg",
+    "Selasa": "images/poster3.jpg",
+    "Rabu": "images/poster4.jpg",
+    "Kamis": "images/poster5.jpg",
+    "Jumat": "images/poster6.jpg",
+    "Sabtu": "images/poster7.jpg"
+  },
+  "renunganByDay": {
+    "Minggu": {
+      "judulId": "Bersyukur atas Kasih Tuhan",
+      "ayatId": "Mazmur 118:24",
+      "isiId": "Inilah hari yang dijadikan Tuhan, marilah kita bersorak-sorai dan bersukacita karenanya. Hari Minggu mengingatkan kita untuk memulai minggu dengan hati yang penuh syukur, menyerahkan seluruh rencana kepada Tuhan, dan percaya bahwa kasih-Nya memimpin setiap langkah hidup kita.",
+      "judulEn": "Grateful for God's Love",
+      "ayatEn": "Psalm 118:24",
+      "isiEn": "This is the day that the Lord has made; let us rejoice and be glad in it. Sunday reminds us to begin the week with gratitude, surrender our plans to God, and trust that His love will guide every step of our lives."
+    },
+    "Senin": {
+      "judulId": "Kekuatan untuk Hari Baru",
+      "ayatId": "Yesaya 40:31",
+      "isiId": "Tetapi orang-orang yang menanti-nantikan Tuhan mendapat kekuatan baru. Saat memasuki awal minggu kerja dan aktivitas, kita diingatkan bahwa kekuatan sejati bukan berasal dari diri sendiri, tetapi dari Tuhan yang menopang dan memperbarui semangat kita setiap hari.",
+      "judulEn": "Strength for a New Day",
+      "ayatEn": "Isaiah 40:31",
+      "isiEn": "But those who hope in the Lord will renew their strength. As we enter a new week of work and activity, we are reminded that true strength does not come from ourselves, but from God who sustains and renews our spirit each day."
+    },
+    "Selasa": {
+      "judulId": "Setia dalam Perkara Kecil",
+      "ayatId": "Lukas 16:10",
+      "isiId": "Barangsiapa setia dalam perkara-perkara kecil, ia setia juga dalam perkara-perkara besar. Tuhan memanggil kita untuk hidup setia, bukan hanya dalam hal besar, tetapi juga dalam tugas-tugas sederhana setiap hari. Kesetiaan kecil adalah dasar dari berkat yang lebih besar.",
+      "judulEn": "Faithful in Small Things",
+      "ayatEn": "Luke 16:10",
+      "isiEn": "Whoever is faithful with very little will also be faithful with much. God calls us to live faithfully not only in big matters, but also in the simple duties of daily life. Small faithfulness becomes the foundation for greater blessings."
+    },
+    "Rabu": {
+      "judulId": "Damai di Tengah Kesibukan",
+      "ayatId": "Filipi 4:6-7",
+      "isiId": "Janganlah hendaknya kamu khawatir tentang apa pun juga. Di tengah kesibukan dan tekanan hidup, Tuhan mengundang kita untuk datang kepada-Nya dalam doa. Damai sejahtera-Nya sanggup menjaga hati dan pikiran kita lebih dari yang dapat kita pahami.",
+      "judulEn": "Peace in the Midst of Busyness",
+      "ayatEn": "Philippians 4:6-7",
+      "isiEn": "Do not be anxious about anything. In the middle of busyness and life's pressures, God invites us to come to Him in prayer. His peace is able to guard our hearts and minds beyond what we can understand."
+    },
+    "Kamis": {
+      "judulId": "Hidup dalam Kasih",
+      "ayatId": "1 Korintus 16:14",
+      "isiId": "Lakukanlah segala pekerjaanmu dalam kasih. Kasih adalah tanda nyata kehidupan orang percaya. Dalam keluarga, pekerjaan, pelayanan, dan pergaulan, biarlah setiap kata dan tindakan kita menjadi saluran kasih Tuhan bagi sesama.",
+      "judulEn": "Live in Love",
+      "ayatEn": "1 Corinthians 16:14",
+      "isiEn": "Do everything in love. Love is the visible mark of a believer's life. In family, work, ministry, and relationships, let every word and action become a channel of God's love to others."
+    },
+    "Jumat": {
+      "judulId": "Tetap Berpengharapan",
+      "ayatId": "Roma 15:13",
+      "isiId": "Semoga Allah, sumber pengharapan, memenuhi kamu dengan segala sukacita dan damai sejahtera dalam iman kamu. Ketika minggu mulai terasa berat, ingatlah bahwa pengharapan dalam Tuhan tidak pernah sia-sia. Dia sanggup memenuhi hati kita dengan sukacita dan damai.",
+      "judulEn": "Remain Hopeful",
+      "ayatEn": "Romans 15:13",
+      "isiEn": "May the God of hope fill you with all joy and peace as you trust in Him. When the week begins to feel heavy, remember that hope in the Lord is never in vain. He is able to fill our hearts with joy and peace."
+    },
+    "Sabtu": {
+      "judulId": "Berhenti Sejenak dan Memandang Tuhan",
+      "ayatId": "Mazmur 46:11",
+      "isiId": "Diamlah dan ketahuilah, bahwa Akulah Allah. Sabtu menjadi waktu yang baik untuk berhenti sejenak, mengevaluasi perjalanan minggu ini, dan kembali menenangkan hati di hadapan Tuhan. Dalam keheningan, kita belajar melihat karya-Nya dengan lebih jelas.",
+      "judulEn": "Be Still and Look to God",
+      "ayatEn": "Psalm 46:10",
+      "isiEn": "Be still, and know that I am God. Saturday is a good time to pause, reflect on the week, and quiet our hearts before the Lord. In stillness, we learn to see His work more clearly."
+    }
+  },
+  "gallery": [
+    "images/foto1.jpg",
+    "images/foto2.jpg",
+    "images/foto3.jpg",
+    "images/foto4.jpg",
+    "images/foto5.jpg",
+    "images/foto6.jpg",
+    "images/foto7.jpg",
+    "images/foto8.jpg",
+    "images/foto9.jpg",
+    "images/foto10.jpg",
+    "images/foto11.jpg",
+    "images/foto12.jpg",
+    "images/foto13.jpg",
+    "images/foto14.jpg",
+    "images/foto15.jpg",
+    "images/foto16.jpg",
+    "images/foto17.jpg",
+    "images/foto18.jpg",
+    "images/foto19.jpg",
+    "images/foto20.jpg",
+    "images/foto21.jpg",
+    "images/foto22.jpg",
+    "images/foto23.jpg",
+    "images/foto24.jpg",
+    "images/foto25.jpg",
+    "images/foto26.jpg",
+    "images/foto27.jpg",
+    "images/foto28.jpg",
+    "images/foto29.jpg",
+    "images/foto30.jpg"
   ]
 }
