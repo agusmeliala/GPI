@@ -1,62 +1,152 @@
-// 1. Data Jadwal (Kamu bisa tambah atau ubah di sini)
-const daftarJadwal = [
-  { nama: "Ibadah Subuh", jam: "06:00 WIB", kategori: "Rutin" },
-  { nama: "Ibadah Minggu Raya 1", jam: "09:00 WIB", kategori: "Utama" },
-  { nama: "Ibadah Minggu Raya 2", jam: "17:00 WIB", kategori: "Utama" },
-  { nama: "Ibadah Pemuda (Sabtu)", jam: "19:00 WIB", kategori: "Kategorial" }
-];
+document.addEventListener("DOMContentLoaded", () => {
+  updateDateTime();
+  setInterval(updateDateTime, 1000);
 
-// 2. Fungsi untuk menampilkan waktu di Header
-function tampilkanWaktu() {
-  const jamElement = document.getElementById('datetime');
-  if (!jamElement) return;
+  loadContent();
+  setupGalleryLoop();
+  setupLightboxEvents();
+});
 
-  const sekarang = new Date();
-  const opsi = { 
-    weekday: 'long', 
-    year: 'numeric', 
-    month: 'long', 
-    day: 'numeric',
-    hour: '2-digit',
-    minute: '2-digit'
-  };
-  
-  jamElement.innerText = sekarang.toLocaleDateString('id-ID', opsi) + " WIB";
+function updateDateTime() {
+  const el = document.getElementById("datetime");
+  if (!el) return;
+
+  const now = new Date();
+  const formatted = now.toLocaleString("id-ID", {
+    weekday: "long",
+    day: "2-digit",
+    month: "long",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit"
+  });
+
+  el.textContent = formatted;
 }
 
-// 3. Fungsi untuk merender list Jadwal ke HTML
-function renderJadwal() {
-  const container = document.getElementById('jadwal');
+async function loadContent() {
+  try {
+    const response = await fetch("data/content.json", { cache: "no-store" });
+    if (!response.ok) {
+      throw new Error(`Gagal memuat JSON: ${response.status}`);
+    }
+
+    const data = await response.json();
+
+    renderPoster(data.posterHarian);
+    renderJadwal(data.jadwalIbadah || []);
+  } catch (error) {
+    console.error("Error loadContent():", error);
+    renderPoster("https://placehold.co/800x1200?text=Poster+Harian");
+    renderJadwal([]);
+  }
+}
+
+function renderPoster(src) {
+  const poster = document.getElementById("poster-harian");
+  if (!poster) return;
+
+  poster.src = src || "https://placehold.co/800x1200?text=Poster+Harian";
+  poster.onerror = function () {
+    this.src = "https://placehold.co/800x1200?text=Poster+Harian";
+  };
+}
+
+function renderJadwal(items) {
+  const container = document.getElementById("jadwal-container");
   if (!container) return;
 
-  // Bersihkan loading text
-  container.innerHTML = "";
-
-  daftarJadwal.forEach((item) => {
-    const li = document.createElement('li');
-    li.className = "flex justify-between items-center p-5 hover:bg-blue-50/30 transition-all duration-200 group";
-    
-    li.innerHTML = `
-      <div class="flex flex-col">
-        <span class="text-xs font-bold text-blue-500 uppercase tracking-widest mb-1">${item.kategori}</span>
-        <span class="text-lg font-semibold text-gray-700 group-hover:text-blue-700 transition-colors">${item.nama}</span>
-      </div>
-      <div class="text-right">
-        <span class="inline-block bg-gray-100 text-gray-700 font-mono font-bold px-4 py-2 rounded-lg border border-gray-200 shadow-sm group-hover:bg-blue-600 group-hover:text-white group-hover:border-blue-600 transition-all">
-          ${item.jam}
-        </span>
+  if (!items.length) {
+    container.innerHTML = `
+      <div class="p-6 text-sm text-slate-500">
+        Jadwal ibadah belum tersedia.
       </div>
     `;
-    
-    container.appendChild(li);
+    return;
+  }
+
+  container.innerHTML = items.map((item) => `
+    <div class="p-5 sm:p-6 flex items-start justify-between gap-4">
+      <div class="min-w-0">
+        <h3 class="text-lg font-extrabold text-slate-800 leading-tight">
+          ${escapeHtml(item.nama || "-")}
+        </h3>
+        <p class="text-sm text-slate-500 mt-1">
+          ${escapeHtml(item.hari || "-")}
+          ${item.tanggal ? " • " + escapeHtml(item.tanggal) : ""}
+        </p>
+        <p class="text-sm text-slate-500">
+          ${escapeHtml(item.lokasi || "")}
+        </p>
+      </div>
+      <div class="shrink-0 bg-blue-50 border border-blue-100 text-blue-700 px-4 py-2 rounded-full text-sm font-bold whitespace-nowrap">
+        ${escapeHtml(item.jam || "-")}
+      </div>
+    </div>
+  `).join("");
+}
+
+function openLightbox(src) {
+  const lightbox = document.getElementById("lightbox");
+  const image = document.getElementById("lightbox-img");
+
+  if (!lightbox || !image) return;
+
+  image.src = src;
+  lightbox.classList.add("active");
+  document.body.classList.add("lightbox-open");
+}
+
+function closeLightbox() {
+  const lightbox = document.getElementById("lightbox");
+  const image = document.getElementById("lightbox-img");
+
+  if (!lightbox || !image) return;
+
+  lightbox.classList.remove("active");
+  image.src = "";
+  document.body.classList.remove("lightbox-open");
+}
+
+function setupLightboxEvents() {
+  const lightbox = document.getElementById("lightbox");
+  const image = document.getElementById("lightbox-img");
+
+  if (lightbox) {
+    lightbox.addEventListener("click", closeLightbox);
+  }
+
+  if (image) {
+    image.addEventListener("click", (e) => {
+      e.stopPropagation();
+    });
+  }
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+      closeLightbox();
+    }
   });
 }
 
-// 4. Jalankan semua fungsi saat halaman siap
-document.addEventListener('DOMContentLoaded', () => {
-  tampilkanWaktu();
-  renderJadwal();
-  
-  // Update jam setiap menit
-  setInterval(tampilkanWaktu, 60000);
-});
+function setupGalleryLoop() {
+  const track = document.getElementById("gallery-track");
+  if (!track) return;
+  if (track.dataset.cloned === "true") return;
+
+  track.innerHTML += track.innerHTML;
+  track.dataset.cloned = "true";
+}
+
+function escapeHtml(text) {
+  return String(text)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+}
+
+window.openLightbox = openLightbox;
+window.closeLightbox = closeLightbox;
