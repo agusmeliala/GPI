@@ -119,5 +119,128 @@ function renderGallery(items) {
     return;
   }
 
-  container.innerHTML = items.map((item, index) => `
-    <button class="gallery
+  container.innerHTML = items.map((src, index) => `
+    <button class="gallery-item" type="button" onclick="openLightbox('${escapeJsString(src)}')">
+      <img
+        src="${escapeHtml(src)}"
+        alt="Foto ${index + 1}"
+        loading="lazy"
+        onerror="this.src='https://placehold.co/600x400?text=Foto+${index + 1}'"
+      />
+    </button>
+  `).join("");
+}
+
+function openLightbox(src) {
+  const lightbox = document.getElementById("lightbox");
+  const image = document.getElementById("lightbox-img");
+
+  if (!lightbox || !image) return;
+
+  image.src = src;
+  lightbox.classList.add("active");
+  lightbox.setAttribute("aria-hidden", "false");
+  document.body.classList.add("lightbox-open");
+}
+
+function openLightboxFromElement(elementId) {
+  const el = document.getElementById(elementId);
+  if (!el || !el.src) return;
+  openLightbox(el.src);
+}
+
+function closeLightbox() {
+  const lightbox = document.getElementById("lightbox");
+  const image = document.getElementById("lightbox-img");
+
+  if (!lightbox || !image) return;
+
+  lightbox.classList.remove("active");
+  lightbox.setAttribute("aria-hidden", "true");
+  image.src = "";
+  document.body.classList.remove("lightbox-open");
+}
+
+function setupLightboxEvents() {
+  const lightbox = document.getElementById("lightbox");
+  const image = document.getElementById("lightbox-img");
+
+  if (lightbox) {
+    lightbox.addEventListener("click", (e) => {
+      if (e.target === lightbox) {
+        closeLightbox();
+      }
+    });
+  }
+
+  if (image) {
+    image.addEventListener("click", (e) => {
+      e.stopPropagation();
+    });
+  }
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+      closeLightbox();
+    }
+  });
+}
+
+function showLoadError() {
+  const jadwal = document.getElementById("jadwal-list");
+  const posterDay = document.getElementById("poster-day");
+  const posterImage = document.getElementById("poster-image");
+  const renunganDay = document.getElementById("renungan-day");
+  const gallery = document.getElementById("gallery-grid");
+
+  if (jadwal) {
+    jadwal.innerHTML = `<p class="loading-text">Gagal memuat jadwal.</p>`;
+  }
+
+  if (posterDay) {
+    posterDay.textContent = "Gagal memuat poster";
+  }
+
+  if (posterImage) {
+    posterImage.src = "https://placehold.co/800x1200?text=Poster+Tidak+Dapat+Dimuat";
+  }
+
+  if (renunganDay) {
+    renunganDay.textContent = "Gagal memuat renungan";
+  }
+
+  setText("judul-id", "Data renungan tidak tersedia");
+  setText("ayat-id", "");
+  setText("isi-id", "Periksa file data/content.json Anda.");
+  setText("judul-en", "Devotional data is unavailable");
+  setText("ayat-en", "");
+  setText("isi-en", "Please check your data/content.json file.");
+
+  if (gallery) {
+    gallery.innerHTML = `<p class="loading-text">Gagal memuat galeri.</p>`;
+  }
+}
+
+function setText(id, value) {
+  const el = document.getElementById(id);
+  if (el) el.textContent = value;
+}
+
+function escapeHtml(text) {
+  return String(text)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+}
+
+function escapeJsString(text) {
+  return String(text)
+    .replaceAll("\\", "\\\\")
+    .replaceAll("'", "\\'");
+}
+
+window.openLightbox = openLightbox;
+window.openLightboxFromElement = openLightboxFromElement;
+window.closeLightbox = closeLightbox;
