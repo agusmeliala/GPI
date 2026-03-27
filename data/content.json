@@ -1,0 +1,26 @@
+{
+  "posterHarian": "images/poster-harian.jpg",
+  "jadwalIbadah": [
+    {
+      "nama": "Ibadah Minggu Umum",
+      "hari": "Minggu",
+      "tanggal": "Setiap Minggu",
+      "jam": "09.00 WITA",
+      "lokasi": "GPI Jemaat Bersinar"
+    },
+    {
+      "nama": "Ibadah Doa",
+      "hari": "Rabu",
+      "tanggal": "Setiap Rabu",
+      "jam": "18.00 WITA",
+      "lokasi": "Gedung Gereja"
+    },
+    {
+      "nama": "Persekutuan Pemuda",
+      "hari": "Jumat",
+      "tanggal": "Setiap Jumat",
+      "jam": "19.00 WITA",
+      "lokasi": "Aula Jemaat"
+    }
+  ]
+}
