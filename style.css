@@ -22,10 +22,15 @@ button { font: inherit; cursor: pointer; border: none; background: transparent; 
   margin: 0 auto;
 }
 
-/* HEADER SECTION */
+.container {
+  width: 95%;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
 .site-header {
   background: #ffffff;
-  padding: 16px 0 8px 0;
+  padding: 15px 0 5px 0;
   border-bottom: 1px solid var(--line);
 }
 
@@ -38,31 +43,34 @@ button { font: inherit; cursor: pointer; border: none; background: transparent; 
 .kop-surat {
   width: 100%;
   height: auto;
-  max-height: 180px; /* Batas tinggi agar tidak memenuhi layar desktop */
+  max-height: 180px;
   object-fit: contain;
 }
 
-/* Mengunci posisi Datetime di bawah kanan gambar */
+/* Mengatur posisi waktu tepat di bawah kanan header */
 .datetime-row {
   display: flex;
-  justify-content: flex-end; /* Paksa ke kanan */
-  margin-top: 8px;
+  justify-content: flex-end;
+  margin-top: 5px;
 }
 
 .datetime-box {
   background: #f8fafc;
-  color: #475569;
   border: 1px solid var(--line);
-  border-radius: 8px; /* Bentuk kotak rapi, bukan lonjong */
-  padding: 6px 12px;
-  display: inline-flex;
-  align-items: center;
+  padding: 4px 10px;
+  border-radius: 6px;
 }
 
 #datetime {
   font-size: 13px;
   font-weight: 700;
-  color: #1e293b;
+  color: #334155;
+}
+
+/* Penyesuaian Smart View untuk Android/iOS */
+@media (max-width: 768px) {
+  .kop-surat { max-height: 110px; }
+  #datetime { font-size: 11px; }
 }
 
 /* PENYESUAIAN MOBILE (Android & iOS) */
