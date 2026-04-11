@@ -28,45 +28,52 @@ button { font: inherit; cursor: pointer; border: none; background: transparent; 
   margin: 0 auto;
 }
 
+/* HEADER */
 .site-header {
   background: #ffffff;
   padding: 12px 0;
   border-bottom: 1px solid var(--line);
 }
 
-/* FLEX HEADER BARU */
-.header-flex {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-}
-
 /* LOGO */
 .kop-container {
-  flex: 1;
+  display: flex;
+  justify-content: center;
 }
 
 .kop-surat {
   width: 100%;
-  max-height: 120px;
+  max-height: 130px;
   object-fit: contain;
 }
 
-/* DATETIME */
+/* BARIS DATETIME (KUNCI UTAMA) */
+.datetime-row {
+  display: flex;
+  justify-content: flex-end; /* rata kanan */
+  margin-top: 6px;
+}
+
+/* BOX DATETIME */
 .datetime-box {
-  flex-shrink: 0;
   background: #f8fafc;
   border: 1px solid var(--line);
   padding: 6px 12px;
   border-radius: 8px;
-  white-space: nowrap;
+
+  max-width: 100%;        /* cegah keluar */
+  overflow: hidden;       /* cegah overflow */
 }
 
+/* TEXT DATETIME */
 #datetime {
   font-size: 13px;
   font-weight: 700;
   color: #334155;
+
+  white-space: nowrap;    /* tidak turun */
+  overflow: hidden;
+  text-overflow: ellipsis; /* kalau kepanjangan → ... */
 }
 
 /* RESPONSIVE */
