@@ -30,41 +30,66 @@ button { font: inherit; cursor: pointer; border: none; background: transparent; 
 
 .site-header {
   background: #ffffff;
-  padding: 15px 0 5px 0;
+  padding: 12px 0;
   border-bottom: 1px solid var(--line);
 }
 
-.kop-container {
-  width: 100%;
+/* FLEX HEADER BARU */
+.header-flex {
   display: flex;
-  justify-content: center;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+/* LOGO */
+.kop-container {
+  flex: 1;
 }
 
 .kop-surat {
   width: 100%;
-  height: auto;
-  max-height: 180px;
+  max-height: 120px;
   object-fit: contain;
 }
 
-/* Mengatur posisi waktu tepat di bawah kanan header */
-.datetime-row {
-  display: flex;
-  justify-content: flex-end;
-  margin-top: 5px;
-}
-
+/* DATETIME */
 .datetime-box {
+  flex-shrink: 0;
   background: #f8fafc;
   border: 1px solid var(--line);
-  padding: 4px 10px;
-  border-radius: 6px;
+  padding: 6px 12px;
+  border-radius: 8px;
+  white-space: nowrap;
 }
 
 #datetime {
   font-size: 13px;
   font-weight: 700;
   color: #334155;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .header-flex {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .kop-surat {
+    max-height: 100px;
+  }
+
+  .datetime-box {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  #datetime {
+    font-size: 11px;
+  }
 }
 
 /* Penyesuaian Smart View untuk Android/iOS */
