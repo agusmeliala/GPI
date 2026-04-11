@@ -12,14 +12,16 @@
 <body>
   <header class="site-header">
     <div class="container">
-      <img
-        src="images/kop-surat.png"
-        alt="Kop Surat GPI Jemaat Bersinar"
-        class="kop-surat"
-        onerror="this.style.display='none'"
-      />
+      <div class="kop-container">
+        <img
+          src="images/kop-surat.png"
+          alt="Kop Surat GPI Jemaat Bersinar"
+          class="kop-surat"
+          onerror="this.src='https://placehold.co/1120x180?text=Ganti+Kop+Surat+Disini'"
+        />
+      </div>
 
-      <div class="header-row">
+      <div class="header-datetime-row">
         <div class="datetime-box">
           <span class="datetime-label">Tanggal & Waktu</span>
           <span id="datetime">Memuat...</span>
@@ -32,7 +34,7 @@
     <section class="section-card" id="jadwal">
       <div class="section-head">
         <h2>Jadwal Ibadah</h2>
-        <p>3 jadwal utama kegiatan jemaat.</p>
+        <p>Jadwal rutin kegiatan jemaat sepekan.</p>
       </div>
       <div id="jadwal-list" class="jadwal-grid">
         <p class="loading-text">Memuat jadwal...</p>
@@ -54,7 +56,7 @@
 
     <section class="section-card" id="renungan">
       <div class="section-head">
-        <h2>Renungan Harian 2 Bahasa</h2>
+        <h2>Renungan Harian</h2>
         <p id="renungan-day">Renungan hari ini</p>
       </div>
 
@@ -78,19 +80,20 @@
     <section class="section-card" id="galeri">
       <div class="section-head">
         <h2>Galeri Kegiatan</h2>
-        <p>30 foto dokumentasi kegiatan jemaat.</p>
+        <p>Dokumentasi kegiatan jemaat.</p>
       </div>
 
-      <div id="gallery-grid" class="gallery-grid">
-        <p class="loading-text">Memuat galeri...</p>
+      <div class="gallery-slider-container">
+        <div id="gallery-track" class="gallery-track">
+          </div>
       </div>
     </section>
   </main>
 
   <footer class="site-footer">
     <div class="container footer-content">
-      <p>© <span id="current-year"></span> GPI Jemaat Bersinar.</p>
-      <p>Website jemaat · Jadwal, poster, renungan harian 2 bahasa, dan galeri kegiatan.</p>
+      <p>© <span id="current-year"></span> GPI Jemaat Bersinar, Medan Labuhan.</p>
+      <p>Website jemaat • Jadwal, poster, renungan, dan galeri.</p>
     </div>
   </footer>
 
