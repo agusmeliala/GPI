@@ -15,40 +15,68 @@ body { margin: 0; background: var(--bg); color: var(--text); font-family: 'Plus 
 img { display: block; max-width: 100%; height: auto; }
 button { font: inherit; cursor: pointer; border: none; background: transparent; }
 
-.container { width: min(1120px, calc(100% - 32px)); margin-inline: auto; }
+/* Batasan Kontainer Utama - Menjaga tampilan smart di Desktop & Mobile */
+.container {
+  width: 95%; /* Memberi nafas di sisi kiri/kanan pada mobile */
+  max-width: 1100px; /* Batas lebar maksimal di desktop */
+  margin: 0 auto;
+}
 
-/* HEADER & DATETIME */
+/* HEADER SECTION */
 .site-header {
   background: #ffffff;
+  padding: 16px 0 8px 0;
   border-bottom: 1px solid var(--line);
-  padding: 16px 0 10px;
 }
+
 .kop-container {
+  width: 100%;
   display: flex;
   justify-content: center;
-  margin-bottom: 10px;
 }
+
 .kop-surat {
   width: 100%;
-  max-height: 180px;
+  height: auto;
+  max-height: 180px; /* Batas tinggi agar tidak memenuhi layar desktop */
   object-fit: contain;
 }
-.header-datetime-row {
+
+/* Mengunci posisi Datetime di bawah kanan gambar */
+.datetime-row {
   display: flex;
-  justify-content: flex-end;
+  justify-content: flex-end; /* Paksa ke kanan */
+  margin-top: 8px;
 }
+
 .datetime-box {
   background: #f8fafc;
   color: #475569;
   border: 1px solid var(--line);
-  border-radius: 999px;
-  padding: 8px 14px;
-  display: flex;
-  gap: 10px;
+  border-radius: 8px; /* Bentuk kotak rapi, bukan lonjong */
+  padding: 6px 12px;
+  display: inline-flex;
   align-items: center;
 }
-.datetime-label { font-size: 11px; font-weight: 700; text-transform: uppercase; color: #94a3b8; }
-#datetime { font-size: 13px; font-weight: 600; }
+
+#datetime {
+  font-size: 13px;
+  font-weight: 700;
+  color: #1e293b;
+}
+
+/* PENYESUAIAN MOBILE (Android & iOS) */
+@media (max-width: 768px) {
+  .kop-surat {
+    max-height: 120px; /* Gambar lebih kecil di HP agar tidak boros layar */
+  }
+  .datetime-box {
+    padding: 4px 10px;
+  }
+  #datetime {
+    font-size: 11px; /* Tulisan lebih kecil agar pas di layar HP */
+  }
+}
 
 /* MAIN CONTENT */
 .main-content { padding: 24px 0 40px; display: grid; gap: 24px; }
