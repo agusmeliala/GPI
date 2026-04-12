@@ -28,93 +28,59 @@ button { font: inherit; cursor: pointer; border: none; background: transparent; 
   margin: 0 auto;
 }
 
-/* HEADER */
-.site-header {
+/* HEADER WRAPPER */
+.header {
+  width: 100%;
   background: #ffffff;
-  padding: 12px 0;
-  border-bottom: 1px solid var(--line);
+  border-bottom: 1px solid #eee;
+}
+
+/* CONTAINER TENGAH (INI KUNCI UTAMA) */
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 10px 16px;
+  box-sizing: border-box;
+}
+
+/* ISI HEADER */
+.header-main {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 /* LOGO */
-.kop-container {
-  display: flex;
-  justify-content: center;
+.logo {
+  font-size: 18px;
+  font-weight: bold;
 }
 
-.kop-surat {
-  width: 100%;
-  max-height: 130px;
-  object-fit: contain;
+/* MENU */
+.menu {
+  font-size: 14px;
 }
 
-/* BARIS DATETIME (KUNCI UTAMA) */
-.datetime-row {
-  display: flex;
-  justify-content: flex-end; /* rata kanan */
-  margin-top: 6px;
-}
-
-/* BOX DATETIME */
-.datetime-box {
-  background: #f8fafc;
-  border: 1px solid var(--line);
-  padding: 6px 12px;
-  border-radius: 8px;
-
-  max-width: 100%;        /* cegah keluar */
-  overflow: hidden;       /* cegah overflow */
-}
-
-/* TEXT DATETIME */
-#datetime {
+/* DATETIME (SELALU DI BAWAH, RATA KANAN) */
+.datetime {
+  text-align: right;
   font-size: 13px;
-  font-weight: 700;
-  color: #334155;
-
-  white-space: nowrap;    /* tidak turun */
-  overflow: hidden;
-  text-overflow: ellipsis; /* kalau kepanjangan → ... */
+  margin-top: 6px;
+  color: #555;
 }
 
-/* RESPONSIVE */
-@media (max-width: 768px) {
-  .header-flex {
-    flex-direction: column;
-    align-items: center;
+/* RESPONSIVE HALUS (TANPA UBAH LAYOUT) */
+@media (max-width: 600px) {
+  .logo {
+    font-size: 16px;
   }
 
-  .kop-surat {
-    max-height: 100px;
+  .menu {
+    font-size: 13px;
   }
 
-  .datetime-box {
-    width: 100%;
-    text-align: center;
-  }
-}
-
-@media (max-width: 480px) {
-  #datetime {
-    font-size: 11px;
-  }
-}
-
-/* Penyesuaian Smart View untuk Android/iOS */
-@media (max-width: 768px) {
-  .kop-surat { max-height: 110px; }
-  #datetime { font-size: 11px; }
-}
-
-/* PENYESUAIAN MOBILE (Android & iOS) */
-@media (max-width: 768px) {
-  .kop-surat {
-    max-height: 120px; /* Gambar lebih kecil di HP agar tidak boros layar */
-  }
-  .datetime-box {
-    padding: 4px 10px;
-  }
-  #datetime {
-    font-size: 11px; /* Tulisan lebih kecil agar pas di layar HP */
+  .datetime {
+    font-size: 12px;
   }
 }
 
