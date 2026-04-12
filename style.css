@@ -10,50 +10,51 @@
 }
 
 * { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
 body { margin: 0; background: var(--bg); color: var(--text); font-family: 'Plus Jakarta Sans', sans-serif; line-height: 1.6; }
 img { display: block; max-width: 100%; height: auto; }
-button { font: inherit; cursor: pointer; border: none; background: transparent; }
 
-.container {
-  width: 92%;
-  max-width: 1000px;
-  margin: 0 auto;
-}
+/* KONTEN UTAMA */
+.container { width: 92%; max-width: 1000px; margin: 0 auto; }
 
-/* HEADER SMART RESPONSIVE */
+/* HEADER SMART & RESPONSIVE */
 .site-header {
   background: #ffffff;
-  padding: 12px 0;
+  padding: 15px 10px;
   border-bottom: 1px solid var(--line);
   position: sticky;
   top: 0;
   z-index: 100;
+  display: flex;
+  justify-content: center; /* Memastikan kop tetap di tengah layar */
 }
 
 .header-inner {
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  justify-content: center;
+  width: 100%;
 }
 
-.kop-container {
-  width: 100%;
-  display: flex;
-  justify-content: center;
+.kop-wrapper {
+  display: table; /* KUNCI: Lebar kotak mengikuti lebar gambar (menciut) */
+  margin: 0 auto;
+  max-width: 100%;
 }
+
+.kop-container { width: 100%; }
 
 .kop-surat {
   width: 100%;
+  max-width: 800px;
+  height: auto;
   max-height: 140px;
   object-fit: contain;
 }
 
 .datetime-row {
-  width: 100%;
   display: flex;
-  justify-content: flex-end;
+  justify-content: flex-end; /* Rata kanan terhadap kop-wrapper */
   margin-top: 8px;
+  width: 100%;
 }
 
 .datetime-box {
@@ -65,69 +66,58 @@ button { font: inherit; cursor: pointer; border: none; background: transparent; 
 
 #datetime {
   font-size: 12px;
-  font-weight: 700;
+  font-weight: 800;
   color: #475569;
+  white-space: nowrap;
 }
 
 /* MAIN CONTENT */
-.main-content { padding: 20px 0 40px; display: grid; gap: 20px; }
-.section-card { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); padding: 20px; }
-.section-head { margin-bottom: 15px; }
-.section-head h2 { margin: 0 0 4px; font-size: 24px; font-weight: 800; color: #0f172a; }
-.section-head p { margin: 0; color: var(--muted); font-size: 13px; }
+.main-content { padding: 20px 0; display: grid; gap: 20px; }
+.section-card { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 20px; box-shadow: var(--shadow); }
+.section-head h2 { margin: 0 0 4px; font-size: 22px; font-weight: 800; }
+.section-head p { margin: 0 0 15px; color: var(--muted); font-size: 13px; }
 
-/* JADWAL */
+/* JADWAL GRID */
 .jadwal-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
 .jadwal-card { border: 1px solid var(--line); border-radius: 16px; padding: 15px; background: #fafafa; }
-.jadwal-card h3 { margin: 0 0 8px; font-size: 16px; font-weight: 800; }
-.jadwal-meta { font-size: 13px; color: #4b5563; }
+.jadwal-card h3 { margin: 0 0 8px; font-size: 16px; }
 
 /* POSTER */
 .poster-wrap { display: flex; justify-content: center; }
-.poster-button { width: min(100%, 380px); border-radius: 18px; overflow: hidden; }
+.poster-button { width: min(100%, 350px); border-radius: 18px; overflow: hidden; border: none; padding: 0; }
 .poster-image { width: 100%; aspect-ratio: 2/3; object-fit: cover; }
 
 /* RENUNGAN */
 .renungan-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
 .renungan-card { border: 1px solid var(--line); border-radius: 16px; padding: 18px; background: #fafafa; }
-.language-badge { display: inline-block; margin-bottom: 8px; padding: 4px 8px; border-radius: 999px; background: #e0f2fe; color: #0369a1; font-size: 10px; font-weight: 700; }
+.language-badge { display: inline-block; margin-bottom: 8px; padding: 4px 10px; border-radius: 999px; background: #e0f2fe; color: #0369a1; font-size: 10px; font-weight: 700; }
 .language-badge.english { background: #fee2e2; color: #b91c1c; }
-.renungan-card h3 { margin: 0 0 5px; font-size: 18px; font-weight: 800; }
-.ayat { margin: 0 0 10px; font-weight: 700; color: #2563eb; font-size: 14px; }
-.isi-renungan { margin: 0; color: #374151; font-size: 14px; }
+.ayat { font-weight: 700; color: var(--primary); margin: 10px 0; }
 
-/* GALERI SLIDER */
-.gallery-slider-container { width: 100%; overflow: hidden; }
-.gallery-track { display: flex; gap: 10px; animation: scroll-left 40s linear infinite; }
-.gallery-item { flex: 0 0 200px; border-radius: 12px; overflow: hidden; }
+/* GALERI ANIMASI */
+.gallery-slider-container { width: 100%; overflow: hidden; position: relative; }
+.gallery-track { display: flex; gap: 10px; animation: scroll-left 45s linear infinite; width: max-content; }
+.gallery-item { flex: 0 0 180px; border-radius: 12px; overflow: hidden; cursor: pointer; }
 .gallery-item img { width: 100%; aspect-ratio: 1/1; object-fit: cover; }
 
 @keyframes scroll-left {
   0% { transform: translateX(0); }
-  100% { transform: translateX(calc(-210px * 15)); }
+  100% { transform: translateX(-50%); }
 }
 
 /* FOOTER */
-.site-footer { background: #ffffff; border-top: 1px solid var(--line); padding: 15px 0; }
+.site-footer { background: #ffffff; border-top: 1px solid var(--line); padding: 20px 0; margin-top: 20px; }
 .footer-content { display: flex; justify-content: space-between; font-size: 12px; color: var(--muted); }
 
 /* LIGHTBOX */
 .lightbox { position: fixed; inset: 0; background: rgba(0,0,0,0.9); display: none; align-items: center; justify-content: center; z-index: 1000; }
 .lightbox.active { display: flex; }
 .lightbox-image { max-width: 90%; max-height: 80vh; border-radius: 8px; }
-.lightbox-close { position: absolute; top: 15px; right: 20px; color: white; font-size: 30px; }
+.lightbox-close { position: absolute; top: 20px; right: 20px; color: white; font-size: 30px; border: none; background: none; }
 
-/* TABLET & MOBILE RESPONSIVE */
+/* RESPONSIVE */
 @media (max-width: 768px) {
-  .kop-surat { max-height: 100px; }
+  .kop-surat { max-height: 90px; }
   .jadwal-grid, .renungan-grid { grid-template-columns: 1fr; }
-  .gallery-item { flex: 0 0 150px; }
-  @keyframes scroll-left { 100% { transform: translateX(calc(-160px * 15)); } }
-}
-
-@media (max-width: 480px) {
-  .kop-surat { max-height: 80px; }
-  .datetime-box { padding: 3px 8px; }
-  #datetime { font-size: 10px; }
-  .footer-content { flex-direction: column; text-align: center; gap: 5px; }
+  .footer-content { flex-direction: column; text-align: center; gap: 10px; }
 }
