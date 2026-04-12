@@ -10,26 +10,18 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
- <header class="site-header">
-  <div class="container">
-    <div class="kop-container">
-      <img
-        src="images/kop-surat.png"
-        alt="Kop Surat GPI Jemaat Bersinar"
-        class="kop-surat"
-      />
-    </div>
-
-    <div class="datetime-row">
-      <div class="datetime-box">
-        <span id="datetime">Memuat...</span>
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="kop-container">
+        <img src="images/kop-surat.png" alt="Kop Surat GPI Jemaat Bersinar" class="kop-surat" />
+      </div>
+      <div class="datetime-row">
+        <div class="datetime-box">
+          <span id="datetime">Memuat...</span>
+        </div>
       </div>
     </div>
-  </div>
-</header>
-    </div>
-  </div>
-</header>
+  </header>
 
   <main class="container main-content">
     <section class="section-card" id="jadwal">
@@ -47,7 +39,6 @@
         <h2>Poster Harian</h2>
         <p id="poster-day">Poster hari ini</p>
       </div>
-
       <div class="poster-wrap">
         <button class="poster-button" type="button" onclick="openLightboxFromElement('poster-image')">
           <img id="poster-image" src="" alt="Poster Harian" class="poster-image" />
@@ -60,7 +51,6 @@
         <h2>Renungan Harian</h2>
         <p id="renungan-day">Renungan hari ini</p>
       </div>
-
       <div class="renungan-grid">
         <article class="renungan-card">
           <div class="language-badge">Bahasa Indonesia</div>
@@ -68,7 +58,6 @@
           <p id="ayat-id" class="ayat"></p>
           <p id="isi-id" class="isi-renungan"></p>
         </article>
-
         <article class="renungan-card">
           <div class="language-badge english">English</div>
           <h3 id="judul-en">Loading...</h3>
@@ -83,10 +72,8 @@
         <h2>Galeri Kegiatan</h2>
         <p>Dokumentasi kegiatan jemaat.</p>
       </div>
-
       <div class="gallery-slider-container">
-        <div id="gallery-track" class="gallery-track">
-          </div>
+        <div id="gallery-track" class="gallery-track"></div>
       </div>
     </section>
   </main>
