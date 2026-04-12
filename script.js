@@ -50,14 +50,13 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function updateDateTime() {
-  const el = document.getElementById("datetime");
-  if (!el) return;
   const now = new Date();
-  el.textContent = now.toLocaleString("id-ID", {
-    weekday: "long", day: "2-digit", month: "long", year: "numeric",
-    hour: "2-digit", minute: "2-digit", second: "2-digit"
-  });
+  const formatted = now.toLocaleString();
+  document.getElementById("datetime").innerText = formatted;
 }
+
+setInterval(updateDateTime, 1000);
+updateDateTime();
 
 function renderJadwal(items) {
   const container = document.getElementById("jadwal-list");
