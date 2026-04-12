@@ -1,24 +1,16 @@
 const DAY_NAMES = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"];
 
-// --- 1. DATA JADWAL (3 Jadwal Utama) ---
 const DATA_JADWAL = [
   { hari: "Minggu", nama: "Ibadah Raya", jam: "10.30 WIB", lokasi: "Gereja" },
   { hari: "Selasa", nama: "Ibadah Rumah Tangga", jam: "19.00 WIB", lokasi: "Rumah Jemaat" },
   { hari: "Jumat", nama: "Persekutuan", jam: "19.00 WIB", lokasi: "Gereja" }
 ];
 
-// --- 2. DATA POSTER (7 Poster di folder images) ---
 const DATA_POSTER = {
-  "Senin": "images/poster1.jpg",
-  "Selasa": "images/poster2.jpg",
-  "Rabu": "images/poster3.jpg",
-  "Kamis": "images/poster4.jpg",
-  "Jumat": "images/poster5.jpg",
-  "Sabtu": "images/poster6.jpg",
-  "Minggu": "images/poster7.jpg",
+  "Senin": "images/poster1.jpg", "Selasa": "images/poster2.jpg", "Rabu": "images/poster3.jpg",
+  "Kamis": "images/poster4.jpg", "Jumat": "images/poster5.jpg", "Sabtu": "images/poster6.jpg", "Minggu": "images/poster7.jpg",
 };
 
-// --- 3. DATA RENUNGAN (Indonesia & English) ---
 const DATA_RENUNGAN = {
   judulId: "Kekuatan dalam Kelemahan",
   ayatId: "2 Korintus 12:9",
@@ -28,10 +20,8 @@ const DATA_RENUNGAN = {
   isiEn: "My grace is sufficient for you, for my power is made perfect in weakness."
 };
 
-// --- 4. DATA GALERI (Otomatis ambil foto1.jpg sampai foto30.jpg) ---
 const DATA_GALLERY = Array.from({ length: 30 }, (_, i) => `images/foto${i + 1}.jpg`);
 
-// --- LOGIKA PROGRAM ---
 document.addEventListener("DOMContentLoaded", () => {
   updateDateTime();
   setInterval(updateDateTime, 1000);
@@ -39,14 +29,12 @@ document.addEventListener("DOMContentLoaded", () => {
   const yearEl = document.getElementById("current-year");
   if (yearEl) yearEl.textContent = new Date().getFullYear();
 
-  setupLightboxEvents();
-
-  // Menjalankan fungsi tampilkan konten
   const todayName = DAY_NAMES[new Date().getDay()];
   renderJadwal(DATA_JADWAL);
   renderPoster(DATA_POSTER, todayName);
   renderRenungan(DATA_RENUNGAN, todayName);
   renderGallery(DATA_GALLERY);
+  setupLightboxEvents();
 });
 
 function updateDateTime() {
@@ -89,7 +77,6 @@ function renderPoster(posterByDay, todayName) {
 function renderRenungan(item, todayName) {
   const renunganDay = document.getElementById("renungan-day");
   if (renunganDay) renunganDay.textContent = `Renungan untuk hari ${todayName}`;
-  
   document.getElementById("judul-id").textContent = item.judulId;
   document.getElementById("ayat-id").textContent = item.ayatId;
   document.getElementById("isi-id").textContent = item.isiId;
@@ -99,25 +86,25 @@ function renderRenungan(item, todayName) {
 }
 
 function renderGallery(items) {
-  const container = document.getElementById("gallery-grid");
+  const container = document.getElementById("gallery-track");
   if (container) {
-    container.innerHTML = items.map((src, index) => `
-      <button class="gallery-item" type="button" onclick="openLightbox('${src}')">
+    // Gandakan array untuk efek looping tak terbatas
+    const doubleItems = [...items, ...items];
+    container.innerHTML = doubleItems.map((src, index) => `
+      <div class="gallery-item" onclick="openLightbox('${src}')">
         <img src="${src}" alt="Foto ${index + 1}" loading="lazy" 
              onerror="this.src='https://placehold.co/600x400?text=Foto+${index + 1}'" />
-      </button>
+      </div>
     `).join("");
   }
 }
 
-// --- FUNGSI LIGHTBOX (PREVIEW GAMBAR) ---
 function openLightbox(src) {
   const lightbox = document.getElementById("lightbox");
   const image = document.getElementById("lightbox-img");
   if (lightbox && image) {
     image.src = src;
     lightbox.classList.add("active");
-    lightbox.setAttribute("aria-hidden", "false");
     document.body.style.overflow = "hidden";
   }
 }
@@ -131,7 +118,6 @@ function closeLightbox() {
   const lightbox = document.getElementById("lightbox");
   if (lightbox) {
     lightbox.classList.remove("active");
-    lightbox.setAttribute("aria-hidden", "true");
     document.body.style.overflow = "";
   }
 }
@@ -143,7 +129,3 @@ function setupLightboxEvents() {
   }
   document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeLightbox(); });
 }
-
-window.openLightbox = openLightbox;
-window.openLightboxFromElement = openLightboxFromElement;
-window.closeLightbox = closeLightbox;
