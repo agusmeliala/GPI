@@ -11,13 +11,15 @@
 </head>
 <body>
   <header class="site-header">
-    <div class="container header-inner">
-      <div class="kop-container">
-        <img src="images/kop-surat.png" alt="Kop Surat GPI Jemaat Bersinar" class="kop-surat" />
-      </div>
-      <div class="datetime-row">
-        <div class="datetime-box">
-          <span id="datetime">Memuat...</span>
+    <div class="header-inner">
+      <div class="kop-wrapper">
+        <div class="kop-container">
+          <img src="images/kop-surat.png" alt="Kop Surat GPI Jemaat Bersinar" class="kop-surat" />
+        </div>
+        <div class="datetime-row">
+          <div class="datetime-box">
+            <span id="datetime">Memuat...</span>
+          </div>
         </div>
       </div>
     </div>
@@ -29,9 +31,7 @@
         <h2>Jadwal Ibadah</h2>
         <p>Jadwal rutin kegiatan jemaat sepekan.</p>
       </div>
-      <div id="jadwal-list" class="jadwal-grid">
-        <p class="loading-text">Memuat jadwal...</p>
-      </div>
+      <div id="jadwal-list" class="jadwal-grid"></div>
     </section>
 
     <section class="section-card" id="poster">
@@ -85,7 +85,7 @@
     </div>
   </footer>
 
-  <div id="lightbox" class="lightbox" aria-hidden="true">
+  <div id="lightbox" class="lightbox">
     <button class="lightbox-close" type="button" onclick="closeLightbox()">✕</button>
     <img id="lightbox-img" src="" alt="Preview Gambar" class="lightbox-image" />
   </div>
