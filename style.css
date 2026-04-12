@@ -1,6 +1,3 @@
-/* =========================
-   ROOT & RESET
-========================= */
 :root {
   --bg: #f0f2f5;
   --card: #ffffff;
@@ -12,320 +9,167 @@
   --radius: 20px;
 }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
+* { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--bg); color: var(--text); font-family: 'Plus Jakarta Sans', sans-serif; line-height: 1.6; }
+img { display: block; max-width: 100%; height: auto; }
+button { font: inherit; cursor: pointer; border: none; background: transparent; }
 
-body {
-  background: var(--bg);
-  color: var(--text);
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  line-height: 1.6;
+/* Batasan Kontainer Utama - Menjaga tampilan smart di Desktop & Mobile */
+.container {
+  width: 95%; /* Memberi nafas di sisi kiri/kanan pada mobile */
+  max-width: 1100px; /* Batas lebar maksimal di desktop */
+  margin: 0 auto;
 }
 
-img {
-  display: block;
-  max-width: 100%;
-  height: auto;
-}
-
-button {
-  font: inherit;
-  cursor: pointer;
-  border: none;
-  background: transparent;
-}
-
-/* =========================
-   CONTAINER (FIXED & CLEAN)
-========================= */
 .container {
   width: 95%;
   max-width: 1100px;
   margin: 0 auto;
-  padding: 12px 16px;
 }
 
-/* =========================
-   HEADER (FIX TOTAL)
-========================= */
-.header {
-  width: 100%;
+.site-header {
   background: #ffffff;
+  padding: 15px 0 5px 0;
   border-bottom: 1px solid var(--line);
-  box-shadow: 0 4px 10px rgba(0,0,0,0.04);
 }
 
-/* KOP SURAT (WAJIB ADA INI) */
-.kop-surat {
+.kop-container {
   width: 100%;
-  max-height: 120px;
-  object-fit: contain;
-  margin-bottom: 10px;
-}
-
-/* HEADER MAIN */
-.header-main {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-/* LOGO */
-.logo {
-  font-size: 18px;
-  font-weight: 700;
-  color: #0f172a;
-}
-
-/* MENU */
-.menu {
-  font-size: 14px;
-  color: var(--muted);
-}
-
-/* DATETIME (FIX SESUAI REQUEST) */
-.datetime {
-  text-align: right;
-  font-size: 13px;
-  margin-top: 6px;
-  color: var(--muted);
-}
-
-/* =========================
-   MAIN CONTENT
-========================= */
-.main-content {
-  padding: 24px 0 40px;
-  display: grid;
-  gap: 24px;
-}
-
-.section-card {
-  background: var(--card);
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-  padding: 24px;
-}
-
-.section-head {
-  margin-bottom: 20px;
-}
-
-.section-head h2 {
-  font-size: 26px;
-  font-weight: 800;
-  margin-bottom: 4px;
-}
-
-.section-head p {
-  color: var(--muted);
-  font-size: 14px;
-}
-
-/* =========================
-   JADWAL
-========================= */
-.jadwal-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
-}
-
-.jadwal-card {
-  border: 1px solid var(--line);
-  border-radius: 16px;
-  padding: 18px;
-  background: #fafafa;
-}
-
-.jadwal-card h3 {
-  font-size: 17px;
-  font-weight: 800;
-  margin-bottom: 10px;
-}
-
-.jadwal-meta {
-  display: grid;
-  gap: 5px;
-  font-size: 14px;
-  color: #4b5563;
-}
-
-/* =========================
-   POSTER
-========================= */
-.poster-wrap {
   display: flex;
   justify-content: center;
 }
 
-.poster-button {
-  width: min(100%, 420px);
-  border-radius: 18px;
-  overflow: hidden;
-}
-
-.poster-image {
+.kop-surat {
   width: 100%;
-  aspect-ratio: 2/3;
-  object-fit: cover;
-  background: #e5e7eb;
-  transition: transform 0.3s ease;
+  height: auto;
+  max-height: 180px;
+  object-fit: contain;
 }
 
-.poster-button:hover .poster-image {
-  transform: scale(1.02);
+/* Mengatur posisi waktu tepat di bawah kanan header */
+.datetime-row {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 5px;
 }
 
-/* =========================
-   RENUNGAN
-========================= */
-.renungan-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 18px;
-}
-
-.renungan-card {
+.datetime-box {
+  background: #f8fafc;
   border: 1px solid var(--line);
-  border-radius: 16px;
-  padding: 20px;
-  background: #fafafa;
+  padding: 4px 10px;
+  border-radius: 6px;
 }
 
-.language-badge {
-  display: inline-block;
-  margin-bottom: 12px;
-  padding: 5px 10px;
-  border-radius: 999px;
-  font-size: 11px;
+#datetime {
+  font-size: 13px;
   font-weight: 700;
-  background: #e0f2fe;
-  color: #0369a1;
+  color: #334155;
 }
 
-.language-badge.english {
-  background: #fee2e2;
-  color: #b91c1c;
+/* Penyesuaian Smart View untuk Android/iOS */
+@media (max-width: 768px) {
+  .kop-surat { max-height: 110px; }
+  #datetime { font-size: 11px; }
 }
 
-/* =========================
-   GALERI (SLIDER HALUS)
-========================= */
+/* PENYESUAIAN MOBILE (Android & iOS) */
+@media (max-width: 768px) {
+  .kop-surat {
+    max-height: 120px; /* Gambar lebih kecil di HP agar tidak boros layar */
+  }
+  .datetime-box {
+    padding: 4px 10px;
+  }
+  #datetime {
+    font-size: 11px; /* Tulisan lebih kecil agar pas di layar HP */
+  }
+}
+
+/* MAIN CONTENT */
+.main-content { padding: 24px 0 40px; display: grid; gap: 24px; }
+.section-card { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); padding: 24px; }
+.section-head { margin-bottom: 20px; }
+.section-head h2 { margin: 0 0 4px; font-size: 26px; font-weight: 800; color: #0f172a; }
+.section-head p { margin: 0; color: var(--muted); font-size: 14px; }
+.loading-text { color: var(--muted); text-align: center; font-size: 14px; }
+
+/* JADWAL */
+.jadwal-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.jadwal-card { border: 1px solid var(--line); border-radius: 16px; padding: 18px; background: #fafafa; }
+.jadwal-card h3 { margin: 0 0 10px; font-size: 17px; font-weight: 800; color: #0f172a; }
+.jadwal-meta { display: grid; gap: 5px; font-size: 14px; color: #4b5563; }
+
+/* POSTER */
+.poster-wrap { display: flex; justify-content: center; }
+.poster-button { width: min(100%, 420px); border-radius: 18px; overflow: hidden; }
+.poster-image { width: 100%; aspect-ratio: 2/3; object-fit: cover; background: #e5e7eb; transition: transform 0.3s ease; }
+.poster-button:hover .poster-image { transform: scale(1.02); }
+
+/* RENUNGAN */
+.renungan-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+.renungan-card { border: 1px solid var(--line); border-radius: 16px; padding: 20px; background: #fafafa; }
+.language-badge { display: inline-block; margin-bottom: 12px; padding: 5px 10px; border-radius: 999px; background: #e0f2fe; color: #0369a1; font-size: 11px; font-weight: 700; }
+.language-badge.english { background: #fee2e2; color: #b91c1c; }
+.renungan-card h3 { margin: 0 0 8px; font-size: 20px; font-weight: 800; }
+.ayat { margin: 0 0 12px; font-weight: 700; color: #2563eb; }
+.isi-renungan { margin: 0; color: #374151; font-size: 15px; }
+
+/* GALERI SLIDER (Baru) */
 .gallery-slider-container {
   width: 100%;
   overflow: hidden;
   padding: 10px 0;
 }
-
 .gallery-track {
   display: flex;
   gap: 12px;
+  /* Animasi bergulir halus ke kiri */
   animation: scroll-left 40s linear infinite;
+  width: calc(240px * 60); /* Asumsi 30 foto x 2 untuk looping */
 }
-
 .gallery-track:hover {
-  animation-play-state: paused;
+  animation-play-state: paused; /* Pause saat dihover */
 }
-
 .gallery-item {
-  flex: 0 0 240px;
+  flex: 0 0 240px; /* Lebar satu foto galeri (sekitar seperempat poster) */
   border-radius: 14px;
   overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
 }
-
 .gallery-item img {
   width: 100%;
-  aspect-ratio: 1/1;
+  aspect-ratio: 1/1; /* Foto galeri dibuat kotak */
   object-fit: cover;
 }
 
 @keyframes scroll-left {
   0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+  100% { transform: translateX(calc(-252px * 30)); } /* Sesuaikan lebar + gap x jumlah foto asli */
 }
 
-/* =========================
-   FOOTER
-========================= */
-.site-footer {
-  background: #ffffff;
-  border-top: 1px solid var(--line);
-  padding: 20px 0;
-}
+/* FOOTER */
+.site-footer { background: #ffffff; border-top: 1px solid var(--line); padding: 20px 0; }
+.footer-content { display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; color: #6b7280; font-size: 13px; }
+.footer-content p { margin: 0; }
 
-.footer-content {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 10px;
-  font-size: 13px;
-  color: var(--muted);
-}
+/* LIGHTBOX */
+.lightbox { position: fixed; inset: 0; background: rgba(0,0,0,0.9); display: none; align-items: center; justify-content: center; padding: 20px; z-index: 1000; }
+.lightbox.active { display: flex; }
+.lightbox-image { max-width: 90%; max-height: 85vh; border-radius: 12px; }
+.lightbox-close { position: absolute; top: 15px; right: 15px; color: white; font-size: 28px; }
 
-/* =========================
-   LIGHTBOX
-========================= */
-.lightbox {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.9);
-  display: none;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-}
-
-.lightbox.active {
-  display: flex;
-}
-
-.lightbox-image {
-  max-width: 90%;
-  max-height: 85vh;
-  border-radius: 12px;
-}
-
-/* =========================
-   RESPONSIVE (HALUS)
-========================= */
+/* MEDIA QUERIES */
 @media (max-width: 1024px) {
-  .jadwal-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
+  .jadwal-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .gallery-track { animation-duration: 30s; }
 }
-
 @media (max-width: 768px) {
-  .jadwal-grid,
-  .renungan-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .gallery-item {
-    flex: 0 0 180px;
-  }
+  .jadwal-grid, .renungan-grid { grid-template-columns: 1fr; }
+  .gallery-item { flex: 0 0 180px; }
+  @keyframes scroll-left { 100% { transform: translateX(calc(-192px * 30)); } }
 }
-
 @media (max-width: 480px) {
-  .kop-surat {
-    max-height: 90px;
-  }
-
-  .logo {
-    font-size: 16px;
-  }
-
-  .menu {
-    font-size: 13px;
-  }
-
-  .datetime {
-    font-size: 12px;
-  }
+  .kop-surat { max-height: 100px; }
+  .datetime-box { width: 100%; justify-content: center; border-radius: 12px; }
 }
