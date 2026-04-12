@@ -68,7 +68,7 @@ function renderPoster(posterByDay, todayName) {
   const posterDay = document.getElementById("poster-day");
   if (posterImage && posterDay) {
     const posterSrc = posterByDay[todayName] || posterByDay["Minggu"];
-    posterDay.textContent = `Poster untuk hari ${todayName}`;
+    posterDay.textContent = `Poster hari ${todayName}`;
     posterImage.src = posterSrc;
     posterImage.onerror = () => { posterImage.src = "https://placehold.co/800x1200?text=Poster+Not+Found"; };
   }
@@ -76,7 +76,7 @@ function renderPoster(posterByDay, todayName) {
 
 function renderRenungan(item, todayName) {
   const renunganDay = document.getElementById("renungan-day");
-  if (renunganDay) renunganDay.textContent = `Renungan untuk hari ${todayName}`;
+  if (renunganDay) renunganDay.textContent = `Renungan hari ${todayName}`;
   document.getElementById("judul-id").textContent = item.judulId;
   document.getElementById("ayat-id").textContent = item.ayatId;
   document.getElementById("isi-id").textContent = item.isiId;
@@ -88,13 +88,12 @@ function renderRenungan(item, todayName) {
 function renderGallery(items) {
   const container = document.getElementById("gallery-track");
   if (container) {
-    // Gandakan array untuk efek looping tak terbatas
     const doubleItems = [...items, ...items];
     container.innerHTML = doubleItems.map((src, index) => `
-      <div class="gallery-item" onclick="openLightbox('${src}')">
+      <button class="gallery-item" type="button" onclick="openLightbox('${src}')">
         <img src="${src}" alt="Foto ${index + 1}" loading="lazy" 
              onerror="this.src='https://placehold.co/600x400?text=Foto+${index + 1}'" />
-      </div>
+      </button>
     `).join("");
   }
 }
