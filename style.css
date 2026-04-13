@@ -33,7 +33,7 @@ body {
   width: 100%;
   max-width: var(--content-width);
   margin: 0 auto;
-  padding: 0 14px;
+  padding: 14px 0;
 }
 
 /* ================= HEADER ================= */
