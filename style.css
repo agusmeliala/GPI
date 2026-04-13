@@ -26,68 +26,76 @@ body {
   line-height: 1.6;
 }
 
-/* WRAPPER GLOBAL (INI KUNCI KERAPIAN) */
+/* 1. PASTIKAN WRAPPER IDENTIK */
 .header-inner,
 .main-wrapper,
 .footer-inner {
-  width: 100%;
-  max-width: var(--content-width);
-  margin: 0 auto;
-  padding: 14px 0;
+  width: 92%; /* Memberi jarak aman di kiri-kanan pada layar HP */
+  max-width: var(--content-width); /* Terkunci di 820px sesuai variabelmu */
+  margin: 0 auto; /* Supaya selalu di tengah */
+  padding: 0; 
 }
 
-/* ================= HEADER ================= */
+/* 2. HEADER STRUKTUR */
 .site-header {
-  background: rgba(255,255,255,0.95);
-  backdrop-filter: blur(6px);
-  padding: 10px 0 6px;
+  background: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(8px);
+  padding: 20px 0 10px; /* Ruang atas bawah */
   border-bottom: 1px solid var(--line);
   position: sticky;
   top: 0;
   z-index: 100;
 }
 
-.kop-wrapper {
-  display: flex;
-  flex-direction: column;
+/* 3. KOP SURAT */
+.kop-container {
   width: 100%;
-  overflow: hidden;
+  display: flex;
+  justify-content: center;
 }
 
-/* KOP */
 .kop-surat {
   width: 100%;
   height: auto;
-  max-height: 120px;
+  max-height: 150px; /* Ukuran maksimal desktop */
   object-fit: contain;
   display: block;
 }
 
-/* DATETIME */
+/* 4. DATETIME RATA KANAN BAWAH KOP */
 .datetime-row {
   display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  margin-top: 2px;
+  justify-content: flex-end; /* Paksa ke kanan */
+  margin-top: 10px;
 }
 
 .datetime-box {
-  max-width: 100%;
-  overflow: hidden;
-  text-align: right;
   background: #f1f5f9;
   border: 1px solid var(--line);
-  padding: 3px 8px;
-  border-radius: 6px;
+  padding: 5px 12px;
+  border-radius: 8px; /* Kotak rapi sesuai tema card */
 }
 
 #datetime {
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 700;
   color: #475569;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+}
+
+/* 5. RESPONSIVE (ANDROID/IOS) */
+@media (max-width: 768px) {
+  .kop-surat {
+    max-height: 90px; /* Lebih kecil di HP agar tidak makan tempat */
+  }
+
+  .datetime-row {
+    justify-content: center; /* Di HP lebih cantik rata tengah */
+    margin-top: 8px;
+  }
+  
+  #datetime {
+    font-size: 10px;
+  }
 }
 
 /* ================= MAIN ================= */
