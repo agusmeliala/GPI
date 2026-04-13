@@ -6,85 +6,128 @@
   <title>GPI Jemaat Bersinar</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
- <header class="site-header">
-  <div class="header-inner">
-    <div class="kop-container">
-      <img src="images/kop-surat.png" alt="Kop Surat" class="kop-surat" />
-    </div>
-    <div class="datetime-row">
-      <div class="datetime-box">
-        <span id="datetime">Memuat...</span>
+
+  <!-- ══════════ HEADER ══════════ -->
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="kop-container">
+        <img src="images/kop-surat.png" alt="Kop Surat GPI Jemaat Bersinar" class="kop-surat" />
+      </div>
+      <div class="datetime-row">
+        <div class="datetime-box">
+          <span class="datetime-icon">🕐</span>
+          <span id="datetime">Memuat...</span>
+        </div>
       </div>
     </div>
-  </div>
-</header>
+  </header>
 
+  <!-- ══════════ NAV ══════════ -->
+  <nav class="site-nav">
+    <div class="nav-inner">
+      <a href="#jadwal" class="nav-link">Jadwal</a>
+      <a href="#poster" class="nav-link">Poster</a>
+      <a href="#renungan" class="nav-link">Renungan</a>
+      <a href="#galeri" class="nav-link">Galeri</a>
+    </div>
+  </nav>
+
+  <!-- ══════════ MAIN ══════════ -->
   <main class="main-wrapper">
-    <section class="section-card" id="jadwal">
+
+    <!-- JADWAL -->
+    <section class="section-card fade-in" id="jadwal">
       <div class="section-head">
-        <h2>Jadwal Ibadah</h2>
-        <p>Jadwal rutin kegiatan jemaat sepekan.</p>
+        <div class="section-icon">🕊</div>
+        <div>
+          <h2>Jadwal Ibadah</h2>
+          <p>Jadwal rutin kegiatan jemaat sepekan</p>
+        </div>
       </div>
       <div id="jadwal-list" class="jadwal-grid"></div>
     </section>
 
-    <section class="section-card" id="poster">
+    <!-- POSTER -->
+    <section class="section-card fade-in" id="poster" style="--delay:.1s">
       <div class="section-head">
-        <h2>Poster Harian</h2>
-        <p id="poster-day">Poster hari ini</p>
+        <div class="section-icon">📋</div>
+        <div>
+          <h2>Poster Harian</h2>
+          <p id="poster-day">Poster hari ini</p>
+        </div>
       </div>
       <div class="poster-wrap">
-        <button class="poster-button" type="button" onclick="openLightboxFromElement('poster-image')">
+        <button class="poster-button" type="button" onclick="openLightboxFromElement('poster-image')" aria-label="Lihat poster penuh">
           <img id="poster-image" src="" alt="Poster Harian" class="poster-image" />
+          <div class="poster-overlay"><span>🔍 Lihat Penuh</span></div>
         </button>
       </div>
     </section>
 
-    <section class="section-card" id="renungan">
+    <!-- RENUNGAN -->
+    <section class="section-card fade-in" id="renungan" style="--delay:.2s">
       <div class="section-head">
-        <h2>Renungan Harian</h2>
-        <p id="renungan-day">Renungan hari ini</p>
+        <div class="section-icon">📖</div>
+        <div>
+          <h2>Renungan Harian</h2>
+          <p id="renungan-day">Renungan hari ini</p>
+        </div>
       </div>
       <div class="renungan-grid">
         <article class="renungan-card">
-          <div class="language-badge">Bahasa Indonesia</div>
+          <div class="language-badge id">🇮🇩 Bahasa Indonesia</div>
           <h3 id="judul-id">Memuat...</h3>
           <p id="ayat-id" class="ayat"></p>
-          <p id="isi-id" class="isi-renungan"></p>
+          <blockquote id="isi-id" class="isi-renungan"></blockquote>
         </article>
         <article class="renungan-card">
-          <div class="language-badge english">English</div>
+          <div class="language-badge en">🇬🇧 English</div>
           <h3 id="judul-en">Loading...</h3>
           <p id="ayat-en" class="ayat"></p>
-          <p id="isi-en" class="isi-renungan"></p>
+          <blockquote id="isi-en" class="isi-renungan"></blockquote>
         </article>
       </div>
     </section>
 
-    <section class="section-card" id="galeri">
+    <!-- GALERI -->
+    <section class="section-card fade-in" id="galeri" style="--delay:.3s">
       <div class="section-head">
-        <h2>Galeri Kegiatan</h2>
-        <p>Dokumentasi kegiatan jemaat.</p>
+        <div class="section-icon">🖼</div>
+        <div>
+          <h2>Galeri Kegiatan</h2>
+          <p>Dokumentasi kegiatan jemaat</p>
+        </div>
       </div>
-      <div class="gallery-slider-container">
-        <div id="gallery-track" class="gallery-track"></div>
+      <div class="gallery-wrapper">
+        <div class="gallery-slider-container">
+          <div id="gallery-track" class="gallery-track"></div>
+        </div>
+        <div class="gallery-fade-left"></div>
+        <div class="gallery-fade-right"></div>
       </div>
     </section>
+
   </main>
 
+  <!-- ══════════ FOOTER ══════════ -->
   <footer class="site-footer">
     <div class="footer-inner">
-      <p>© <span id="current-year"></span> GPI Jemaat Bersinar, Medan Labuhan.</p>
-      <p>Website jemaat • Jadwal, poster, renungan, dan galeri.</p>
+      <div class="footer-brand">
+        <span class="footer-cross">✝</span>
+        <span>GPI Jemaat Bersinar</span>
+      </div>
+      <p class="footer-address">Jl. Jaring Udang 6, Km. 20, Kel. Pekan Labuhan, Medan Labuhan</p>
+      <p class="footer-copy">© <span id="current-year"></span> GPI Jemaat Bersinar · Medan Labuhan</p>
     </div>
   </footer>
 
-  <div id="lightbox" class="lightbox">
-    <button class="lightbox-close" type="button" onclick="closeLightbox()">✕</button>
+  <!-- ══════════ LIGHTBOX ══════════ -->
+  <div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-label="Preview Gambar">
+    <button class="lightbox-close" type="button" onclick="closeLightbox()" aria-label="Tutup">✕</button>
     <img id="lightbox-img" src="" alt="Preview Gambar" class="lightbox-image" />
   </div>
 
