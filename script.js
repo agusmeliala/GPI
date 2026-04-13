@@ -1,130 +1,221 @@
+/* ═══════════════════════════════════════════
+   GPI Jemaat Bersinar — script.js
+   ═══════════════════════════════════════════ */
+
+"use strict";
+
+// ── KONSTANTA DATA ───────────────────────────────────────────────────────────
+
 const DAY_NAMES = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"];
 
 const DATA_JADWAL = [
-  { hari: "Minggu", nama: "Ibadah Raya", jam: "10.30 WIB", lokasi: "Gereja" },
-  { hari: "Selasa", nama: "Ibadah Rumah Tangga", jam: "19.00 WIB", lokasi: "Rumah Jemaat" },
-  { hari: "Jumat", nama: "Persekutuan", jam: "19.00 WIB", lokasi: "Gereja" }
+  { hari: "Minggu",  nama: "Ibadah Raya",          jam: "10.30 WIB", lokasi: "Gereja" },
+  { hari: "Selasa",  nama: "Ibadah Rumah Tangga",   jam: "19.00 WIB", lokasi: "Rumah Jemaat" },
+  { hari: "Jumat",   nama: "Persekutuan Doa",       jam: "19.00 WIB", lokasi: "Gereja" },
 ];
 
 const DATA_POSTER = {
-  "Senin": "images/poster1.jpg", "Selasa": "images/poster2.jpg", "Rabu": "images/poster3.jpg",
-  "Kamis": "images/poster4.jpg", "Jumat": "images/poster5.jpg", "Sabtu": "images/poster6.jpg", "Minggu": "images/poster7.jpg",
+  "Senin":   "images/poster1.jpg",
+  "Selasa":  "images/poster2.jpg",
+  "Rabu":    "images/poster3.jpg",
+  "Kamis":   "images/poster4.jpg",
+  "Jumat":   "images/poster5.jpg",
+  "Sabtu":   "images/poster6.jpg",
+  "Minggu":  "images/poster7.jpg",
 };
 
 const DATA_RENUNGAN = {
   judulId: "Kekuatan dalam Kelemahan",
-  ayatId: "2 Korintus 12:9",
-  isiId: "Cukuplah kasih karunia-Ku bagimu; sebab justru dalam kelemahandulah kuasa-Ku menjadi sempurna.",
+  ayatId:  "2 Korintus 12:9",
+  isiId:   "Cukuplah kasih karunia-Ku bagimu; sebab justru dalam kelemahanlah kuasa-Ku menjadi sempurna.",
   judulEn: "Strength in Weakness",
-  ayatEn: "2 Corinthians 12:9",
-  isiEn: "My grace is sufficient for you, for my power is made perfect in weakness."
+  ayatEn:  "2 Corinthians 12:9",
+  isiEn:   "My grace is sufficient for you, for my power is made perfect in weakness.",
 };
 
+// 30 foto dari repo
 const DATA_GALLERY = Array.from({ length: 30 }, (_, i) => `images/foto${i + 1}.jpg`);
 
-document.addEventListener("DOMContentLoaded", () => {
-  updateDateTime();
-  setInterval(updateDateTime, 1000);
+// ── INIT ─────────────────────────────────────────────────────────────────────
 
+document.addEventListener("DOMContentLoaded", () => {
+  // Tahun footer
   const yearEl = document.getElementById("current-year");
   if (yearEl) yearEl.textContent = new Date().getFullYear();
 
+  // Jam live
+  updateDateTime();
+  setInterval(updateDateTime, 1000);
+
+  // Render konten
   const todayName = DAY_NAMES[new Date().getDay()];
-  renderJadwal(DATA_JADWAL);
+  renderJadwal(DATA_JADWAL, todayName);
   renderPoster(DATA_POSTER, todayName);
   renderRenungan(DATA_RENUNGAN, todayName);
   renderGallery(DATA_GALLERY);
-  setupLightboxEvents();
+
+  // Lightbox & nav
+  setupLightbox();
+  setupNavHighlight();
 });
+
+// ── DATETIME ─────────────────────────────────────────────────────────────────
 
 function updateDateTime() {
   const el = document.getElementById("datetime");
   if (!el) return;
-  const now = new Date();
-  el.textContent = now.toLocaleString("id-ID", {
-    weekday: "long", day: "2-digit", month: "long", year: "numeric",
-    hour: "2-digit", minute: "2-digit", second: "2-digit"
+  el.textContent = new Date().toLocaleString("id-ID", {
+    weekday: "long",
+    day: "2-digit",
+    month: "long",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
   });
 }
 
-function renderJadwal(items) {
+// ── JADWAL ───────────────────────────────────────────────────────────────────
+
+function renderJadwal(items, todayName) {
   const container = document.getElementById("jadwal-list");
-  if (container) {
-    container.innerHTML = items.map(item => `
-      <article class="jadwal-card">
+  if (!container) return;
+
+  container.innerHTML = items
+    .map((item) => {
+      const isToday = item.hari === todayName;
+      return `
+      <article class="jadwal-card${isToday ? " jadwal-today" : ""}">
+        ${isToday ? '<span class="today-badge">Hari Ini</span>' : ""}
         <h3>${item.nama}</h3>
         <div class="jadwal-meta">
-          <div><strong>Hari:</strong> ${item.hari}</div>
-          <div><strong>Waktu:</strong> ${item.jam}</div>
-          <div><strong>Lokasi:</strong> ${item.lokasi}</div>
+          <div class="jadwal-row">
+            <span class="jadwal-label">Hari</span>
+            <span>${item.hari}</span>
+          </div>
+          <div class="jadwal-row">
+            <span class="jadwal-label">Waktu</span>
+            <span>${item.jam}</span>
+          </div>
+          <div class="jadwal-row">
+            <span class="jadwal-label">Lokasi</span>
+            <span>${item.lokasi}</span>
+          </div>
         </div>
-      </article>
-    `).join("");
-  }
+      </article>`;
+    })
+    .join("");
 }
+
+// ── POSTER ───────────────────────────────────────────────────────────────────
 
 function renderPoster(posterByDay, todayName) {
-  const posterImage = document.getElementById("poster-image");
-  const posterDay = document.getElementById("poster-day");
-  if (posterImage && posterDay) {
-    const posterSrc = posterByDay[todayName] || posterByDay["Minggu"];
-    posterDay.textContent = `Poster hari ${todayName}`;
-    posterImage.src = posterSrc;
-    posterImage.onerror = () => { posterImage.src = "https://placehold.co/800x1200?text=Poster+Not+Found"; };
-  }
+  const img = document.getElementById("poster-image");
+  const label = document.getElementById("poster-day");
+  if (!img || !label) return;
+
+  label.textContent = `Poster hari ${todayName}`;
+  img.src = posterByDay[todayName] ?? posterByDay["Minggu"];
+  img.onerror = () => {
+    img.src = "https://placehold.co/600x900/1d3a6b/ffffff?text=Poster+Tidak+Tersedia";
+  };
 }
 
-function renderRenungan(item, todayName) {
-  const renunganDay = document.getElementById("renungan-day");
-  if (renunganDay) renunganDay.textContent = `Renungan hari ${todayName}`;
-  document.getElementById("judul-id").textContent = item.judulId;
-  document.getElementById("ayat-id").textContent = item.ayatId;
-  document.getElementById("isi-id").textContent = item.isiId;
-  document.getElementById("judul-en").textContent = item.judulEn;
-  document.getElementById("ayat-en").textContent = item.ayatEn;
-  document.getElementById("isi-en").textContent = item.isiEn;
+// ── RENUNGAN ─────────────────────────────────────────────────────────────────
+
+function renderRenungan(data, todayName) {
+  setText("renungan-day", `Renungan hari ${todayName}`);
+  setText("judul-id", data.judulId);
+  setText("ayat-id",  data.ayatId);
+  setText("isi-id",   data.isiId);
+  setText("judul-en", data.judulEn);
+  setText("ayat-en",  data.ayatEn);
+  setText("isi-en",   data.isiEn);
 }
+
+function setText(id, value) {
+  const el = document.getElementById(id);
+  if (el) el.textContent = value;
+}
+
+// ── GALERI ───────────────────────────────────────────────────────────────────
 
 function renderGallery(items) {
-  const container = document.getElementById("gallery-track");
-  if (container) {
-    const doubleItems = [...items, ...items];
-    container.innerHTML = doubleItems.map((src, index) => `
-      <button class="gallery-item" type="button" onclick="openLightbox('${src}')">
-        <img src="${src}" alt="Foto ${index + 1}" loading="lazy" 
-             onerror="this.src='https://placehold.co/600x400?text=Foto+${index + 1}'" />
-      </button>
-    `).join("");
-  }
+  const track = document.getElementById("gallery-track");
+  if (!track) return;
+
+  // Gandakan agar loop seamless
+  const doubled = [...items, ...items];
+  track.innerHTML = doubled
+    .map(
+      (src, i) => `
+      <button class="gallery-item" type="button"
+              onclick="openLightbox('${src}')"
+              aria-label="Lihat foto ${(i % items.length) + 1}">
+        <img src="${src}"
+             alt="Foto kegiatan ${(i % items.length) + 1}"
+             loading="lazy"
+             onerror="this.src='https://placehold.co/300x300/e7e3db/78716c?text=Foto'" />
+      </button>`
+    )
+    .join("");
 }
 
+// ── LIGHTBOX ─────────────────────────────────────────────────────────────────
+
 function openLightbox(src) {
-  const lightbox = document.getElementById("lightbox");
-  const image = document.getElementById("lightbox-img");
-  if (lightbox && image) {
-    image.src = src;
-    lightbox.classList.add("active");
-    document.body.style.overflow = "hidden";
-  }
+  const lb  = document.getElementById("lightbox");
+  const img = document.getElementById("lightbox-img");
+  if (!lb || !img) return;
+  img.src = src;
+  lb.classList.add("active");
+  document.body.style.overflow = "hidden";
 }
 
 function openLightboxFromElement(elementId) {
   const el = document.getElementById(elementId);
-  if (el && el.src) openLightbox(el.src);
+  if (el?.src) openLightbox(el.src);
 }
 
 function closeLightbox() {
-  const lightbox = document.getElementById("lightbox");
-  if (lightbox) {
-    lightbox.classList.remove("active");
-    document.body.style.overflow = "";
-  }
+  const lb = document.getElementById("lightbox");
+  if (!lb) return;
+  lb.classList.remove("active");
+  document.body.style.overflow = "";
 }
 
-function setupLightboxEvents() {
-  const lightbox = document.getElementById("lightbox");
-  if (lightbox) {
-    lightbox.addEventListener("click", (e) => { if (e.target === lightbox) closeLightbox(); });
-  }
-  document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeLightbox(); });
+function setupLightbox() {
+  // Klik background → tutup
+  document.getElementById("lightbox")?.addEventListener("click", (e) => {
+    if (e.target.id === "lightbox") closeLightbox();
+  });
+  // ESC → tutup
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") closeLightbox();
+  });
+}
+
+// ── NAV HIGHLIGHT (scroll spy) ────────────────────────────────────────────────
+
+function setupNavHighlight() {
+  const sections = ["jadwal", "poster", "renungan", "galeri"];
+  const links    = document.querySelectorAll(".nav-link");
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          links.forEach((l) => l.classList.remove("active"));
+          const active = document.querySelector(`.nav-link[href="#${entry.target.id}"]`);
+          if (active) active.classList.add("active");
+        }
+      });
+    },
+    { rootMargin: "-40% 0px -55% 0px" }
+  );
+
+  sections.forEach((id) => {
+    const el = document.getElementById(id);
+    if (el) observer.observe(el);
+  });
 }
