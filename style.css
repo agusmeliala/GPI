@@ -5,26 +5,42 @@
   --muted: #64748b;
   --line: #e2e8f0;
   --primary: #2563eb;
-  --shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  --shadow: 0 6px 24px rgba(0, 0, 0, 0.06);
   --radius: 16px;
-  /* Lebar maksimal disamakan dengan Kop Surat agar lurus dari atas ke bawah */
-  --content-width: 800px; 
+
+  --content-width: 820px; /* sedikit diperbesar biar lega */
 }
 
-* { box-sizing: border-box; }
-body { margin: 0; background: var(--bg); color: var(--text); font-family: 'Plus Jakarta Sans', sans-serif; line-height: 1.6; }
+/* RESET */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
 
-/* WRAPPER UTAMA - KUNCI KERAPIAN */
-.header-inner, .main-wrapper, .footer-inner {
-  width: 92%;
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  line-height: 1.6;
+}
+
+/* WRAPPER GLOBAL (INI KUNCI KERAPIAN) */
+.header-inner,
+.main-wrapper,
+.footer-inner {
+  width: 100%;
   max-width: var(--content-width);
   margin: 0 auto;
+  padding: 0 14px;
 }
 
-/* HEADER */
+/* ================= HEADER ================= */
 .site-header {
-  background: #ffffff;
-  padding: 15px 0;
+  background: rgba(255,255,255,0.95);
+  backdrop-filter: blur(6px);
+  padding: 14px 0 10px;
   border-bottom: 1px solid var(--line);
   position: sticky;
   top: 0;
@@ -35,98 +51,261 @@ body { margin: 0; background: var(--bg); color: var(--text); font-family: 'Plus 
   display: flex;
   flex-direction: column;
   width: 100%;
+  overflow: hidden;
 }
 
+/* KOP */
 .kop-surat {
   width: 100%;
   height: auto;
-  max-height: 140px;
+  max-height: 120px;
   object-fit: contain;
+  display: block;
 }
 
+/* DATETIME */
 .datetime-row {
   display: flex;
   justify-content: flex-end;
-  margin-top: 8px;
+  align-items: center;
+  margin-top: 6px;
 }
 
 .datetime-box {
+  max-width: 100%;
+  overflow: hidden;
+  text-align: right;
   background: #f1f5f9;
   border: 1px solid var(--line);
-  padding: 4px 10px;
+  padding: 5px 10px;
   border-radius: 6px;
 }
 
 #datetime {
   font-size: 11px;
-  font-weight: 800;
+  font-weight: 700;
   color: #475569;
   white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-/* KONTEN BERKARTU */
+/* ================= MAIN ================= */
 .main-wrapper {
-  padding: 20px 0;
+  padding: 22px 0;
   display: grid;
   gap: 20px;
 }
 
+/* CARD */
 .section-card {
   background: var(--card);
   border: 1px solid var(--line);
   border-radius: var(--radius);
-  padding: 25px;
+  padding: 24px;
   box-shadow: var(--shadow);
 }
 
-.section-head h2 { margin: 0 0 5px; font-size: 20px; font-weight: 800; color: #0f172a; }
-.section-head p { margin: 0 0 20px; color: var(--muted); font-size: 13px; }
+.section-head h2 {
+  margin: 0 0 6px;
+  font-size: 20px;
+  font-weight: 800;
+}
 
-/* JADWAL */
-.jadwal-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; }
-.jadwal-card { border: 1px solid var(--line); border-radius: 12px; padding: 15px; background: #fbfcfd; }
-.jadwal-card h3 { margin: 0 0 8px; font-size: 15px; font-weight: 700; color: var(--primary); }
-.jadwal-meta { font-size: 12px; color: #334155; }
+.section-head p {
+  margin: 0 0 18px;
+  color: var(--muted);
+  font-size: 13px;
+}
 
-/* POSTER */
-.poster-wrap { display: flex; justify-content: center; }
-.poster-button { width: min(100%, 350px); border-radius: 12px; overflow: hidden; border: none; padding: 0; cursor: pointer; }
-.poster-image { width: 100%; aspect-ratio: 2/3; object-fit: cover; transition: transform 0.3s; }
-.poster-image:hover { transform: scale(1.02); }
+/* ================= JADWAL ================= */
+.jadwal-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
 
-/* RENUNGAN */
-.renungan-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-.renungan-card { border: 1px solid var(--line); border-radius: 12px; padding: 20px; background: #fbfcfd; }
-.language-badge { display: inline-block; margin-bottom: 10px; padding: 4px 10px; border-radius: 6px; background: #e0f2fe; color: #0369a1; font-size: 10px; font-weight: 800; text-transform: uppercase; }
-.language-badge.english { background: #fee2e2; color: #b91c1c; }
-.ayat { font-weight: 800; color: var(--primary); margin: 10px 0; font-size: 14px; }
-.isi-renungan { font-size: 14px; color: #334155; margin: 0; }
+.jadwal-card {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 14px;
+  background: #fbfcfd;
+}
 
-/* GALERI SLIDER */
-.gallery-slider-container { width: 100%; overflow: hidden; }
-.gallery-track { display: flex; gap: 12px; animation: scroll-left 40s linear infinite; width: max-content; }
-.gallery-item { flex: 0 0 160px; border-radius: 10px; overflow: hidden; cursor: pointer; border: none; padding: 0; }
-.gallery-item img { width: 100%; aspect-ratio: 1/1; object-fit: cover; }
+.jadwal-card h3 {
+  margin: 0 0 6px;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+.jadwal-meta {
+  font-size: 12px;
+  color: #334155;
+}
+
+/* ================= POSTER ================= */
+.poster-wrap {
+  display: flex;
+  justify-content: center;
+}
+
+.poster-button {
+  width: min(100%, 340px);
+  border-radius: 12px;
+  overflow: hidden;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.poster-image {
+  width: 100%;
+  aspect-ratio: 2/3;
+  object-fit: cover;
+  transition: transform 0.25s;
+}
+
+.poster-image:hover {
+  transform: scale(1.03);
+}
+
+/* ================= RENUNGAN ================= */
+.renungan-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+
+.renungan-card {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 18px;
+  background: #fbfcfd;
+}
+
+.language-badge {
+  display: inline-block;
+  margin-bottom: 8px;
+  padding: 4px 10px;
+  border-radius: 6px;
+  background: #e0f2fe;
+  color: #0369a1;
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.language-badge.english {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+.ayat {
+  font-weight: 800;
+  color: var(--primary);
+  margin: 8px 0;
+  font-size: 14px;
+}
+
+.isi-renungan {
+  font-size: 14px;
+  color: #334155;
+}
+
+/* ================= GALERI ================= */
+.gallery-slider-container {
+  width: 100%;
+  overflow: hidden;
+}
+
+.gallery-track {
+  display: flex;
+  gap: 12px;
+  animation: scroll-left 40s linear infinite;
+}
+
+.gallery-item {
+  flex: 0 0 150px;
+  border-radius: 10px;
+  overflow: hidden;
+  border: none;
+}
+
+.gallery-item img {
+  width: 100%;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+}
 
 @keyframes scroll-left {
   0% { transform: translateX(0); }
   100% { transform: translateX(-50%); }
 }
 
-/* FOOTER */
-.site-footer { background: #ffffff; border-top: 1px solid var(--line); padding: 25px 0; margin-top: 20px; }
-.footer-inner { display: flex; justify-content: space-between; font-size: 12px; color: var(--muted); }
+/* ================= FOOTER ================= */
+.site-footer {
+  background: #ffffff;
+  border-top: 1px solid var(--line);
+  padding: 24px 0;
+  margin-top: 20px;
+}
 
-/* LIGHTBOX */
-.lightbox { position: fixed; inset: 0; background: rgba(0,0,0,0.95); display: none; align-items: center; justify-content: center; z-index: 1000; }
-.lightbox.active { display: flex; }
-.lightbox-image { max-width: 90%; max-height: 85vh; border-radius: 8px; }
-.lightbox-close { position: absolute; top: 20px; right: 20px; color: white; font-size: 30px; background: none; border: none; cursor: pointer; }
+.footer-inner {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: var(--muted);
+}
 
-/* RESPONSIVE */
+/* ================= LIGHTBOX ================= */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.95);
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+.lightbox.active {
+  display: flex;
+}
+
+.lightbox-image {
+  max-width: 90%;
+  max-height: 85vh;
+  border-radius: 8px;
+}
+
+.lightbox-close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  color: white;
+  font-size: 28px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+/* ================= RESPONSIVE ================= */
 @media (max-width: 768px) {
-  .kop-surat { max-height: 90px; }
-  .jadwal-grid, .renungan-grid { grid-template-columns: 1fr; }
-  .footer-inner { flex-direction: column; text-align: center; gap: 8px; }
-  .section-card { padding: 20px; }
+  .kop-surat {
+    max-height: 85px;
+  }
+
+  .jadwal-grid,
+  .renungan-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-inner {
+    flex-direction: column;
+    text-align: center;
+    gap: 6px;
+  }
+
+  .section-card {
+    padding: 18px;
+  }
 }
