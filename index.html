@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#1d3a6b" />
   <title>GPI Jemaat Bersinar</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -29,10 +30,10 @@
   <!-- ══════════ NAV ══════════ -->
   <nav class="site-nav">
     <div class="nav-inner">
-      <a href="#jadwal" class="nav-link">Jadwal</a>
-      <a href="#poster" class="nav-link">Poster</a>
+      <a href="#jadwal"   class="nav-link">Jadwal</a>
+      <a href="#poster"   class="nav-link">Poster</a>
       <a href="#renungan" class="nav-link">Renungan</a>
-      <a href="#galeri" class="nav-link">Galeri</a>
+      <a href="#galeri"   class="nav-link">Galeri</a>
     </div>
   </nav>
 
@@ -40,7 +41,7 @@
   <main class="main-wrapper">
 
     <!-- JADWAL -->
-    <section class="section-card fade-in" id="jadwal">
+    <section class="section-card" id="jadwal">
       <div class="section-head">
         <div class="section-icon">🕊</div>
         <div>
@@ -52,7 +53,7 @@
     </section>
 
     <!-- POSTER -->
-    <section class="section-card fade-in" id="poster" style="--delay:.1s">
+    <section class="section-card" id="poster">
       <div class="section-head">
         <div class="section-icon">📋</div>
         <div>
@@ -61,7 +62,9 @@
         </div>
       </div>
       <div class="poster-wrap">
-        <button class="poster-button" type="button" onclick="openLightboxFromElement('poster-image')" aria-label="Lihat poster penuh">
+        <button class="poster-button" type="button"
+                onclick="openLightboxFromElement('poster-image')"
+                aria-label="Lihat poster penuh">
           <img id="poster-image" src="" alt="Poster Harian" class="poster-image" />
           <div class="poster-overlay"><span>🔍 Lihat Penuh</span></div>
         </button>
@@ -69,7 +72,7 @@
     </section>
 
     <!-- RENUNGAN -->
-    <section class="section-card fade-in" id="renungan" style="--delay:.2s">
+    <section class="section-card" id="renungan">
       <div class="section-head">
         <div class="section-icon">📖</div>
         <div>
@@ -94,7 +97,7 @@
     </section>
 
     <!-- GALERI -->
-    <section class="section-card fade-in" id="galeri" style="--delay:.3s">
+    <section class="section-card" id="galeri">
       <div class="section-head">
         <div class="section-icon">🖼</div>
         <div>
