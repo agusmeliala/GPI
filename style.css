@@ -356,28 +356,34 @@ a { text-decoration: none; }
   flex-wrap: nowrap;
   gap: 10px;
   width: max-content;
-  animation: scrollGallery 50s linear infinite;
+  animation: scrollGallery 80s linear infinite;
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
 .gallery-track:hover { animation-play-state: paused; }
 @keyframes scrollGallery {
-  0%   { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+  0%   { transform: translate3d(0, 0, 0); }
+  100% { transform: translate3d(-50%, 0, 0); }
 }
 .gallery-item {
-  flex: 0 0 130px;
+  flex: 0 0 140px;
   border-radius: 9px;
   overflow: hidden;
   border: none;
   padding: 0;
   cursor: pointer;
   background: none;
+  transform: translateZ(0);
 }
 .gallery-item img {
   display: block;
   width: 100%;
   aspect-ratio: 1 / 1;
   object-fit: cover;
-  transition: transform .3s;
+  transition: transform .5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  will-change: transform;
 }
 .gallery-item:hover img { transform: scale(1.08); }
 .gallery-fade-left,
@@ -508,4 +514,20 @@ a { text-decoration: none; }
   .kop-surat { max-height: 88px; }
   #datetime  { font-size: 8.5px; }
   .nav-link  { padding: 9px 11px; font-size: 10px; }
+}
+
+/* ══════════════════════════════
+   DESKTOP ≥ 769px — Gallery smooth
+══════════════════════════════ */
+@media (min-width: 769px) {
+  .gallery-track {
+    animation-duration: 100s;
+  }
+  .gallery-item {
+    flex: 0 0 150px;
+  }
+  .gallery-fade-left,
+  .gallery-fade-right {
+    width: 72px;
+  }
 }
