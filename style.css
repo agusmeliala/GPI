@@ -270,8 +270,8 @@ a { text-decoration: none; }
 .poster-image {
   display: block;
   width: 100%;
-  aspect-ratio: 2 / 3;
-  object-fit: cover;
+  height: auto;
+  object-fit: contain;
   transition: transform .3s;
 }
 .poster-button:hover .poster-image { transform: scale(1.04); }
