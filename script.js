@@ -25,7 +25,8 @@ const POSTER_FALLBACK = "https://placehold.co/600x900/1d3a6b/ffffff?text=Poster+
 
 const SHEET_CSV_URL        = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQFIUh2QfaXXotiABXis5PBDhbQ60SKk0EU2UP8gKuct1Xu42Jg9rMVdG86adkixDjy3OZM3ONvtbFJ/pub?gid=0&single=true&output=csv";
 const SHEET_JADWAL_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQFIUh2QfaXXotiABXis5PBDhbQ60SKk0EU2UP8gKuct1Xu42Jg9rMVdG86adkixDjy3OZM3ONvtbFJ/pub?gid=1543437216&single=true&output=csv";
-const SHEET_POSTER_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQFIUh2QfaXXotiABXis5PBDhbQ60SKk0EU2UP8gKuct1Xu42Jg9rMVdG86adkixDjy3OZM3ONvtbFJ/pub?gid=1813489839&single=true&output=csv";
+const SHEET_POSTER_CSV_URL  = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQFIUh2QfaXXotiABXis5PBDhbQ60SKk0EU2UP8gKuct1Xu42Jg9rMVdG86adkixDjy3OZM3ONvtbFJ/pub?gid=1813489839&single=true&output=csv";
+const SHEET_GALERI_CSV_URL  = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQFIUh2QfaXXotiABXis5PBDhbQ60SKk0EU2UP8gKuct1Xu42Jg9rMVdG86adkixDjy3OZM3ONvtbFJ/pub?gid=492840688&single=true&output=csv";
 
 // Fallback renungan (tampil jika gagal load dari Sheets)
 const RENUNGAN_FALLBACK = {
@@ -37,8 +38,6 @@ const RENUNGAN_FALLBACK = {
   isiEn:   "My grace is sufficient for you, for my power is made perfect in weakness.",
 };
 
-// 30 foto dari repo
-const DATA_GALLERY = Array.from({ length: 30 }, (_, i) => `images/foto${i + 1}.jpg`);
 
 // ── INIT ─────────────────────────────────────────────────────────────────────
 
@@ -53,12 +52,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Render konten statis
   const todayName = DAY_NAMES[new Date().getDay()];
-  renderGallery(DATA_GALLERY);
+
 
   // Render dari Google Sheets
   loadJadwalFromSheets(todayName);
   loadPosterFromSheets(todayName);
   loadRenunganFromSheets(todayName);
+  loadGaleriFromSheets();
 
   // Lightbox & nav
   setupLightbox();
@@ -278,6 +278,32 @@ function renderRenungan(data, todayName) {
 function setText(id, value) {
   const el = document.getElementById(id);
   if (el) el.textContent = value;
+}
+
+// ── GALERI LOADER ─────────────────────────────────────────────────────────────
+
+async function loadGaleriFromSheets() {
+  try {
+    const response = await fetch(SHEET_GALERI_CSV_URL);
+    if (!response.ok) throw new Error("Gagal mengambil data galeri");
+
+    const csvText = await response.text();
+    const lines   = csvText.split(/\r?\n/).filter(l => l.trim());
+
+    // Lewati baris header (baris pertama: "Link")
+    const links = lines.slice(1)
+      .map(l => l.replace(/^"|"$/g, "").trim())
+      .filter(l => l.startsWith("http"));
+
+    if (links.length === 0) throw new Error("Data galeri kosong");
+    renderGallery(links);
+
+  } catch (err) {
+    console.warn("Gagal load galeri dari Sheets:", err.message);
+    // Fallback ke foto dari repo
+    const fallback = Array.from({ length: 30 }, (_, i) => `images/foto${i + 1}.jpg`);
+    renderGallery(fallback);
+  }
 }
 
 // ── GALERI ───────────────────────────────────────────────────────────────────
