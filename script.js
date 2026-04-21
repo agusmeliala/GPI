@@ -9,10 +9,11 @@
 
 const DAY_NAMES = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"];
 
-const DATA_JADWAL = [
-  { hari: "Minggu",  nama: "Ibadah Raya",          jam: "10.30 WIB", lokasi: "Gereja" },
-  { hari: "Selasa",  nama: "Ibadah Rumah Tangga",   jam: "19.00 WIB", lokasi: "Rumah Jemaat" },
-  { hari: "Jumat",   nama: "Persekutuan Doa",       jam: "19.00 WIB", lokasi: "Gereja" },
+// Fallback jadwal (tampil jika gagal load dari Sheets)
+const JADWAL_FALLBACK = [
+  { hari: "Minggu",  nama: "Ibadah Raya",        jam: "10.30 WIB", lokasi: "Gereja" },
+  { hari: "Selasa",  nama: "Ibadah Rumah Tangga", jam: "19.00 WIB", lokasi: "Rumah Jemaat" },
+  { hari: "Jumat",   nama: "Persekutuan Doa",     jam: "19.00 WIB", lokasi: "Gereja" },
 ];
 
 const DATA_POSTER = {
@@ -26,9 +27,11 @@ const DATA_POSTER = {
 };
 
 // ── GOOGLE SHEETS CONFIG ─────────────────────────────────────────────────────
-// URL CSV langsung dari Google Sheets (sudah dipublish)
+// Sheet "Renungan" → renungan harian
+// Sheet "Jadwal"   → jadwal ibadah (gid akan diisi setelah sheet dibuat)
 
-const SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQFIUh2QfaXXotiABXis5PBDhbQ60SKk0EU2UP8gKuct1Xu42Jg9rMVdG86adkixDjy3OZM3ONvtbFJ/pub?gid=0&single=true&output=csv";
+const SHEET_CSV_URL        = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQFIUh2QfaXXotiABXis5PBDhbQ60SKk0EU2UP8gKuct1Xu42Jg9rMVdG86adkixDjy3OZM3ONvtbFJ/pub?gid=0&single=true&output=csv";
+const SHEET_JADWAL_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQFIUh2QfaXXotiABXis5PBDhbQ60SKk0EU2UP8gKuct1Xu42Jg9rMVdG86adkixDjy3OZM3ONvtbFJ/pub?gid=1543437216&single=true&output=csv";
 
 // Fallback renungan (tampil jika gagal load dari Sheets)
 const RENUNGAN_FALLBACK = {
@@ -56,11 +59,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Render konten statis
   const todayName = DAY_NAMES[new Date().getDay()];
-  renderJadwal(DATA_JADWAL, todayName);
   renderPoster(DATA_POSTER, todayName);
   renderGallery(DATA_GALLERY);
 
-  // Render renungan dari Google Sheets
+  // Render dari Google Sheets
+  loadJadwalFromSheets(todayName);
   loadRenunganFromSheets(todayName);
 
   // Lightbox & nav
@@ -82,6 +85,35 @@ function updateDateTime() {
     minute: "2-digit",
     second: "2-digit",
   });
+}
+
+// ── JADWAL LOADER ─────────────────────────────────────────────────────────────
+
+async function loadJadwalFromSheets(todayName) {
+  try {
+    const response = await fetch(SHEET_JADWAL_CSV_URL);
+    if (!response.ok) throw new Error("Gagal mengambil jadwal");
+
+    const csvText = await response.text();
+    const rows    = parseCSV(csvText);
+
+    // Kolom: Nama Ibadah | Hari | Jam | Lokasi
+    const items = rows
+      .filter(row => row[0]?.trim())
+      .map(row => ({
+        nama:   row[0]?.trim() || "",
+        hari:   row[1]?.trim() || "",
+        jam:    row[2]?.trim() || "",
+        lokasi: row[3]?.trim() || "",
+      }));
+
+    if (items.length === 0) throw new Error("Data jadwal kosong");
+    renderJadwal(items, todayName);
+
+  } catch (err) {
+    console.warn("Gagal load jadwal dari Sheets, pakai fallback:", err.message);
+    renderJadwal(JADWAL_FALLBACK, todayName);
+  }
 }
 
 // ── GOOGLE SHEETS LOADER ─────────────────────────────────────────────────────
