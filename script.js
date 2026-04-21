@@ -312,8 +312,11 @@ function renderGallery(items) {
   const track = document.getElementById("gallery-track");
   if (!track) return;
 
-  const doubled = [...items, ...items];
-  track.innerHTML = doubled
+  // Gandakan foto minimal 4x agar loop seamless di semua ukuran layar
+  const copies = Math.max(4, Math.ceil(60 / items.length));
+  const repeated = Array.from({ length: copies }, () => items).flat();
+
+  track.innerHTML = repeated
     .map(
       (src, i) => `
       <button class="gallery-item" type="button"
@@ -326,6 +329,27 @@ function renderGallery(items) {
       </button>`
     )
     .join("");
+
+  // Hitung ulang animasi: geser sejumlah 1 set foto (1/copies dari total)
+  const pct = (1 / copies * 100).toFixed(4);
+  // Update keyframe animasi secara dinamis
+  let styleEl = document.getElementById("gallery-keyframe");
+  if (!styleEl) {
+    styleEl = document.createElement("style");
+    styleEl.id = "gallery-keyframe";
+    document.head.appendChild(styleEl);
+  }
+  styleEl.textContent = `
+    @keyframes scrollGallery {
+      0%   { transform: translate3d(0, 0, 0); }
+      100% { transform: translate3d(-${pct}%, 0, 0); }
+    }
+  `;
+
+  // Reset animasi agar langsung berlaku
+  track.style.animation = "none";
+  track.offsetHeight; // reflow
+  track.style.animation = "";
 }
 
 // ── LIGHTBOX ─────────────────────────────────────────────────────────────────
