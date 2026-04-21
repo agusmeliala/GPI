@@ -16,15 +16,8 @@ const JADWAL_FALLBACK = [
   { hari: "Jumat",   nama: "Persekutuan Doa",     jam: "19.00 WIB", lokasi: "Gereja" },
 ];
 
-const DATA_POSTER = {
-  "Senin":   "images/poster1.jpg",
-  "Selasa":  "images/poster2.jpg",
-  "Rabu":    "images/poster3.jpg",
-  "Kamis":   "images/poster4.jpg",
-  "Jumat":   "images/poster5.jpg",
-  "Sabtu":   "images/poster6.jpg",
-  "Minggu":  "images/poster7.jpg",
-};
+// Fallback poster jika gagal load dari Sheets
+const POSTER_FALLBACK = "https://placehold.co/600x900/1d3a6b/ffffff?text=Poster+Tidak+Tersedia";
 
 // ── GOOGLE SHEETS CONFIG ─────────────────────────────────────────────────────
 // Sheet "Renungan" → renungan harian
@@ -32,6 +25,7 @@ const DATA_POSTER = {
 
 const SHEET_CSV_URL        = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQFIUh2QfaXXotiABXis5PBDhbQ60SKk0EU2UP8gKuct1Xu42Jg9rMVdG86adkixDjy3OZM3ONvtbFJ/pub?gid=0&single=true&output=csv";
 const SHEET_JADWAL_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQFIUh2QfaXXotiABXis5PBDhbQ60SKk0EU2UP8gKuct1Xu42Jg9rMVdG86adkixDjy3OZM3ONvtbFJ/pub?gid=1543437216&single=true&output=csv";
+const SHEET_POSTER_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQFIUh2QfaXXotiABXis5PBDhbQ60SKk0EU2UP8gKuct1Xu42Jg9rMVdG86adkixDjy3OZM3ONvtbFJ/pub?gid=1813489839&single=true&output=csv";
 
 // Fallback renungan (tampil jika gagal load dari Sheets)
 const RENUNGAN_FALLBACK = {
@@ -59,11 +53,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Render konten statis
   const todayName = DAY_NAMES[new Date().getDay()];
-  renderPoster(DATA_POSTER, todayName);
   renderGallery(DATA_GALLERY);
 
   // Render dari Google Sheets
   loadJadwalFromSheets(todayName);
+  loadPosterFromSheets(todayName);
   loadRenunganFromSheets(todayName);
 
   // Lightbox & nav
@@ -85,6 +79,36 @@ function updateDateTime() {
     minute: "2-digit",
     second: "2-digit",
   });
+}
+
+// ── POSTER LOADER ─────────────────────────────────────────────────────────────
+
+async function loadPosterFromSheets(todayName) {
+  const img   = document.getElementById("poster-image");
+  const label = document.getElementById("poster-day");
+  if (!img || !label) return;
+
+  label.textContent = `Poster hari ${todayName}`;
+
+  try {
+    const response = await fetch(SHEET_POSTER_CSV_URL);
+    if (!response.ok) throw new Error("Gagal mengambil data poster");
+
+    const csvText = await response.text();
+    const rows    = parseCSV(csvText);
+
+    // Kolom: A=Hari, B=Link
+    const todayRow = rows.find(row => row[0]?.trim() === todayName);
+
+    if (!todayRow || !todayRow[1]?.trim()) throw new Error("Poster hari ini tidak ditemukan");
+
+    img.src = todayRow[1].trim();
+    img.onerror = () => { img.src = POSTER_FALLBACK; };
+
+  } catch (err) {
+    console.warn("Gagal load poster dari Sheets:", err.message);
+    img.src = POSTER_FALLBACK;
+  }
 }
 
 // ── JADWAL LOADER ─────────────────────────────────────────────────────────────
@@ -237,20 +261,6 @@ function renderJadwal(items, todayName) {
       </article>`;
     })
     .join("");
-}
-
-// ── POSTER ───────────────────────────────────────────────────────────────────
-
-function renderPoster(posterByDay, todayName) {
-  const img   = document.getElementById("poster-image");
-  const label = document.getElementById("poster-day");
-  if (!img || !label) return;
-
-  label.textContent = `Poster hari ${todayName}`;
-  img.src = posterByDay[todayName] ?? posterByDay["Minggu"];
-  img.onerror = () => {
-    img.src = "https://placehold.co/600x900/1d3a6b/ffffff?text=Poster+Tidak+Tersedia";
-  };
 }
 
 // ── RENUNGAN ─────────────────────────────────────────────────────────────────
