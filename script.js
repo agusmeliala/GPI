@@ -131,8 +131,8 @@ function parseCSV(text) {
   const rows = [];
   const lines = text.split(/\r?\n/).filter(l => l.trim());
 
-  // Lewati baris header (baris pertama)
-  for (let i = 1; i < lines.length; i++) {
+  // Tidak ada header — baca langsung dari baris pertama
+  for (let i = 0; i < lines.length; i++) {
     const row = [];
     let current = "";
     let inQuotes = false;
