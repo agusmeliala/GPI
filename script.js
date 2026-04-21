@@ -26,13 +26,9 @@ const DATA_POSTER = {
 };
 
 // ── GOOGLE SHEETS CONFIG ─────────────────────────────────────────────────────
-// Ganti SHEET_ID dengan ID Google Sheet Anda
-// Cara dapat ID: buka Sheet → lihat URL → bagian antara /d/ dan /edit
-// Contoh URL: https://docs.google.com/spreadsheets/d/1abc123XYZ.../edit
-// Maka SHEET_ID = "1abc123XYZ..."
+// URL CSV langsung dari Google Sheets (sudah dipublish)
 
-const SHEET_ID  = "GANTI_DENGAN_ID_SHEET_ANDA";
-const SHEET_CSV_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=Renungan`;
+const SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQFIUh2QfaXXotiABXis5PBDhbQ60SKk0EU2UP8gKuct1Xu42Jg9rMVdG86adkixDjy3OZM3ONvtbFJ/pub?gid=0&single=true&output=csv";
 
 // Fallback renungan (tampil jika gagal load dari Sheets)
 const RENUNGAN_FALLBACK = {
