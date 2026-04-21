@@ -1,5 +1,6 @@
 /* ═══════════════════════════════════════════
    GPI Jemaat Bersinar — script.js
+   Renungan Harian via Google Sheets
    ═══════════════════════════════════════════ */
 
 "use strict";
@@ -24,7 +25,17 @@ const DATA_POSTER = {
   "Minggu":  "images/poster7.jpg",
 };
 
-const DATA_RENUNGAN = {
+// ── GOOGLE SHEETS CONFIG ─────────────────────────────────────────────────────
+// Ganti SHEET_ID dengan ID Google Sheet Anda
+// Cara dapat ID: buka Sheet → lihat URL → bagian antara /d/ dan /edit
+// Contoh URL: https://docs.google.com/spreadsheets/d/1abc123XYZ.../edit
+// Maka SHEET_ID = "1abc123XYZ..."
+
+const SHEET_ID  = "GANTI_DENGAN_ID_SHEET_ANDA";
+const SHEET_CSV_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=Renungan`;
+
+// Fallback renungan (tampil jika gagal load dari Sheets)
+const RENUNGAN_FALLBACK = {
   judulId: "Kekuatan dalam Kelemahan",
   ayatId:  "2 Korintus 12:9",
   isiId:   "Cukuplah kasih karunia-Ku bagimu; sebab justru dalam kelemahanlah kuasa-Ku menjadi sempurna.",
@@ -47,12 +58,14 @@ document.addEventListener("DOMContentLoaded", () => {
   updateDateTime();
   setInterval(updateDateTime, 1000);
 
-  // Render konten
+  // Render konten statis
   const todayName = DAY_NAMES[new Date().getDay()];
   renderJadwal(DATA_JADWAL, todayName);
   renderPoster(DATA_POSTER, todayName);
-  renderRenungan(DATA_RENUNGAN, todayName);
   renderGallery(DATA_GALLERY);
+
+  // Render renungan dari Google Sheets
+  loadRenunganFromSheets(todayName);
 
   // Lightbox & nav
   setupLightbox();
@@ -72,6 +85,97 @@ function updateDateTime() {
     hour: "2-digit",
     minute: "2-digit",
     second: "2-digit",
+  });
+}
+
+// ── GOOGLE SHEETS LOADER ─────────────────────────────────────────────────────
+
+async function loadRenunganFromSheets(todayName) {
+  // Tampilkan loading state
+  showRenunganLoading();
+
+  try {
+    const response = await fetch(SHEET_CSV_URL);
+    if (!response.ok) throw new Error("Gagal mengambil data");
+
+    const csvText = await response.text();
+    const rows    = parseCSV(csvText);
+
+    // Cari baris sesuai hari ini
+    // Kolom: Hari | Judul ID | Ayat ID | Isi ID | Judul EN | Ayat EN | Isi EN
+    const todayRow = rows.find(row => row[0]?.trim() === todayName);
+
+    if (!todayRow) {
+      console.warn("Renungan untuk hari", todayName, "tidak ditemukan di Sheets.");
+      renderRenungan(RENUNGAN_FALLBACK, todayName);
+      return;
+    }
+
+    const data = {
+      judulId: todayRow[1]?.trim() || RENUNGAN_FALLBACK.judulId,
+      ayatId:  todayRow[2]?.trim() || RENUNGAN_FALLBACK.ayatId,
+      isiId:   todayRow[3]?.trim() || RENUNGAN_FALLBACK.isiId,
+      judulEn: todayRow[4]?.trim() || RENUNGAN_FALLBACK.judulEn,
+      ayatEn:  todayRow[5]?.trim() || RENUNGAN_FALLBACK.ayatEn,
+      isiEn:   todayRow[6]?.trim() || RENUNGAN_FALLBACK.isiEn,
+    };
+
+    renderRenungan(data, todayName);
+
+  } catch (err) {
+    console.error("Error loading renungan:", err);
+    // Tampilkan fallback jika error
+    renderRenungan(RENUNGAN_FALLBACK, todayName);
+    showRenunganError();
+  }
+}
+
+// Parser CSV sederhana (handle tanda kutip & koma dalam teks)
+function parseCSV(text) {
+  const rows = [];
+  const lines = text.split(/\r?\n/).filter(l => l.trim());
+
+  // Lewati baris header (baris pertama)
+  for (let i = 1; i < lines.length; i++) {
+    const row = [];
+    let current = "";
+    let inQuotes = false;
+
+    for (let j = 0; j < lines[i].length; j++) {
+      const char = lines[i][j];
+      if (char === '"') {
+        inQuotes = !inQuotes;
+      } else if (char === ',' && !inQuotes) {
+        row.push(current);
+        current = "";
+      } else {
+        current += char;
+      }
+    }
+    row.push(current);
+    if (row.length > 1) rows.push(row);
+  }
+
+  return rows;
+}
+
+function showRenunganLoading() {
+  setText("judul-id", "Memuat renungan...");
+  setText("ayat-id",  "");
+  setText("isi-id",   "");
+  setText("judul-en", "Loading devotional...");
+  setText("ayat-en",  "");
+  setText("isi-en",   "");
+}
+
+function showRenunganError() {
+  // Tambahkan catatan kecil bahwa ini adalah renungan cadangan
+  const cards = document.querySelectorAll(".renungan-card");
+  cards.forEach(card => {
+    const note = document.createElement("p");
+    note.style.cssText = "font-size:10px;color:#b91c1c;margin-top:8px;";
+    note.textContent = "⚠ Menampilkan renungan cadangan (periksa koneksi)";
+    card.appendChild(note);
   });
 }
 
@@ -110,7 +214,7 @@ function renderJadwal(items, todayName) {
 // ── POSTER ───────────────────────────────────────────────────────────────────
 
 function renderPoster(posterByDay, todayName) {
-  const img = document.getElementById("poster-image");
+  const img   = document.getElementById("poster-image");
   const label = document.getElementById("poster-day");
   if (!img || !label) return;
 
@@ -144,7 +248,6 @@ function renderGallery(items) {
   const track = document.getElementById("gallery-track");
   if (!track) return;
 
-  // Gandakan agar loop seamless
   const doubled = [...items, ...items];
   track.innerHTML = doubled
     .map(
@@ -185,11 +288,9 @@ function closeLightbox() {
 }
 
 function setupLightbox() {
-  // Klik background → tutup
   document.getElementById("lightbox")?.addEventListener("click", (e) => {
     if (e.target.id === "lightbox") closeLightbox();
   });
-  // ESC → tutup
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape") closeLightbox();
   });
