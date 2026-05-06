@@ -267,24 +267,28 @@ function renderJadwal(items, todayName) {
   container.innerHTML = items
     .map((item) => {
       const isToday = item.hari === todayName;
+      // Ambil 3 huruf singkatan hari
+      const hariSingkat = item.hari ? item.hari.substring(0, 3).toUpperCase() : "";
       return `
       <article class="jadwal-card${isToday ? " jadwal-today" : ""}">
-        ${isToday ? '<span class="today-badge">Hari Ini</span>' : ""}
-        <h3>${item.nama}</h3>
-        <div class="jadwal-meta">
-          <div class="jadwal-row">
-            <span class="jadwal-label">Hari</span>
-            <span>${item.hari}</span>
-          </div>
-          <div class="jadwal-row">
-            <span class="jadwal-label">Waktu</span>
-            <span>${item.jam}</span>
-          </div>
-          <div class="jadwal-row">
-            <span class="jadwal-label">Lokasi</span>
-            <span>${item.lokasi}</span>
+        <div class="jadwal-hari-badge">
+          <div>${hariSingkat}</div>
+          ${isToday ? '<div style="font-size:7px;margin-top:2px;opacity:.8">Hari Ini</div>' : ""}
+        </div>
+        <div class="jadwal-body">
+          <h3>${item.nama}${isToday ? '<span class="today-badge">Hari Ini</span>' : ""}</h3>
+          <div class="jadwal-meta">
+            <div class="jadwal-row">
+              <span class="jadwal-label">⏰</span>
+              <span>${item.jam}</span>
+            </div>
+            <div class="jadwal-row">
+              <span class="jadwal-label">📍</span>
+              <span>${item.lokasi}</span>
+            </div>
           </div>
         </div>
+        <div class="jadwal-right">${item.jam.split(" ")[0]}</div>
       </article>`;
     })
     .join("");
