@@ -185,30 +185,54 @@ async function loadRenunganFromSheets(todayName) {
   }
 }
 
-// Parser CSV sederhana (handle tanda kutip & koma dalam teks)
+// Parser CSV robust — handle quoted fields, escaped quotes (""), newline dalam field
 function parseCSV(text) {
   const rows = [];
-  const lines = text.split(/\r?\n/).filter(l => l.trim());
+  let i = 0;
 
-  // Tidak ada header — baca langsung dari baris pertama
-  for (let i = 0; i < lines.length; i++) {
+  while (i < text.length) {
     const row = [];
-    let current = "";
-    let inQuotes = false;
 
-    for (let j = 0; j < lines[i].length; j++) {
-      const char = lines[i][j];
-      if (char === '"') {
-        inQuotes = !inQuotes;
-      } else if (char === ',' && !inQuotes) {
-        row.push(current);
-        current = "";
+    while (i < text.length) {
+      let field = "";
+
+      if (text[i] === '"') {
+        i++; // skip opening quote
+        while (i < text.length) {
+          if (text[i] === '"') {
+            if (i + 1 < text.length && text[i + 1] === '"') {
+              field += '"';
+              i += 2;
+            } else {
+              i++;
+              break;
+            }
+          } else {
+            field += text[i];
+            i++;
+          }
+        }
       } else {
-        current += char;
+        while (i < text.length && text[i] !== ',' && text[i] !== '\n' && text[i] !== '\r') {
+          field += text[i];
+          i++;
+        }
+      }
+
+      row.push(field.trim());
+
+      if (i < text.length && text[i] === ',') {
+        i++;
+      } else {
+        if (i < text.length && text[i] === '\r') i++;
+        if (i < text.length && text[i] === '\n') i++;
+        break;
       }
     }
-    row.push(current);
-    if (row.length > 1) rows.push(row);
+
+    if (row.length > 1 && row.some(f => f !== "")) {
+      rows.push(row);
+    }
   }
 
   return rows;
@@ -371,8 +395,14 @@ async function loadArtikelFromSheets(todayName) {
     const csvText = await response.text();
     const rows    = parseCSV(csvText);
 
+    // Lewati baris header jika ada (baris pertama kolom[0] = "Hari")
+    const dataRows = rows.filter(row => row[0]?.trim() !== "Hari");
+
     // Kolom: Hari | Judul Utama | Sub1 Judul | Sub1 Isi | Sub1 Gambar | Sub2 Judul | Sub2 Isi | Sub2 Gambar
-    const todayRow = rows.find(row => row[0]?.trim() === todayName);
+    const todayRow = dataRows.find(row => row[0]?.trim() === todayName);
+
+    console.log("[Artikel] Total rows:", dataRows.length, "| Hari dicari:", todayName);
+    if (todayRow) console.log("[Artikel] Kolom tersedia:", todayRow.length, todayRow.map((v,i) => i+":"+v.substring(0,30)));
 
     if (!todayRow) throw new Error("Artikel hari ini tidak ditemukan");
 
@@ -385,6 +415,12 @@ async function loadArtikelFromSheets(todayName) {
       sub2Isi:    todayRow[6]?.trim() || "",
       sub2Gambar: todayRow[7]?.trim() || "",
     };
+
+    console.log("[Artikel] Data:", JSON.stringify({
+      judulUtama: artikel.judulUtama.substring(0,40),
+      sub1Judul: artikel.sub1Judul.substring(0,40),
+      sub2Judul: artikel.sub2Judul.substring(0,40),
+    }));
 
     renderArtikel(container, artikel);
 
