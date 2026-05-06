@@ -39,6 +39,8 @@ const RENUNGAN_FALLBACK = {
 };
 
 
+const SHEET_ARTIKEL_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQFIUh2QfaXXotiABXis5PBDhbQ60SKk0EU2UP8gKuct1Xu42Jg9rMVdG86adkixDjy3OZM3ONvtbFJ/pub?gid=533709958&single=true&output=csv";
+
 // ── INIT ─────────────────────────────────────────────────────────────────────
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -59,6 +61,7 @@ document.addEventListener("DOMContentLoaded", () => {
   loadPosterFromSheets(todayName);
   loadRenunganFromSheets(todayName);
   loadGaleriFromSheets();
+  loadArtikelFromSheets(todayName);
 
   // Lightbox & nav
   setupLightbox();
@@ -352,6 +355,72 @@ function renderGallery(items) {
   track.style.animation = "";
 }
 
+// ── ARTIKEL LOADER ────────────────────────────────────────────────────────────
+
+async function loadArtikelFromSheets(todayName) {
+  const container = document.getElementById("artikel-list");
+  const label     = document.getElementById("artikel-day");
+  if (!container || !label) return;
+
+  label.textContent = `Artikel hari ${todayName}`;
+
+  try {
+    const response = await fetch(SHEET_ARTIKEL_CSV_URL);
+    if (!response.ok) throw new Error("Gagal mengambil data artikel");
+
+    const csvText = await response.text();
+    const rows    = parseCSV(csvText);
+
+    // Kolom: Hari | Judul Utama | Sub1 Judul | Sub1 Isi | Sub1 Gambar | Sub2 Judul | Sub2 Isi | Sub2 Gambar
+    const todayRow = rows.find(row => row[0]?.trim() === todayName);
+
+    if (!todayRow) throw new Error("Artikel hari ini tidak ditemukan");
+
+    const artikel = {
+      judulUtama: todayRow[1]?.trim() || "",
+      sub1Judul:  todayRow[2]?.trim() || "",
+      sub1Isi:    todayRow[3]?.trim() || "",
+      sub1Gambar: todayRow[4]?.trim() || "",
+      sub2Judul:  todayRow[5]?.trim() || "",
+      sub2Isi:    todayRow[6]?.trim() || "",
+      sub2Gambar: todayRow[7]?.trim() || "",
+    };
+
+    renderArtikel(container, artikel);
+
+  } catch (err) {
+    console.warn("Gagal load artikel:", err.message);
+    container.innerHTML = `<p style="color:var(--muted);font-size:13px;text-align:center;padding:20px 0;">Artikel hari ini belum tersedia.</p>`;
+  }
+}
+
+function renderArtikel(container, a) {
+  const makeGambar = (src) => src
+    ? `<button class="artikel-img-btn" type="button" onclick="openLightbox('${src}')" aria-label="Lihat gambar penuh">
+         <img src="${src}" alt="Ilustrasi artikel" loading="lazy" onerror="this.parentElement.style.display='none'" />
+         <div class="artikel-img-overlay"><span>🔍 Lihat Penuh</span></div>
+       </button>`
+    : "";
+
+  container.innerHTML = `
+    ${a.judulUtama ? `<h3 class="artikel-judul-utama">${a.judulUtama}</h3>` : ""}
+    <div class="artikel-grid">
+      ${a.sub1Judul || a.sub1Isi ? `
+      <article class="artikel-card">
+        ${makeGambar(a.sub1Gambar)}
+        ${a.sub1Judul ? `<h4 class="artikel-sub-judul">${a.sub1Judul}</h4>` : ""}
+        ${a.sub1Isi   ? `<p  class="artikel-isi">${a.sub1Isi}</p>` : ""}
+      </article>` : ""}
+      ${a.sub2Judul || a.sub2Isi ? `
+      <article class="artikel-card">
+        ${makeGambar(a.sub2Gambar)}
+        ${a.sub2Judul ? `<h4 class="artikel-sub-judul">${a.sub2Judul}</h4>` : ""}
+        ${a.sub2Isi   ? `<p  class="artikel-isi">${a.sub2Isi}</p>` : ""}
+      </article>` : ""}
+    </div>
+  `;
+}
+
 // ── LIGHTBOX ─────────────────────────────────────────────────────────────────
 
 function openLightbox(src) {
@@ -387,7 +456,7 @@ function setupLightbox() {
 // ── NAV HIGHLIGHT (scroll spy) ────────────────────────────────────────────────
 
 function setupNavHighlight() {
-  const sections = ["jadwal", "poster", "renungan", "galeri"];
+  const sections = ["jadwal", "poster", "renungan", "galeri", "artikel"];
   const links    = document.querySelectorAll(".nav-link");
 
   const observer = new IntersectionObserver(
