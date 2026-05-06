@@ -470,6 +470,106 @@ a { text-decoration: none; }
 .lightbox-close:hover { background-color: rgba(255,255,255,.28); }
 
 /* ══════════════════════════════
+   ARTIKEL
+══════════════════════════════ */
+#artikel { animation-delay: .32s; }
+
+.artikel-loading {
+  font-size: 13px;
+  color: var(--muted);
+  text-align: center;
+  padding: 20px 0;
+}
+
+.artikel-judul-utama {
+  font-family: 'Lora', Georgia, serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 18px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--navy-lt);
+  line-height: 1.35;
+}
+
+.artikel-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.artikel-card {
+  border: 1px solid var(--line);
+  border-top: 3px solid var(--navy);
+  border-radius: 10px;
+  overflow: hidden;
+  background-color: #fcfbf9;
+  transition: transform .2s, box-shadow .2s;
+}
+.artikel-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0,0,0,.09);
+}
+
+/* Gambar artikel — clickable lightbox */
+.artikel-img-btn {
+  position: relative;
+  display: block;
+  width: 100%;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  background: none;
+  overflow: hidden;
+}
+.artikel-img-btn img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  transition: transform .35s;
+}
+.artikel-img-btn:hover img { transform: scale(1.05); }
+.artikel-img-overlay {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(29,58,107,0);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color .25s;
+}
+.artikel-img-btn:hover .artikel-img-overlay { background-color: rgba(29,58,107,.38); }
+.artikel-img-overlay span {
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  background-color: rgba(0,0,0,.45);
+  padding: 4px 12px;
+  border-radius: 20px;
+  opacity: 0;
+  transform: scale(.85);
+  transition: opacity .25s, transform .25s;
+}
+.artikel-img-btn:hover .artikel-img-overlay span { opacity: 1; transform: scale(1); }
+
+.artikel-sub-judul {
+  font-family: 'Lora', Georgia, serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--navy);
+  padding: 14px 16px 6px;
+  line-height: 1.35;
+}
+
+.artikel-isi {
+  font-size: 13px;
+  color: #44403c;
+  line-height: 1.7;
+  padding: 0 16px 16px;
+}
+
+/* ══════════════════════════════
    RESPONSIVE — Tablet ≤ 768px
 ══════════════════════════════ */
 @media (max-width: 768px) {
@@ -479,6 +579,7 @@ a { text-decoration: none; }
 
   .jadwal-grid   { grid-template-columns: 1fr; }
   .renungan-grid { grid-template-columns: 1fr; }
+  .artikel-grid  { grid-template-columns: 1fr; }
 
   .nav-link { padding: 11px 16px; font-size: 11px; }
 
