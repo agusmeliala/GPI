@@ -438,23 +438,25 @@ function renderArtikel(container, a) {
        </button>`
     : "";
 
-  container.innerHTML = `
-    ${a.judulUtama ? `<h3 class="artikel-judul-utama">${a.judulUtama}</h3>` : ""}
-    <div class="artikel-grid">
-      ${a.sub1Judul || a.sub1Isi ? `
-      <article class="artikel-card">
-        ${makeGambar(a.sub1Gambar)}
-        ${a.sub1Judul ? `<h4 class="artikel-sub-judul">${a.sub1Judul}</h4>` : ""}
-        ${a.sub1Isi   ? `<p  class="artikel-isi">${a.sub1Isi}</p>` : ""}
-      </article>` : ""}
-      ${a.sub2Judul || a.sub2Isi ? `
-      <article class="artikel-card">
-        ${makeGambar(a.sub2Gambar)}
-        ${a.sub2Judul ? `<h4 class="artikel-sub-judul">${a.sub2Judul}</h4>` : ""}
-        ${a.sub2Isi   ? `<p  class="artikel-isi">${a.sub2Isi}</p>` : ""}
-      </article>` : ""}
-    </div>
-  `;
+  // Judul utama dari kolom B (bisa diisi bebas di Sheets, mis: "Kemah Suci")
+  const judulSection = a.judulUtama
+    ? `<h3 class="artikel-judul-utama">${a.judulUtama}</h3>`
+    : "";
+
+  const makeKartu = (nomor, judul, isi, gambar) => {
+    if (!judul && !isi) return "";
+    return `
+    <article class="artikel-card-vertikal">
+      <div class="artikel-nomor">Artikel ${nomor}</div>
+      ${gambar ? makeGambar(gambar) : ""}
+      ${judul ? `<h4 class="artikel-sub-judul">${judul}</h4>` : ""}
+      ${isi   ? `<p  class="artikel-isi">${isi}</p>` : ""}
+    </article>`;
+  };
+
+  container.innerHTML = judulSection +
+    makeKartu(1, a.sub1Judul, a.sub1Isi, a.sub1Gambar) +
+    makeKartu(2, a.sub2Judul, a.sub2Isi, a.sub2Gambar);
 }
 
 // ── LIGHTBOX ─────────────────────────────────────────────────────────────────
