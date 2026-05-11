@@ -308,7 +308,7 @@ function renderRenungan(data, todayName) {
 
 function setText(id, value) {
   const el = document.getElementById(id);
-  if (el) el.textContent = value;
+  if (el) el.innerHTML = formatTeks(value);
 }
 
 // ── GALERI LOADER ─────────────────────────────────────────────────────────────
@@ -383,6 +383,16 @@ function renderGallery(items) {
   track.style.animation = "";
 }
 
+// ── FORMAT TEKS (bold, italic, newline) ───────────────────────────────────────
+
+function formatTeks(teks) {
+  if (!teks) return "";
+  return teks
+    .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")   // **bold**
+    .replace(/\*(.+?)\*/g, "<em>$1</em>")                // *italic*
+    .replace(/\n/g, "<br>");                              // newline → <br>
+}
+
 // ── ARTIKEL LOADER ────────────────────────────────────────────────────────────
 
 async function loadArtikelFromSheets(todayName) {
@@ -454,7 +464,7 @@ function renderArtikel(container, a) {
       <div class="artikel-nomor">Artikel ${nomor}</div>
       ${gambar ? makeGambar(gambar) : ""}
       ${judul ? `<h4 class="artikel-sub-judul">${judul}</h4>` : ""}
-      ${isi   ? `<p  class="artikel-isi">${isi}</p>` : ""}
+      ${isi   ? `<p  class="artikel-isi">${formatTeks(isi)}</p>` : ""}
     </article>`;
   };
 
