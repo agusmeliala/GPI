@@ -388,9 +388,9 @@ function renderGallery(items) {
 function formatTeks(teks) {
   if (!teks) return "";
   return teks
-    .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")   // **bold**
-    .replace(/\*(.+?)\*/g, "<em>$1</em>")                // *italic*
-    .replace(/\n/g, "<br>");                              // newline → <br>
+    .replace(/\*\*([\s\S]+?)\*\*/g, "<strong>$1</strong>")  // **bold**
+    .replace(/\*([\s\S]+?)\*/g, "<em>$1</em>")               // *italic*
+    .replace(/\n/g, "<br>");                                  // newline → <br>
 }
 
 // ── ARTIKEL LOADER ────────────────────────────────────────────────────────────
