@@ -610,6 +610,10 @@ a { text-decoration: none; }
   line-height: 1.35;
 }
 
+.artikel-body {
+  padding: 0;
+}
+
 .artikel-isi {
   font-size: 13px;
   color: #44403c;
