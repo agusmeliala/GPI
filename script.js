@@ -464,8 +464,10 @@ function renderArtikel(container, a) {
     <article class="artikel-card-vertikal">
       <div class="artikel-nomor">Artikel ${nomor}</div>
       ${gambar ? makeGambar(gambar) : ""}
-      ${judul ? `<h4 class="artikel-sub-judul">${judul}</h4>` : ""}
-      ${isi   ? `<p  class="artikel-isi">${formatTeks(isi)}</p>` : ""}
+      <div class="artikel-body">
+        ${judul ? `<h4 class="artikel-sub-judul">${judul}</h4>` : ""}
+        ${isi   ? `<p  class="artikel-isi">${formatTeks(isi)}</p>` : ""}
+      </div>
     </article>`;
   };
 
