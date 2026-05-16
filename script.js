@@ -46,7 +46,7 @@ const SHEET_ARTIKEL_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1v
 // Cara dapat DriveID: buka file di Google Drive → klik kanan → "Bagikan" → salin link
 // Link Drive: https://drive.google.com/file/d/DRIVE_ID_ADA_DISINI/view
 // Pastikan video di Drive sudah diset "Siapa saja yang memiliki tautan dapat melihat"
-const SHEET_VIDEO_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQFIUh2QfaXXotiABXis5PBDhbQ60SKk0EU2UP8gKuct1Xu42Jg9rMVdG86adkixDjy3OZM3ONvtbFJ/pub?gid=VIDEO_GID_DISINI&single=true&output=csv";
+const SHEET_VIDEO_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQFIUh2QfaXXotiABXis5PBDhbQ60SKk0EU2UP8gKuct1Xu42Jg9rMVdG86adkixDjy3OZM3ONvtbFJ/pub?gid=540208821&single=true&output=csv";
 
 // ── INIT ─────────────────────────────────────────────────────────────────────
 
@@ -555,10 +555,7 @@ async function loadVideoFromSheets() {
   const container = document.getElementById("video-list");
   if (!container) return;
 
-  // Data video default — ganti GID di SHEET_VIDEO_CSV_URL dengan GID sheet Video Anda
-  // Fallback: tampilkan pesan panduan jika belum dikonfigurasi
   const isFallback = SHEET_VIDEO_CSV_URL.includes("VIDEO_GID_DISINI");
-
   if (isFallback) {
     renderVideoFallback(container);
     return;
@@ -571,19 +568,22 @@ async function loadVideoFromSheets() {
     const csvText = await response.text();
     const rows    = parseCSV(csvText);
 
-    // Lewati header (baris pertama)
-    const dataRows = rows.filter(row => row[0]?.trim() && row[0]?.trim() !== "Judul1");
+    // Lewati baris header (baris pertama: Judul | Link | Keterangan)
+    const dataRows = rows.filter(row =>
+      row[0]?.trim() &&
+      row[0]?.trim().toLowerCase() !== "judul"
+    );
 
     if (dataRows.length === 0) throw new Error("Data video kosong");
 
-    // Ambil baris pertama yang ada isinya
-    const row = dataRows[0];
-    const videos = [
-      { judul: row[0]?.trim(), driveLink: row[1]?.trim(), ket: row[2]?.trim() },
-      { judul: row[3]?.trim(), driveLink: row[4]?.trim(), ket: row[5]?.trim() },
-    ].filter(v => v.judul || v.driveLink);
+    // Ambil maksimal 2 video (baris 2 dan 3 di Sheets)
+    const videos = dataRows.slice(0, 2).map(row => ({
+      judul:     row[0]?.trim() || "",
+      driveLink: row[1]?.trim() || "",
+      ket:       row[2]?.trim() || "",
+    })).filter(v => v.driveLink);
 
-    if (videos.length === 0) throw new Error("Tidak ada video valid");
+    if (videos.length === 0) throw new Error("Tidak ada link video valid");
     renderVideo(container, videos);
 
   } catch (err) {
