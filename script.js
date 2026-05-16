@@ -41,6 +41,13 @@ const RENUNGAN_FALLBACK = {
 
 const SHEET_ARTIKEL_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQFIUh2QfaXXotiABXis5PBDhbQ60SKk0EU2UP8gKuct1Xu42Jg9rMVdG86adkixDjy3OZM3ONvtbFJ/pub?gid=533709958&single=true&output=csv";
 
+// Sheet "Video" → 2 video per minggu (bisa diubah kapan saja di Google Sheets)
+// Kolom: Judul1 | DriveID1 | Keterangan1 | Judul2 | DriveID2 | Keterangan2
+// Cara dapat DriveID: buka file di Google Drive → klik kanan → "Bagikan" → salin link
+// Link Drive: https://drive.google.com/file/d/DRIVE_ID_ADA_DISINI/view
+// Pastikan video di Drive sudah diset "Siapa saja yang memiliki tautan dapat melihat"
+const SHEET_VIDEO_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQFIUh2QfaXXotiABXis5PBDhbQ60SKk0EU2UP8gKuct1Xu42Jg9rMVdG86adkixDjy3OZM3ONvtbFJ/pub?gid=VIDEO_GID_DISINI&single=true&output=csv";
+
 // ── INIT ─────────────────────────────────────────────────────────────────────
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -62,6 +69,7 @@ document.addEventListener("DOMContentLoaded", () => {
   loadRenunganFromSheets(todayName);
   loadGaleriFromSheets();
   loadArtikelFromSheets(todayName);
+  loadVideoFromSheets();
 
   // Lightbox & nav
   setupLightbox();
@@ -508,10 +516,126 @@ function setupLightbox() {
   });
 }
 
+// ── VIDEO LOADER ─────────────────────────────────────────────────────────────
+
+/**
+ * Konversi berbagai format link Google Drive ke embed URL
+ * Format yang didukung:
+ *   - https://drive.google.com/file/d/ID/view
+ *   - https://drive.google.com/open?id=ID
+ *   - ID langsung (tanpa URL)
+ */
+function driveToEmbedUrl(input) {
+  if (!input) return null;
+  input = input.trim();
+
+  // Sudah berupa embed URL
+  if (input.includes("/file/d/") && input.includes("/preview")) return input;
+
+  // Ekstrak ID dari berbagai format
+  let id = null;
+
+  // Format: /file/d/ID/view atau /file/d/ID/edit
+  const m1 = input.match(/\/file\/d\/([a-zA-Z0-9_-]+)/);
+  if (m1) id = m1[1];
+
+  // Format: ?id=ID atau &id=ID
+  if (!id) {
+    const m2 = input.match(/[?&]id=([a-zA-Z0-9_-]+)/);
+    if (m2) id = m2[1];
+  }
+
+  // ID murni (hanya alfanumerik + - _)
+  if (!id && /^[a-zA-Z0-9_-]{20,}$/.test(input)) id = input;
+
+  return id ? `https://drive.google.com/file/d/${id}/preview` : null;
+}
+
+async function loadVideoFromSheets() {
+  const container = document.getElementById("video-list");
+  if (!container) return;
+
+  // Data video default — ganti GID di SHEET_VIDEO_CSV_URL dengan GID sheet Video Anda
+  // Fallback: tampilkan pesan panduan jika belum dikonfigurasi
+  const isFallback = SHEET_VIDEO_CSV_URL.includes("VIDEO_GID_DISINI");
+
+  if (isFallback) {
+    renderVideoFallback(container);
+    return;
+  }
+
+  try {
+    const response = await fetch(SHEET_VIDEO_CSV_URL);
+    if (!response.ok) throw new Error("Gagal mengambil data video");
+
+    const csvText = await response.text();
+    const rows    = parseCSV(csvText);
+
+    // Lewati header (baris pertama)
+    const dataRows = rows.filter(row => row[0]?.trim() && row[0]?.trim() !== "Judul1");
+
+    if (dataRows.length === 0) throw new Error("Data video kosong");
+
+    // Ambil baris pertama yang ada isinya
+    const row = dataRows[0];
+    const videos = [
+      { judul: row[0]?.trim(), driveLink: row[1]?.trim(), ket: row[2]?.trim() },
+      { judul: row[3]?.trim(), driveLink: row[4]?.trim(), ket: row[5]?.trim() },
+    ].filter(v => v.judul || v.driveLink);
+
+    if (videos.length === 0) throw new Error("Tidak ada video valid");
+    renderVideo(container, videos);
+
+  } catch (err) {
+    console.warn("Gagal load video dari Sheets:", err.message);
+    renderVideoFallback(container);
+  }
+}
+
+function renderVideo(container, videos) {
+  container.innerHTML = videos.map((v, i) => {
+    const embedUrl = driveToEmbedUrl(v.driveLink);
+    const iframeHtml = embedUrl
+      ? `<div class="video-embed-wrap">
+           <iframe src="${embedUrl}"
+                   allow="autoplay"
+                   allowfullscreen
+                   loading="lazy"
+                   title="${v.judul || 'Video ' + (i+1)}">
+           </iframe>
+         </div>`
+      : `<div class="video-embed-wrap" style="display:flex;align-items:center;justify-content:center;background:#1c1917;">
+           <p style="color:#a8a29e;font-size:12px;padding:20px;">Link video tidak valid.</p>
+         </div>`;
+
+    return `
+    <article class="video-card">
+      <div class="video-nomor">Video ${i + 1}</div>
+      ${v.judul ? `<h3 class="video-judul">${v.judul}</h3>` : ""}
+      ${iframeHtml}
+      ${v.ket ? `<p class="video-keterangan">${formatTeks(v.ket)}</p>` : ""}
+    </article>`;
+  }).join("");
+}
+
+function renderVideoFallback(container) {
+  container.innerHTML = `
+    <div style="background:var(--navy-lt);border:1px dashed #c7d2e8;border-radius:10px;padding:24px 20px;text-align:center;">
+      <p style="font-size:14px;font-weight:700;color:var(--navy);margin-bottom:10px;">🎬 Cara Menambahkan Video</p>
+      <ol style="font-size:12px;color:#44403c;text-align:left;max-width:480px;margin:0 auto;line-height:1.9;">
+        <li>Upload video ke <strong>Google Drive</strong></li>
+        <li>Klik kanan video → <strong>Bagikan</strong> → "Siapa saja yang memiliki tautan"</li>
+        <li>Salin link, lalu tambahkan ke sheet <strong>Video</strong> di Google Sheets Anda</li>
+        <li>Format kolom: <code>Judul1 | Link1 | Keterangan1 | Judul2 | Link2 | Keterangan2</code></li>
+        <li>Ganti <strong>VIDEO_GID_DISINI</strong> di script.js dengan GID sheet Video</li>
+      </ol>
+    </div>`;
+}
+
 // ── NAV HIGHLIGHT (scroll spy) ────────────────────────────────────────────────
 
 function setupNavHighlight() {
-  const sections = ["jadwal", "poster", "renungan", "galeri", "artikel"];
+  const sections = ["jadwal", "poster", "renungan", "galeri", "artikel", "video"];
   const links    = document.querySelectorAll(".nav-link");
 
   const observer = new IntersectionObserver(
