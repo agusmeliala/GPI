@@ -622,6 +622,81 @@ a { text-decoration: none; }
 }
 
 /* ══════════════════════════════
+   VIDEO
+══════════════════════════════ */
+#video { animation-delay: .40s; }
+
+.video-loading {
+  font-size: 13px;
+  color: var(--muted);
+  text-align: center;
+  padding: 20px 0;
+}
+
+.video-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.video-card {
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--navy);
+  border-radius: 10px;
+  overflow: hidden;
+  background-color: #fcfbf9;
+  transition: transform .2s, box-shadow .2s;
+}
+.video-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0,0,0,.09);
+}
+
+.video-nomor {
+  display: inline-block;
+  background-color: var(--navy);
+  color: #fff;
+  font-size: 9.5px;
+  font-weight: 800;
+  letter-spacing: .5px;
+  padding: 3px 12px;
+  border-radius: 0 0 8px 0;
+}
+
+.video-judul {
+  font-family: 'Lora', Georgia, serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--navy);
+  padding: 12px 16px 8px;
+  line-height: 1.35;
+}
+
+.video-embed-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background-color: #000;
+  overflow: hidden;
+}
+
+.video-embed-wrap iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: 0;
+}
+
+.video-keterangan {
+  font-size: 12px;
+  color: var(--muted);
+  padding: 8px 16px 14px;
+  line-height: 1.6;
+}
+
+/* ══════════════════════════════
    RESPONSIVE — Tablet ≤ 768px
 ══════════════════════════════ */
 @media (max-width: 768px) {
