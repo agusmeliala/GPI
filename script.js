@@ -611,11 +611,6 @@ function renderVideo(container, videos) {
            <p style="color:#a8a29e;font-size:12px;padding:20px;">Link video tidak valid.</p>
          </div>`;
 
-    // Ikon eksternal SVG sederhana
-    const iconExternal = `<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-      <path d="M14 3h7v7h-2V6.41l-9.29 9.3-1.42-1.42L17.59 5H14V3zm-1 2H5a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8h-2v8H5V7h8V5z"/>
-    </svg>`;
-
     return `
     <article class="video-card">
       <div class="video-nomor">Video ${i + 1}</div>
@@ -625,7 +620,7 @@ function renderVideo(container, videos) {
         ${v.ket ? `<p class="video-keterangan">${formatTeks(v.ket)}</p>` : "<span></span>"}
         <a href="${driveOpen}" target="_blank" rel="noopener" class="video-drive-btn"
            aria-label="Tonton di Google Drive">
-          ${iconExternal} Tonton di Drive
+          &#x26F6; Tonton di Drive
         </a>
       </div>
     </article>`;
