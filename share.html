@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#1d3a6b" />
+
+  <!-- ═══ OG TAGS — diisi dinamis oleh script ═══ -->
+  <meta id="og-title"       property="og:title"       content="GPI Jemaat Bersinar" />
+  <meta id="og-description" property="og:description" content="Website resmi GPI Jemaat Bersinar – Medan Labuhan" />
+  <meta id="og-image"       property="og:image"        content="https://agusmeliala.github.io/GPI/images/kop-surat.png" />
+  <meta id="og-url"         property="og:url"          content="https://agusmeliala.github.io/GPI/share.html" />
+  <meta property="og:type"        content="website" />
+  <meta property="og:site_name"   content="GPI Jemaat Bersinar" />
+
+  <!-- Twitter Card (untuk pratinjau di Twitter/X jika dibagikan) -->
+  <meta name="twitter:card"        content="summary_large_image" />
+  <meta id="tw-title"       name="twitter:title"       content="GPI Jemaat Bersinar" />
+  <meta id="tw-description" name="twitter:description" content="Website resmi GPI Jemaat Bersinar" />
+  <meta id="tw-image"       name="twitter:image"       content="https://agusmeliala.github.io/GPI/images/kop-surat.png" />
+
+  <title id="page-title">GPI Jemaat Bersinar</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --navy:    #1d3a6b;
+      --navy-lt: #eef2fb;
+      --gold:    #c9933a;
+      --bg:      #f5f3ef;
+      --card:    #ffffff;
+      --muted:   #78716c;
+      --radius:  14px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: var(--bg);
+      color: #1c1917;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── HEADER ── */
+    .site-header {
+      background: var(--navy);
+      padding: 14px 16px;
+      text-align: center;
+    }
+    .kop-surat { max-width: 340px; width: 100%; border-radius: 8px; }
+
+    /* ── KONTEN UTAMA ── */
+    .share-wrapper {
+      flex: 1;
+      max-width: 600px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 20px 16px 40px;
+    }
+
+    .share-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--navy-lt);
+      color: var(--navy);
+      font-size: 12px;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 20px;
+      margin-bottom: 14px;
+      letter-spacing: .4px;
+    }
+
+    /* ── POSTER ── */
+    #view-poster .poster-img-wrap {
+      background: var(--card);
+      border-radius: var(--radius);
+      box-shadow: 0 2px 16px rgba(0,0,0,.08);
+      overflow: hidden;
+      margin-bottom: 16px;
+    }
+    #view-poster img {
+      width: 100%;
+      display: block;
+    }
+
+    /* ── RENUNGAN ── */
+    .renungan-card {
+      background: var(--card);
+      border-radius: var(--radius);
+      box-shadow: 0 2px 16px rgba(0,0,0,.08);
+      padding: 22px 20px;
+      margin-bottom: 14px;
+    }
+    .lang-badge {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .5px;
+      color: var(--navy);
+      background: var(--navy-lt);
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 20px;
+      margin-bottom: 10px;
+    }
+    .renungan-judul {
+      font-family: 'Lora', serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 6px;
+      line-height: 1.4;
+    }
+    .renungan-ayat {
+      font-size: 12px;
+      color: var(--gold);
+      font-weight: 700;
+      margin-bottom: 12px;
+      letter-spacing: .3px;
+    }
+    .renungan-isi {
+      font-size: 14px;
+      line-height: 1.8;
+      color: #292524;
+      border-left: 3px solid var(--navy);
+      padding-left: 14px;
+    }
+
+    /* ── ARTIKEL ── */
+    .artikel-judul-utama {
+      font-family: 'Lora', serif;
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 16px;
+      line-height: 1.4;
+    }
+    .artikel-card {
+      background: var(--card);
+      border-radius: var(--radius);
+      box-shadow: 0 2px 16px rgba(0,0,0,.08);
+      overflow: hidden;
+      margin-bottom: 14px;
+    }
+    .artikel-card img {
+      width: 100%;
+      max-height: 220px;
+      object-fit: cover;
+      display: block;
+    }
+    .artikel-body { padding: 18px 18px 20px; }
+    .artikel-nomor {
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+    .artikel-sub-judul {
+      font-family: 'Lora', serif;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 10px;
+      line-height: 1.4;
+    }
+    .artikel-isi {
+      font-size: 14px;
+      line-height: 1.8;
+      color: #44403c;
+    }
+
+    /* ── TOMBOL KEMBALI ── */
+    .btn-back {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      background: var(--navy);
+      color: #fff;
+      font-size: 14px;
+      font-weight: 700;
+      padding: 14px;
+      border-radius: var(--radius);
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      margin-top: 10px;
+      transition: background .2s;
+    }
+    .btn-back:hover { background: #15305a; }
+
+    /* ── TOMBOL SALIN LINK ── */
+    .btn-copy {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      background: var(--gold);
+      color: #fff;
+      font-size: 14px;
+      font-weight: 700;
+      padding: 14px;
+      border-radius: var(--radius);
+      border: none;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: background .2s;
+    }
+    .btn-copy:hover { background: #b07a2a; }
+    .btn-copy.copied { background: #16a34a; }
+
+    /* ── LOADING / ERROR ── */
+    .loading-box {
+      text-align: center;
+      padding: 60px 20px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .loading-box .spinner {
+      font-size: 36px;
+      display: block;
+      margin-bottom: 14px;
+      animation: spin 1s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ── FOOTER ── */
+    .site-footer {
+      background: var(--navy);
+      color: #c7d2e8;
+      text-align: center;
+      padding: 16px;
+      font-size: 12px;
+    }
+    .footer-cross { color: var(--gold); margin-right: 4px; }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <a href="index.html">
+      <img src="images/kop-surat.png" alt="GPI Jemaat Bersinar" class="kop-surat" />
+    </a>
+  </header>
+
+  <div class="share-wrapper" id="share-wrapper">
+    <div class="loading-box">
+      <span class="spinner">⏳</span>
+      Memuat konten...
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <span class="footer-cross">✝</span> GPI Jemaat Bersinar · Medan Labuhan
+  </footer>
+
+<script>
+"use strict";
+
+// ── KONSTANTA (sama dengan script.js utama) ───────────────────────────────────
+const SHEET_CSV_URL        = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQFIUh2QfaXXotiABXis5PBDhbQ60SKk0EU2UP8gKuct1Xu42Jg9rMVdG86adkixDjy3OZM3ONvtbFJ/pub?gid=0&single=true&output=csv";
+const SHEET_POSTER_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQFIUh2QfaXXotiABXis5PBDhbQ60SKk0EU2UP8gKuct1Xu42Jg9rMVdG86adkixDjy3OZM3ONvtbFJ/pub?gid=1813489839&single=true&output=csv";
+const SHEET_ARTIKEL_CSV_URL= "https://docs.google.com/spreadsheets/d/e/2PACX-1vQFIUh2QfaXXotiABXis5PBDhbQ60SKk0EU2UP8gKuct1Xu42Jg9rMVdG86adkixDjy3OZM3ONvtbFJ/pub?gid=533709958&single=true&output=csv";
+
+const DAY_NAMES = ["Minggu","Senin","Selasa","Rabu","Kamis","Jumat","Sabtu"];
+const BASE_URL  = "https://agusmeliala.github.io/GPI";
+
+// ── PARSER CSV (sama dengan script.js utama) ──────────────────────────────────
+function parseCSV(text) {
+  const rows = [];
+  let i = 0;
+  while (i < text.length) {
+    const row = [];
+    while (i < text.length) {
+      let field = "";
+      if (text[i] === '"') {
+        i++;
+        while (i < text.length) {
+          if (text[i] === '"') {
+            if (i+1 < text.length && text[i+1] === '"') { field += '"'; i += 2; }
+            else { i++; break; }
+          } else { field += text[i]; i++; }
+        }
+      } else {
+        while (i < text.length && text[i] !== ',' && text[i] !== '\n' && text[i] !== '\r') {
+          field += text[i]; i++;
+        }
+      }
+      row.push(field.trim());
+      if (i < text.length && text[i] === ',') { i++; }
+      else { if (i < text.length && text[i] === '\r') i++; if (i < text.length && text[i] === '\n') i++; break; }
+    }
+    if (row.length > 1 && row.some(f => f !== "")) rows.push(row);
+  }
+  return rows;
+}
+
+function formatTeks(teks) {
+  if (!teks) return "";
+  return teks
+    .replace(/###([\s\S]+?)###/g, "<strong>$1</strong>")
+    .replace(/\*\*([\s\S]+?)\*\*/g, "<strong>$1</strong>")
+    .replace(/\*([\s\S]+?)\*/g, "<em>$1</em>")
+    .replace(/\n/g, "<br>");
+}
+
+// ── UPDATE OG TAGS (penting untuk pratinjau WhatsApp) ─────────────────────────
+// Catatan: OG tags di-update untuk session browser saja.
+// Agar pratinjau WhatsApp benar, gunakan URL dengan parameter ?type=...&day=...
+// dan pasang server-side rendering atau gunakan netlify/cloudflare functions.
+// Untuk GitHub Pages (static), cara terbaik adalah URL unik per halaman.
+function updateOG(title, description, imageUrl, pageUrl) {
+  const setMeta = (id, val) => { const el = document.getElementById(id); if (el) el.setAttribute("content", val); };
+  document.getElementById("page-title").textContent = title + " — GPI Jemaat Bersinar";
+  setMeta("og-title",       title);
+  setMeta("og-description", description);
+  setMeta("og-image",       imageUrl);
+  setMeta("og-url",         pageUrl);
+  setMeta("tw-title",       title);
+  setMeta("tw-description", description);
+  setMeta("tw-image",       imageUrl);
+}
+
+// ── TOMBOL SALIN LINK ─────────────────────────────────────────────────────────
+function buatTombolCopy(url) {
+  return `<button class="btn-copy" id="btn-copy" onclick="salinLink('${url}')">
+    📋 Salin Link untuk WhatsApp
+  </button>`;
+}
+
+function salinLink(url) {
+  navigator.clipboard.writeText(url).then(() => {
+    const btn = document.getElementById("btn-copy");
+    if (btn) { btn.textContent = "✅ Link Tersalin!"; btn.classList.add("copied"); }
+    setTimeout(() => {
+      if (btn) { btn.textContent = "📋 Salin Link untuk WhatsApp"; btn.classList.remove("copied"); }
+    }, 2500);
+  }).catch(() => {
+    prompt("Salin link ini:", url);
+  });
+}
+
+// ── RENDER POSTER ─────────────────────────────────────────────────────────────
+async function renderPoster(todayName) {
+  const wrapper = document.getElementById("share-wrapper");
+
+  try {
+    const res = await fetch(SHEET_POSTER_CSV_URL);
+    const csv = await res.text();
+    const rows = parseCSV(csv);
+    const row = rows.find(r => r[0]?.trim() === todayName);
+
+    const imgSrc = row?.[1]?.trim() || `${BASE_URL}/images/kop-surat.png`;
+    const shareUrl = `${BASE_URL}/share.html?type=poster`;
+    const desc = `Poster Harian GPI Jemaat Bersinar — ${todayName}`;
+
+    updateOG(`Poster Harian — ${todayName}`, desc, imgSrc, shareUrl);
+
+    wrapper.innerHTML = `
+      <div class="share-badge">📋 Poster Harian</div>
+      <div id="view-poster">
+        <div class="poster-img-wrap">
+          <img src="${imgSrc}" alt="Poster Harian ${todayName}"
+               onerror="this.src='${BASE_URL}/images/kop-surat.png'" />
+        </div>
+      </div>
+      ${buatTombolCopy(shareUrl)}
+      <a href="index.html#poster" class="btn-back">← Kembali ke Beranda</a>`;
+
+  } catch(e) {
+    wrapper.innerHTML = `<div class="loading-box">⚠️ Poster tidak tersedia.<br><a href="index.html">← Kembali</a></div>`;
+  }
+}
+
+// ── RENDER RENUNGAN ───────────────────────────────────────────────────────────
+async function renderRenungan(todayName) {
+  const wrapper = document.getElementById("share-wrapper");
+
+  try {
+    const res = await fetch(SHEET_CSV_URL);
+    const csv = await res.text();
+    const rows = parseCSV(csv);
+    const row = rows.find(r => r[0]?.trim() === todayName);
+
+    const judulId = row?.[1]?.trim() || "Renungan Harian";
+    const ayatId  = row?.[2]?.trim() || "";
+    const isiId   = row?.[3]?.trim() || "";
+    const judulEn = row?.[4]?.trim() || "Daily Devotional";
+    const ayatEn  = row?.[5]?.trim() || "";
+    const isiEn   = row?.[6]?.trim() || "";
+
+    const shareUrl = `${BASE_URL}/share.html?type=renungan`;
+    const imgOG    = `${BASE_URL}/images/kop-surat.png`;
+    const desc     = `${judulId} — ${ayatId}`;
+
+    updateOG(`Renungan Harian — ${todayName}`, desc, imgOG, shareUrl);
+
+    wrapper.innerHTML = `
+      <div class="share-badge">📖 Renungan Harian — ${todayName}</div>
+
+      <div class="renungan-card">
+        <div class="lang-badge">🇮🇩 Bahasa Indonesia</div>
+        <h2 class="renungan-judul">${judulId}</h2>
+        <p  class="renungan-ayat">${ayatId}</p>
+        <blockquote class="renungan-isi">${formatTeks(isiId)}</blockquote>
+      </div>
+
+      <div class="renungan-card">
+        <div class="lang-badge">🇬🇧 English</div>
+        <h2 class="renungan-judul">${judulEn}</h2>
+        <p  class="renungan-ayat">${ayatEn}</p>
+        <blockquote class="renungan-isi">${formatTeks(isiEn)}</blockquote>
+      </div>
+
+      ${buatTombolCopy(shareUrl)}
+      <a href="index.html#renungan" class="btn-back">← Kembali ke Beranda</a>`;
+
+  } catch(e) {
+    wrapper.innerHTML = `<div class="loading-box">⚠️ Renungan tidak tersedia.<br><a href="index.html">← Kembali</a></div>`;
+  }
+}
+
+// ── RENDER ARTIKEL ────────────────────────────────────────────────────────────
+async function renderArtikel(todayName) {
+  const wrapper = document.getElementById("share-wrapper");
+
+  try {
+    const res = await fetch(SHEET_ARTIKEL_CSV_URL);
+    const csv = await res.text();
+    const rows = parseCSV(csv);
+    const dataRows = rows.filter(r => r[0]?.trim() !== "Hari");
+    const row = dataRows.find(r => r[0]?.trim() === todayName);
+
+    if (!row) throw new Error("Artikel tidak ditemukan");
+
+    const judulUtama = row[1]?.trim() || "";
+    const sub1Judul  = row[2]?.trim() || "";
+    const sub1Isi    = row[3]?.trim() || "";
+    const sub1Gambar = row[4]?.trim() || "";
+    const sub2Judul  = row[5]?.trim() || "";
+    const sub2Isi    = row[6]?.trim() || "";
+    const sub2Gambar = row[7]?.trim() || "";
+
+    const shareUrl = `${BASE_URL}/share.html?type=artikel`;
+    const imgOG    = sub1Gambar || sub2Gambar || `${BASE_URL}/images/kop-surat.png`;
+    const desc     = sub1Judul || judulUtama || "Artikel Minggu Ini";
+
+    updateOG(`Artikel — ${judulUtama || todayName}`, desc, imgOG, shareUrl);
+
+    const buatKartu = (nomor, judul, isi, gambar) => {
+      if (!judul && !isi) return "";
+      return `
+        <div class="artikel-card">
+          ${gambar ? `<img src="${gambar}" alt="${judul}" onerror="this.style.display='none'" />` : ""}
+          <div class="artikel-body">
+            <div class="artikel-nomor">Artikel ${nomor}</div>
+            ${judul ? `<h3 class="artikel-sub-judul">${judul}</h3>` : ""}
+            ${isi   ? `<p  class="artikel-isi">${formatTeks(isi)}</p>` : ""}
+          </div>
+        </div>`;
+    };
+
+    wrapper.innerHTML = `
+      <div class="share-badge">📰 Artikel Minggu Ini</div>
+      ${judulUtama ? `<h2 class="artikel-judul-utama">${judulUtama}</h2>` : ""}
+      ${buatKartu(1, sub1Judul, sub1Isi, sub1Gambar)}
+      ${buatKartu(2, sub2Judul, sub2Isi, sub2Gambar)}
+      ${buatTombolCopy(shareUrl)}
+      <a href="index.html#artikel" class="btn-back">← Kembali ke Beranda</a>`;
+
+  } catch(e) {
+    wrapper.innerHTML = `<div class="loading-box">⚠️ Artikel belum tersedia hari ini.<br><br><a href="index.html" style="color:var(--navy);font-weight:700;">← Kembali ke Beranda</a></div>`;
+  }
+}
+
+// ── ROUTING BERDASARKAN PARAMETER URL ─────────────────────────────────────────
+// Contoh URL:
+//   share.html?type=poster      → Poster hari ini
+//   share.html?type=renungan    → Renungan hari ini
+//   share.html?type=artikel     → Artikel hari ini
+document.addEventListener("DOMContentLoaded", () => {
+  const params   = new URLSearchParams(window.location.search);
+  const type     = params.get("type") || "poster";
+  const todayIdx = new Date().getDay();
+  const todayName = DAY_NAMES[todayIdx];
+
+  switch (type) {
+    case "renungan": renderRenungan(todayName); break;
+    case "artikel":  renderArtikel(todayName);  break;
+    default:         renderPoster(todayName);   break;
+  }
+});
+</script>
+</body>
+</html>
