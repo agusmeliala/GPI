@@ -369,22 +369,7 @@ function renderGallery(items) {
     )
     .join("");
 
-  // Hitung ulang animasi: geser sejumlah 1 set foto (1/copies dari total)
-  const pct = (1 / copies * 100).toFixed(4);
-  // Update keyframe animasi secara dinamis
-  let styleEl = document.getElementById("gallery-keyframe");
-  if (!styleEl) {
-    styleEl = document.createElement("style");
-    styleEl.id = "gallery-keyframe";
-    document.head.appendChild(styleEl);
-  }
-  styleEl.textContent = `
-    @keyframes scrollGallery {
-      0%   { transform: translate3d(0, 0, 0); }
-      100% { transform: translate3d(-${pct}%, 0, 0); }
-    }
-  `;
-
+  // Animasi diatur oleh CSS (scrollGallery) — tidak perlu override di sini
   // Reset animasi agar langsung berlaku
   track.style.animation = "none";
   track.offsetHeight; // reflow
