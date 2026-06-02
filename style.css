@@ -396,14 +396,13 @@ a { text-decoration: none; }
   flex-wrap: nowrap;
   gap: 10px;
   width: max-content;
-  /* Kecepatan konstan, tidak ada lompatan */
-  animation: scrollGallery 40s linear infinite;
+  animation: scrollGallery 90s linear infinite;
   will-change: transform;
 }
 .gallery-track:hover { animation-play-state: paused; }
 @keyframes scrollGallery {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-33.333%); }
 }
 .gallery-item {
   flex: 0 0 140px;
@@ -775,7 +774,7 @@ a { text-decoration: none; }
 ══════════════════════════════ */
 @media (min-width: 769px) {
   .gallery-track {
-    animation-duration: 60s;
+    animation-duration: 120s;
   }
   .gallery-item {
     flex: 0 0 150px;
