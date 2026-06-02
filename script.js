@@ -351,8 +351,8 @@ function renderGallery(items) {
   const track = document.getElementById("gallery-track");
   if (!track) return;
 
-  // Hanya gandakan 2x — cukup untuk loop seamless
-  const repeated = [...items, ...items];
+  // Gandakan 3x agar tidak ada masa habis/jeda saat loop
+  const repeated = [...items, ...items, ...items];
 
   // Sembunyikan track dulu, tampilkan setelah semua foto siap
   track.style.visibility = "hidden";
@@ -382,6 +382,9 @@ function renderGallery(items) {
       // Semua foto sudah dimuat — mulai animasi dari awal secara mulus
       track.style.animation = "none";
       track.offsetHeight; // force reflow sekali saja
+      // Set durasi berdasarkan jumlah foto agar kecepatan piksel konstan
+      const baseDuration = items.length * 3; // 3 detik per foto
+      track.style.animationDuration = baseDuration + "s";
       track.style.animation = "";
       track.style.animationPlayState = "running";
       track.style.visibility = "visible";
