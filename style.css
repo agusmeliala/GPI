@@ -396,7 +396,8 @@ a { text-decoration: none; }
   flex-wrap: nowrap;
   gap: 10px;
   width: max-content;
-  animation: scrollGallery 60s linear infinite;
+  /* Kecepatan konstan, tidak ada lompatan */
+  animation: scrollGallery 40s linear infinite;
   will-change: transform;
 }
 .gallery-track:hover { animation-play-state: paused; }
@@ -774,7 +775,7 @@ a { text-decoration: none; }
 ══════════════════════════════ */
 @media (min-width: 769px) {
   .gallery-track {
-    animation-duration: 80s;
+    animation-duration: 60s;
   }
   .gallery-item {
     flex: 0 0 150px;
