@@ -369,11 +369,7 @@ function renderGallery(items) {
     )
     .join("");
 
-  // Animasi diatur oleh CSS (scrollGallery) — tidak perlu override di sini
-  // Reset animasi agar langsung berlaku
-  track.style.animation = "none";
-  track.offsetHeight; // reflow
-  track.style.animation = "";
+  // Animasi diatur sepenuhnya oleh CSS — jangan reset di sini
 }
 
 // ── FORMAT TEKS (bold, italic, newline) ───────────────────────────────────────
