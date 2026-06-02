@@ -396,19 +396,13 @@ a { text-decoration: none; }
   flex-wrap: nowrap;
   gap: 10px;
   width: max-content;
-  animation: scrollGallery 120s linear infinite;
+  animation: scrollGallery 60s linear infinite;
   will-change: transform;
-  transform: translateZ(0);
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-  /* Mencegah perubahan kecepatan mendadak */
-  animation-timing-function: linear;
-  animation-fill-mode: none;
 }
 .gallery-track:hover { animation-play-state: paused; }
 @keyframes scrollGallery {
-  0%   { transform: translate3d(0, 0, 0); }
-  100% { transform: translate3d(-25%, 0, 0); }
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
 }
 .gallery-item {
   flex: 0 0 140px;
@@ -780,7 +774,7 @@ a { text-decoration: none; }
 ══════════════════════════════ */
 @media (min-width: 769px) {
   .gallery-track {
-    animation-duration: 150s;
+    animation-duration: 80s;
   }
   .gallery-item {
     flex: 0 0 150px;
