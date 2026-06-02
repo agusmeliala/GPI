@@ -351,9 +351,12 @@ function renderGallery(items) {
   const track = document.getElementById("gallery-track");
   if (!track) return;
 
-  // Gandakan foto minimal 4x agar loop seamless di semua ukuran layar
-  const copies = Math.max(4, Math.ceil(60 / items.length));
-  const repeated = Array.from({ length: copies }, () => items).flat();
+  // Hanya gandakan 2x — cukup untuk loop seamless
+  const repeated = [...items, ...items];
+
+  // Sembunyikan track dulu, tampilkan setelah semua foto siap
+  track.style.visibility = "hidden";
+  track.style.animationPlayState = "paused";
 
   track.innerHTML = repeated
     .map(
@@ -363,13 +366,36 @@ function renderGallery(items) {
               aria-label="Lihat foto ${(i % items.length) + 1}">
         <img src="${src}"
              alt="Foto kegiatan ${(i % items.length) + 1}"
-             loading="lazy"
              onerror="this.src='https://placehold.co/300x300/e7e3db/78716c?text=Foto'" />
       </button>`
     )
     .join("");
 
-  // Animasi diatur sepenuhnya oleh CSS — jangan reset di sini
+  // Tunggu semua gambar selesai dimuat, baru mulai animasi
+  const imgs = track.querySelectorAll("img");
+  let loaded = 0;
+  const total = imgs.length;
+
+  function onLoad() {
+    loaded++;
+    if (loaded >= total) {
+      // Semua foto sudah dimuat — mulai animasi dari awal secara mulus
+      track.style.animation = "none";
+      track.offsetHeight; // force reflow sekali saja
+      track.style.animation = "";
+      track.style.animationPlayState = "running";
+      track.style.visibility = "visible";
+    }
+  }
+
+  imgs.forEach(img => {
+    if (img.complete) {
+      onLoad();
+    } else {
+      img.addEventListener("load", onLoad);
+      img.addEventListener("error", onLoad);
+    }
+  });
 }
 
 // ── FORMAT TEKS (bold, italic, newline) ───────────────────────────────────────
