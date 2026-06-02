@@ -399,7 +399,12 @@ a { text-decoration: none; }
   animation: scrollGallery 90s linear infinite;
   will-change: transform;
 }
-.gallery-track:hover { animation-play-state: paused; }
+/* Berhenti saat mouse masuk ke area galeri */
+.gallery-wrapper:hover .gallery-track,
+.gallery-track:hover { 
+  animation-play-state: paused;
+  cursor: pointer;
+}
 @keyframes scrollGallery {
   0%   { transform: translateX(0); }
   100% { transform: translateX(-33.333%); }
