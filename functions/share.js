@@ -69,9 +69,9 @@ function generateHTML(title, description, imageUrl, shareUrl, redirectUrl) {
 }
 
 exports.handler = async function(event) {
-  const type      = event.queryStringParameters?.type || "poster";
-  const todayName = DAY_NAMES[new Date().getDay()];
-  const shareUrl   = `${BASE_URL}/.netlify/functions/share?type=${type}`;
+  const type        = event.queryStringParameters?.type || "poster";
+  const todayName   = DAY_NAMES[new Date().getDay()];
+  const shareUrl    = `${BASE_URL}/.netlify/functions/share?type=${type}`;
   const redirectUrl = `${BASE_URL}/share.html?type=${type}`;
 
   try {
@@ -97,9 +97,13 @@ exports.handler = async function(event) {
       const judul = row?.[1]?.trim() || "Renungan Harian";
       const ayat  = row?.[2]?.trim() || "";
       const isi   = row?.[3]?.trim() || "";
-      // OG Title = Judul Renungan, OG Description = Ayat + potongan isi
-      const ogTitle = judul;
-      const ogDesc  = ayat ? `${ayat}  |  ${isi.replace(/<[^>]*>/g,"").substring(0, 80)}...` : isi.substring(0, 100);
+
+      // ✅ OG Title = AYAT (misalnya: "Yohanes 8:32")
+      // ✅ OG Description = penggalan isi ayat
+      const isiPolos = isi.replace(/###|\*\*/g, "").replace(/\*/g, "").substring(0, 120);
+      const ogTitle = ayat ? `📖 ${ayat}` : judul;
+      const ogDesc  = isiPolos ? `${isiPolos}...` : judul;
+
       const html = generateHTML(ogTitle, ogDesc, KOP_URL, shareUrl, redirectUrl);
       return { statusCode: 200, headers: { "Content-Type": "text/html" }, body: html };
     }
