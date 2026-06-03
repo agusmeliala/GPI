@@ -42,8 +42,7 @@ a { text-decoration: none; }
 ══════════════════════════════ */
 .site-header {
   width: 100%;
-  background-color: #f5f3ef;   /* sama dengan bg halaman, tidak mencuat */
-  border-bottom: none;
+  background-color: #f5f3ef;
   position: sticky;
   top: 0;
   z-index: 200;
@@ -53,56 +52,24 @@ a { text-decoration: none; }
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0;
   width: 100%;
   max-width: var(--max);
   margin: 0 auto;
-  padding: 12px var(--pad-x) 8px;
+  padding: 10px var(--pad-x) 8px;
   background-color: #ffffff;
-  border-radius: 0 0 0 0;
   border-bottom: 2px solid var(--line);
 }
 
-/* KOP SURAT — lebih besar, proporsional di semua device */
-.kop-container {
-  width: 100%;
-  overflow: hidden;
-}
+/* KOP SURAT */
+.kop-container { width: 100%; }
 .kop-surat {
   display: block;
   width: 100%;
   height: auto;
-  max-height: 160px;             /* desktop: besar & jelas */
+  max-height: 160px;
   object-fit: contain;
   object-position: center;
   margin: 0 auto;
-}
-
-/* DATETIME BAR — di bawah nav, di atas konten */
-.datetime-bar {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  background: var(--navy);
-  color: #e0e8f8;
-  padding: 7px 16px;
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: .3px;
-  width: 100%;
-  max-width: var(--max);
-  margin: 8px auto 0;
-  border-radius: 10px;
-}
-.datetime-bar .datetime-icon { font-size: 13px; }
-#datetime {
-  font-size: 12px;
-  font-weight: 600;
-  color: #e0e8f8;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 /* ══════════════════════════════
@@ -110,10 +77,9 @@ a { text-decoration: none; }
 ══════════════════════════════ */
 .site-nav {
   width: 100%;
-  background-color: transparent;
   max-width: var(--max);
   margin: 0 auto;
-  box-shadow: none;
+  background-color: transparent;
 }
 .nav-inner {
   display: flex;
@@ -122,8 +88,8 @@ a { text-decoration: none; }
   overflow-x: auto;
   scrollbar-width: none;
   background-color: var(--navy);
-  box-shadow: 0 2px 8px rgba(29,58,107,.3);
-  border-radius: 0 0 12px 12px;
+  box-shadow: 0 3px 10px rgba(29,58,107,.25);
+  border-radius: 0 0 14px 14px;
 }
 .nav-inner::-webkit-scrollbar { display: none; }
 .nav-link {
@@ -139,6 +105,38 @@ a { text-decoration: none; }
   transition: color .2s, border-color .2s;
   cursor: pointer;
 }
+.nav-link:hover,
+.nav-link.active {
+  color: #ffffff;
+  border-bottom-color: #facc15;
+}
+
+/* ══════════════════════════════
+   DATETIME — jam digital, tanpa kontiner
+══════════════════════════════ */
+.datetime-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  max-width: var(--max);
+  margin: 10px auto 0;
+  padding: 0 var(--pad-x);
+  background: transparent;
+}
+.datetime-bar .datetime-icon { display: none; }   /* sembunyikan ikon jam lama */
+#datetime {
+  font-family: 'Plus Jakarta Sans', monospace;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--navy);
+  letter-spacing: .5px;
+  text-align: center;
+  opacity: .75;
+}
+
+
 .nav-link:hover,
 .nav-link.active {
   color: #ffffff;
