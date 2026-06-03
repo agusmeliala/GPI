@@ -400,9 +400,11 @@ async function renderRenungan(todayName) {
 
     const shareUrl = `${BASE_URL}/.netlify/functions/share?type=renungan`;
     const imgOG    = `${BASE_URL}/images/kop-surat.png`;
-    const desc     = `${judulId} — ${ayatId}`;
+    // OG: tampilkan AYAT sebagai judul, dan penggalan isi sebagai deskripsi
+    const isiPolos = isiId.replace(/###|[*]/g, "").substring(0, 150);
+    const desc     = `📖 ${ayatId} — ${isiPolos}...`;
 
-    updateOG(`Renungan Harian — ${todayName}`, desc, imgOG, shareUrl);
+    updateOG(`${ayatId} · Renungan Harian ${todayName}`, desc, imgOG, shareUrl);
 
     wrapper.innerHTML = `
       <div class="share-badge">📖 Renungan Harian — ${todayName}</div>
