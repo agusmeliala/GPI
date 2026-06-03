@@ -82,8 +82,8 @@ exports.handler = async function(event) {
       const row  = rows.find(r => r[0]?.trim() === todayName);
       const imgUrl = row?.[1]?.trim() || KOP_URL;
       const html = generateHTML(
-        `Poster Harian — ${todayName}`,
-        `Poster harian GPI Jemaat Bersinar, ${todayName}`,
+        `📋 Poster Harian GPI Bersinar — ${todayName}`,
+        `Poster ibadah GPI Jemaat Bersinar Pekan Labuhan, ${todayName}. Klik untuk lihat selengkapnya.`,
         imgUrl, shareUrl, redirectUrl
       );
       return { statusCode: 200, headers: { "Content-Type": "text/html" }, body: html };
@@ -98,8 +98,6 @@ exports.handler = async function(event) {
       const ayat  = row?.[2]?.trim() || "";
       const isi   = row?.[3]?.trim() || "";
 
-      // ✅ OG Title = referensi ayat (mis: "Yohanes 8:32")
-      // ✅ OG Description = teks ISI ayat lengkap (WA tampilkan di baris deskripsi)
       const isiPolos = isi.replace(/###|\*\*/g, "").replace(/\*/g, "").trim();
       const ogTitle = ayat ? `📖 ${ayat}` : judul;
       const ogDesc  = isiPolos || judul;
@@ -116,10 +114,12 @@ exports.handler = async function(event) {
       const row      = dataRows.find(r => r[0]?.trim() === todayName);
       const judul    = row?.[1]?.trim() || "Artikel Minggu Ini";
       const subJudul = row?.[2]?.trim() || "";
+      const isiSub1  = row?.[3]?.trim() || "";
       const gambar   = row?.[4]?.trim() || row?.[7]?.trim() || KOP_URL;
+      const isiPolos = isiSub1.replace(/###|\*\*/g, "").replace(/\*/g, "").substring(0, 150).trim();
       const html = generateHTML(
-        `Artikel — ${judul}`,
-        subJudul || `Artikel GPI Jemaat Bersinar, ${todayName}`,
+        `📰 ${judul}`,
+        isiPolos || subJudul || `Artikel GPI Jemaat Bersinar Pekan Labuhan, ${todayName}`,
         gambar, shareUrl, redirectUrl
       );
       return { statusCode: 200, headers: { "Content-Type": "text/html" }, body: html };
