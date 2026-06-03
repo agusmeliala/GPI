@@ -98,11 +98,11 @@ exports.handler = async function(event) {
       const ayat  = row?.[2]?.trim() || "";
       const isi   = row?.[3]?.trim() || "";
 
-      // ✅ OG Title = AYAT (misalnya: "Yohanes 8:32")
-      // ✅ OG Description = penggalan isi ayat
-      const isiPolos = isi.replace(/###|\*\*/g, "").replace(/\*/g, "").substring(0, 120);
+      // ✅ OG Title = referensi ayat (mis: "Yohanes 8:32")
+      // ✅ OG Description = teks ISI ayat lengkap (WA tampilkan di baris deskripsi)
+      const isiPolos = isi.replace(/###|\*\*/g, "").replace(/\*/g, "").trim();
       const ogTitle = ayat ? `📖 ${ayat}` : judul;
-      const ogDesc  = isiPolos ? `${isiPolos}...` : judul;
+      const ogDesc  = isiPolos || judul;
 
       const html = generateHTML(ogTitle, ogDesc, KOP_URL, shareUrl, redirectUrl);
       return { statusCode: 200, headers: { "Content-Type": "text/html" }, body: html };
