@@ -89,6 +89,9 @@ a { text-decoration: none; }
   font-weight: 600;
   letter-spacing: .3px;
   width: 100%;
+  max-width: var(--max);
+  margin: 8px auto 0;
+  border-radius: 10px;
 }
 .datetime-bar .datetime-icon { font-size: 13px; }
 #datetime {
@@ -106,17 +109,18 @@ a { text-decoration: none; }
 .site-nav {
   width: 100%;
   background-color: var(--navy);
-  padding: 0 var(--pad-x);
   box-shadow: 0 2px 8px rgba(29,58,107,.3);
 }
 .nav-inner {
   display: flex;
   flex-direction: row;
-  justify-content: center;       /* nav items rata tengah di desktop */
+  justify-content: center;
   overflow-x: auto;
   scrollbar-width: none;
   max-width: var(--max);
   margin: 0 auto;
+  border-radius: 0 0 12px 12px;  /* sudut bawah membulat */
+  overflow: hidden;
 }
 .nav-inner::-webkit-scrollbar { display: none; }
 .nav-link {
