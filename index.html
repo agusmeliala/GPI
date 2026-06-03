@@ -201,7 +201,7 @@
     function bagikanKeWA(type) {
       // Timestamp menit — berubah setiap menit, cukup untuk paksa WA refresh cache
       const ts  = Math.floor(Date.now() / 60000);
-      const url = `https://cute-bublanina-a29e79.netlify.app/.netlify/functions/share?type=${type}&t=${ts}`;
+      const url = `https://gpibersinar.netlify.app/.netlify/functions/share?type=${type}&t=${ts}`;
       // Salin link ke clipboard, lalu buka WA
       navigator.clipboard.writeText(url).then(() => {
         alert('✅ Link sudah tersalin!\n\nTinggal buka WhatsApp dan tempel (paste) link-nya.');
