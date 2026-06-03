@@ -3,7 +3,7 @@ const SHEET_POSTER_CSV   = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQFI
 const SHEET_RENUNGAN_CSV = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQFIUh2QfaXXotiABXis5PBDhbQ60SKk0EU2UP8gKuct1Xu42Jg9rMVdG86adkixDjy3OZM3ONvtbFJ/pub?gid=0&single=true&output=csv";
 const SHEET_ARTIKEL_CSV  = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQFIUh2QfaXXotiABXis5PBDhbQ60SKk0EU2UP8gKuct1Xu42Jg9rMVdG86adkixDjy3OZM3ONvtbFJ/pub?gid=533709958&single=true&output=csv";
 
-const BASE_URL  = "https://cute-bublanina-a29e79.netlify.app";
+const BASE_URL  = "https://gpibersinar.netlify.app";
 const KOP_URL   = `${BASE_URL}/images/kop-surat.png`;
 const DAY_NAMES = ["Minggu","Senin","Selasa","Rabu","Kamis","Jumat","Sabtu"];
 
