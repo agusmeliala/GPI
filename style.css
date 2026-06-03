@@ -61,18 +61,20 @@ a { text-decoration: none; }
   padding: 12px var(--pad-x) 0;
 }
 
-/* KOP SURAT — 1.5× lebih besar dari sebelumnya */
+/* KOP SURAT — compact & smart di semua device */
 .kop-container {
   width: 100%;
   overflow: hidden;
 }
 .kop-surat {
   display: block;
-  width: 100%;
+  width: auto;
+  max-width: 100%;
   height: auto;
-  max-height: 165px;             /* sebelumnya 110px → 165px (1.5×) */
+  max-height: 90px;              /* desktop: compact, proporsional */
   object-fit: contain;
   object-position: center;
+  margin: 0 auto;
 }
 
 /* DATETIME — rata tengah */
@@ -735,7 +737,7 @@ a { text-decoration: none; }
 @media (max-width: 768px) {
   :root { --pad-x: 16px; }
 
-  .kop-surat { max-height: 140px; }
+  .kop-surat { max-height: 80px; }
 
 
   .nav-link { padding: 11px 16px; font-size: 11px; }
@@ -749,7 +751,7 @@ a { text-decoration: none; }
 @media (max-width: 480px) {
   :root { --pad-x: 12px; }
 
-  .kop-surat   { max-height: 108px; }
+  .kop-surat   { max-height: 68px; }
   #datetime    { font-size: 9.5px; }
   .datetime-box { padding: 3px 12px 3px 10px; }
 
@@ -769,7 +771,7 @@ a { text-decoration: none; }
    RESPONSIVE — Small ≤ 360px
 ══════════════════════════════ */
 @media (max-width: 360px) {
-  .kop-surat { max-height: 88px; }
+  .kop-surat { max-height: 58px; }
   #datetime  { font-size: 8.5px; }
   .nav-link  { padding: 9px 11px; font-size: 10px; }
 }
