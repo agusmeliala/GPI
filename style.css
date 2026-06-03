@@ -61,49 +61,43 @@ a { text-decoration: none; }
   padding: 12px var(--pad-x) 0;
 }
 
-/* KOP SURAT — compact & smart di semua device */
+/* KOP SURAT — lebih besar, proporsional di semua device */
 .kop-container {
   width: 100%;
   overflow: hidden;
 }
 .kop-surat {
   display: block;
-  width: auto;
-  max-width: 100%;
+  width: 100%;
   height: auto;
-  max-height: 90px;              /* desktop: compact, proporsional */
+  max-height: 160px;             /* desktop: besar & jelas */
   object-fit: contain;
   object-position: center;
   margin: 0 auto;
 }
 
-/* DATETIME — rata tengah */
-.datetime-row {
+/* DATETIME BAR — di bawah nav, di atas konten */
+.datetime-bar {
   display: flex;
-  justify-content: center;       /* tengah */
-  width: 100%;
-  padding: 8px 0 10px;
-}
-.datetime-box {
-  display: inline-flex;
   align-items: center;
-  gap: 5px;
-  background-color: var(--navy-lt);
-  border: 1px solid #c7d2e8;
-  border-radius: 20px;
-  padding: 4px 16px 4px 12px;
-  max-width: 100%;
-  overflow: hidden;
+  justify-content: center;
+  gap: 6px;
+  background: var(--navy);
+  color: #e0e8f8;
+  padding: 7px 16px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: .3px;
+  width: 100%;
 }
-.datetime-icon { font-size: 12px; flex-shrink: 0; }
+.datetime-bar .datetime-icon { font-size: 13px; }
 #datetime {
-  font-size: 11px;
-  font-weight: 700;
-  color: var(--navy);
+  font-size: 12px;
+  font-weight: 600;
+  color: #e0e8f8;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  display: block;
 }
 
 /* ══════════════════════════════
@@ -737,7 +731,7 @@ a { text-decoration: none; }
 @media (max-width: 768px) {
   :root { --pad-x: 16px; }
 
-  .kop-surat { max-height: 80px; }
+  .kop-surat { max-height: 140px; }
 
 
   .nav-link { padding: 11px 16px; font-size: 11px; }
@@ -751,7 +745,7 @@ a { text-decoration: none; }
 @media (max-width: 480px) {
   :root { --pad-x: 12px; }
 
-  .kop-surat   { max-height: 68px; }
+  .kop-surat   { max-height: 110px; }
   #datetime    { font-size: 9.5px; }
   .datetime-box { padding: 3px 12px 3px 10px; }
 
@@ -771,7 +765,7 @@ a { text-decoration: none; }
    RESPONSIVE — Small ≤ 360px
 ══════════════════════════════ */
 @media (max-width: 360px) {
-  .kop-surat { max-height: 58px; }
+  .kop-surat { max-height: 90px; }
   #datetime  { font-size: 8.5px; }
   .nav-link  { padding: 9px 11px; font-size: 10px; }
 }
