@@ -87,9 +87,9 @@
         </button>
       </div>
       <div style="margin-top:12px;text-align:center;">
-        <a href=".netlify/functions/share?type=poster" style="display:inline-flex;align-items:center;gap:8px;background:#25D366;color:#fff;font-size:13px;font-weight:700;padding:10px 20px;border-radius:30px;text-decoration:none;">
+        <button onclick="bagikanKeWA('poster')" style="display:inline-flex;align-items:center;gap:8px;background:#25D366;color:#fff;font-size:13px;font-weight:700;padding:10px 20px;border-radius:30px;border:none;cursor:pointer;">
           📤 Bagikan Poster ke WhatsApp
-        </a>
+        </button>
       </div>
     </section>
 
@@ -117,9 +117,9 @@
         </article>
       </div>
       <div style="margin-top:14px;text-align:center;">
-        <a href=".netlify/functions/share?type=renungan" style="display:inline-flex;align-items:center;gap:8px;background:#25D366;color:#fff;font-size:13px;font-weight:700;padding:10px 20px;border-radius:30px;text-decoration:none;">
+        <button onclick="bagikanKeWA('renungan')" style="display:inline-flex;align-items:center;gap:8px;background:#25D366;color:#fff;font-size:13px;font-weight:700;padding:10px 20px;border-radius:30px;border:none;cursor:pointer;">
           📤 Bagikan Renungan ke WhatsApp
-        </a>
+        </button>
       </div>
     </section>
 
@@ -154,9 +154,9 @@
         <p class="artikel-loading">Memuat artikel...</p>
       </div>
       <div style="margin-top:14px;text-align:center;">
-        <a href=".netlify/functions/share?type=artikel" style="display:inline-flex;align-items:center;gap:8px;background:#25D366;color:#fff;font-size:13px;font-weight:700;padding:10px 20px;border-radius:30px;text-decoration:none;">
+        <button onclick="bagikanKeWA('artikel')" style="display:inline-flex;align-items:center;gap:8px;background:#25D366;color:#fff;font-size:13px;font-weight:700;padding:10px 20px;border-radius:30px;border:none;cursor:pointer;">
           📤 Bagikan Artikel ke WhatsApp
-        </a>
+        </button>
       </div>
     </section>
 
@@ -195,5 +195,22 @@
   </div>
 
   <script src="script.js"></script>
+
+  <script>
+    // ── SHARE KE WHATSAPP — pakai timestamp agar WA selalu baca preview baru ──
+    function bagikanKeWA(type) {
+      // Timestamp menit — berubah setiap menit, cukup untuk paksa WA refresh cache
+      const ts  = Math.floor(Date.now() / 60000);
+      const url = `https://cute-bublanina-a29e79.netlify.app/.netlify/functions/share?type=${type}&t=${ts}`;
+      // Salin link ke clipboard, lalu buka WA
+      navigator.clipboard.writeText(url).then(() => {
+        alert('✅ Link sudah tersalin!\n\nTinggal buka WhatsApp dan tempel (paste) link-nya.');
+      }).catch(() => {
+        // Fallback: tampilkan link agar bisa disalin manual
+        prompt('Salin link ini lalu tempel di WhatsApp:', url);
+      });
+    }
+  </script>
+
 </body>
 </html>
