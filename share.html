@@ -8,8 +8,8 @@
   <!-- ═══ OG TAGS — diisi dinamis oleh script ═══ -->
   <meta id="og-title"       property="og:title"       content="GPI Jemaat Bersinar" />
   <meta id="og-description" property="og:description" content="Website resmi GPI Jemaat Bersinar – Medan Labuhan" />
-  <meta id="og-image"       property="og:image"        content="https://gpibersinar.netlify.app/images/kop-surat.png" />
-  <meta id="og-url"         property="og:url"          content="https://gpibersinar.netlify.app/share.html" />
+  <meta id="og-image"       property="og:image"        content="https://gpi-blond.vercel.app/images/kop-surat.png" />
+  <meta id="og-url"         property="og:url"          content="https://gpi-blond.vercel.app/share.html" />
   <meta property="og:type"        content="website" />
   <meta property="og:site_name"   content="GPI Jemaat Bersinar" />
 
@@ -17,7 +17,7 @@
   <meta name="twitter:card"        content="summary_large_image" />
   <meta id="tw-title"       name="twitter:title"       content="GPI Jemaat Bersinar" />
   <meta id="tw-description" name="twitter:description" content="Website resmi GPI Jemaat Bersinar" />
-  <meta id="tw-image"       name="twitter:image"       content="https://gpibersinar.netlify.app/images/kop-surat.png" />
+  <meta id="tw-image"       name="twitter:image"       content="https://gpi-blond.vercel.app/images/kop-surat.png" />
 
   <title id="page-title">GPI Jemaat Bersinar</title>
 
@@ -272,7 +272,7 @@ const SHEET_POSTER_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ
 const SHEET_ARTIKEL_CSV_URL= "https://docs.google.com/spreadsheets/d/e/2PACX-1vQFIUh2QfaXXotiABXis5PBDhbQ60SKk0EU2UP8gKuct1Xu42Jg9rMVdG86adkixDjy3OZM3ONvtbFJ/pub?gid=533709958&single=true&output=csv";
 
 const DAY_NAMES = ["Minggu","Senin","Selasa","Rabu","Kamis","Jumat","Sabtu"];
-const BASE_URL  = "https://gpibersinar.netlify.app";
+const BASE_URL  = location.origin;
 
 // ── PARSER CSV (sama dengan script.js utama) ──────────────────────────────────
 function parseCSV(text) {
@@ -360,7 +360,7 @@ async function renderPoster(todayName) {
     const row = rows.find(r => r[0]?.trim() === todayName);
 
     const imgSrc = row?.[1]?.trim() || `${BASE_URL}/images/kop-surat.png`;
-    const shareUrl = `${BASE_URL}/.netlify/functions/share?type=poster`;
+    const shareUrl = `${BASE_URL}/api/share?type=poster`;
     const desc = `Poster Harian GPI Jemaat Bersinar — ${todayName}`;
 
     updateOG(`Poster Harian — ${todayName}`, desc, imgSrc, shareUrl);
@@ -398,7 +398,7 @@ async function renderRenungan(todayName) {
     const ayatEn  = row?.[5]?.trim() || "";
     const isiEn   = row?.[6]?.trim() || "";
 
-    const shareUrl = `${BASE_URL}/.netlify/functions/share?type=renungan`;
+    const shareUrl = `${BASE_URL}/api/share?type=renungan`;
     const imgOG    = `${BASE_URL}/images/kop-surat.png`;
     // OG: tampilkan AYAT sebagai judul, dan penggalan isi sebagai deskripsi
     const isiPolos = isiId.replace(/###|[*]/g, "").substring(0, 150);
@@ -452,7 +452,7 @@ async function renderArtikel(todayName) {
     const sub2Isi    = row[6]?.trim() || "";
     const sub2Gambar = row[7]?.trim() || "";
 
-    const shareUrl = `${BASE_URL}/.netlify/functions/share?type=artikel`;
+    const shareUrl = `${BASE_URL}/api/share?type=artikel`;
     const imgOG    = sub1Gambar || sub2Gambar || `${BASE_URL}/images/kop-surat.png`;
     const desc     = sub1Judul || judulUtama || "Artikel Minggu Ini";
 
