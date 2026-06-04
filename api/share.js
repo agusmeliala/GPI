@@ -116,18 +116,27 @@ export default async function handler(req, res) {
 
     // ── ARTIKEL ─────────────────────────────────────────────────────────────
     if (type === "artikel") {
-      const csv      = await fetchCSV(SHEET_ARTIKEL_CSV);
-      const rows     = parseCSV(csv);
-      const dataRows = rows.filter(r => r[0]?.trim() !== "Hari");
-      const row      = dataRows.find(r => r[0]?.trim() === todayName);
-      const judul    = row?.[1]?.trim() || "Artikel Minggu Ini";
-      const subJudul = row?.[2]?.trim() || "";
-      const isiSub1  = row?.[3]?.trim() || "";
-      const gambar   = row?.[4]?.trim() || row?.[7]?.trim() || KOP_URL;
+      const csv        = await fetchCSV(SHEET_ARTIKEL_CSV);
+      const rows       = parseCSV(csv);
+      const dataRows   = rows.filter(r => r[0]?.trim() !== "Hari");
+      const row        = dataRows.find(r => r[0]?.trim() === todayName);
+      const judulUtama = row?.[1]?.trim() || "";
+      const subJudul   = row?.[2]?.trim() || "";
+      const isiSub1    = row?.[3]?.trim() || "";
+
+      // Judul artikel = pakai sub-judul (judul sebenarnya, mis:
+      // "PINTU KEMAH SUCI (Masak — Keluaran 26:36-37)").
+      // Kalau sub-judul kosong, baru pakai judul utama.
+      const judulArtikel = subJudul || judulUtama || "Artikel Minggu Ini";
+
+      // Gambar HANYA dari artikel ini sendiri (kolom 5 / row[4]).
+      // Kalau tidak ada gambar, pakai kop surat — JANGAN ambil gambar artikel lain.
+      const gambar = row?.[4]?.trim() || KOP_URL;
+
       const isiPolos = isiSub1.replace(/###|\*\*/g, "").replace(/\*/g, "").substring(0, 150).trim();
       const html = generateHTML(
-        `📰 ${judul}`,
-        isiPolos || subJudul || `Artikel GPI Jemaat Bersinar Pekan Labuhan, ${todayName}`,
+        `📰 ${judulArtikel}`,
+        isiPolos || `Artikel GPI Jemaat Bersinar Pekan Labuhan, ${todayName}`,
         gambar, shareUrl, redirectUrl
       );
       return res.status(200).send(html);
