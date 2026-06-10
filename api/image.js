@@ -12,6 +12,14 @@ const SHEET_ARTIKEL_CSV = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQFIU
 
 const DAY_NAMES = ["Minggu","Senin","Selasa","Rabu","Kamis","Jumat","Sabtu"];
 
+// Menentukan nama hari berdasarkan waktu Indonesia (WIB = UTC+7),
+// bukan waktu server Vercel (UTC). Harus sama dengan share.js supaya
+// gambar yang diambil cocok dengan judul/keterangan yang ditampilkan.
+function namaHariWIB() {
+  const wib = new Date(Date.now() + 7 * 60 * 60 * 1000);
+  return DAY_NAMES[wib.getUTCDay()];
+}
+
 function parseCSV(text) {
   const rows = [];
   let i = 0;
@@ -50,7 +58,7 @@ function getDriveFileId(url) {
 
 export default async function handler(req, res) {
   const type      = (req.query && req.query.type) || "poster";
-  const todayName = DAY_NAMES[new Date().getDay()];
+  const todayName = namaHariWIB();
 
   try {
     // 1) Ambil link gambar dari Google Sheets sesuai jenis konten & hari ini.
