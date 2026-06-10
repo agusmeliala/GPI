@@ -40,12 +40,15 @@ function parseCSV(text) {
 //   https://drive.google.com/file/d/FILE_ID/view...
 //   https://drive.google.com/open?id=FILE_ID
 //   https://drive.google.com/uc?export=view&id=FILE_ID
+//   https://drive.google.com/thumbnail?id=FILE_ID&sz=w600
+// Semua diubah ke lh3.googleusercontent.com yang menyajikan gambar
+// secara langsung (tanpa pengalihan), sehingga robot WhatsApp bisa membacanya.
 // Link non-Drive dikembalikan apa adanya.
 function toDirectImageUrl(url) {
   if (!url) return "";
-  const m = url.match(/drive\.google\.com\/(?:file\/d\/([\w-]+)|(?:open|uc)\?(?:[^#]*&)?id=([\w-]+))/);
+  const m = url.match(/drive\.google\.com\/(?:file\/d\/([\w-]+)|(?:open|uc|thumbnail)\?(?:[^#]*&)?id=([\w-]+))/);
   const fileId = m ? (m[1] || m[2]) : null;
-  if (fileId) return `https://drive.google.com/thumbnail?id=${fileId}&sz=w1000`;
+  if (fileId) return `https://lh3.googleusercontent.com/d/${fileId}=w1000`;
   return url;
 }
 
