@@ -79,8 +79,11 @@ export default async function handler(req, res) {
       return res.status(302).end();
     }
 
-    // 3) Ambil gambar aslinya dari Google (di belakang layar, server boleh).
-    const imgUrl = `https://lh3.googleusercontent.com/d/${fileId}=w1000`;
+    // 3) Ambil gambar dari Google, TAPI minta versi JPG ukuran w800.
+    //    Akhiran "-rj" = paksa format JPG, "=w800" = lebar 800px.
+    //    Ini membuat ukuran file jauh lebih kecil sehingga MUAT di batas
+    //    preview WhatsApp (poster PNG asli terlalu besar untuk dibaca WA).
+    const imgUrl = `https://lh3.googleusercontent.com/d/${fileId}=w800-rj`;
     const imgRes = await fetch(imgUrl);
 
     if (!imgRes.ok) {
@@ -95,7 +98,7 @@ export default async function handler(req, res) {
 
     // 4) Sajikan gambar dari domain kita sendiri, lengkap dengan tipe & cache.
     res.setHeader("Content-Type", contentType);
-    res.setHeader("Cache-Control", "public, max-age=300, s-maxage=300");
+    res.setHeader("Cache-Control", "public, max-age=120, s-maxage=120");
     return res.status(200).send(buffer);
 
   } catch (err) {
