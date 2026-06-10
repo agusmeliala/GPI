@@ -6,6 +6,14 @@ const SHEET_ARTIKEL_CSV  = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQFI
 
 const DAY_NAMES = ["Minggu","Senin","Selasa","Rabu","Kamis","Jumat","Sabtu"];
 
+// Menentukan nama hari berdasarkan waktu Indonesia (WIB = UTC+7),
+// BUKAN waktu server Vercel yang memakai UTC (7 jam lebih lambat).
+// Tanpa ini, dari tengah malam s/d jam 7 pagi WIB poster masih hari kemarin.
+function namaHariWIB() {
+  const wib = new Date(Date.now() + 7 * 60 * 60 * 1000);
+  return DAY_NAMES[wib.getUTCDay()];
+}
+
 function parseCSV(text) {
   const rows = [];
   let i = 0;
@@ -84,7 +92,7 @@ function generateHTML(title, description, imageUrl, shareUrl, redirectUrl) {
 
 export default async function handler(req, res) {
   const type        = (req.query && req.query.type) || "poster";
-  const todayName   = DAY_NAMES[new Date().getDay()];
+  const todayName   = namaHariWIB();
 
   // Alamat website diambil otomatis dari domain yang sedang diakses,
   // jadi tetap jalan walau nanti ganti domain.
