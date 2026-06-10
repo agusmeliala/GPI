@@ -35,6 +35,20 @@ function parseCSV(text) {
   return rows;
 }
 
+// Mengubah link Google Drive biasa menjadi link gambar langsung
+// yang bisa dibaca WhatsApp. Mendukung format:
+//   https://drive.google.com/file/d/FILE_ID/view...
+//   https://drive.google.com/open?id=FILE_ID
+//   https://drive.google.com/uc?export=view&id=FILE_ID
+// Link non-Drive dikembalikan apa adanya.
+function toDirectImageUrl(url) {
+  if (!url) return "";
+  const m = url.match(/drive\.google\.com\/(?:file\/d\/([\w-]+)|(?:open|uc)\?(?:[^#]*&)?id=([\w-]+))/);
+  const fileId = m ? (m[1] || m[2]) : null;
+  if (fileId) return `https://drive.google.com/thumbnail?id=${fileId}&sz=w1000`;
+  return url;
+}
+
 async function fetchCSV(url) {
   const res = await fetch(url);
   if (!res.ok) throw new Error("Gagal fetch CSV");
@@ -86,7 +100,7 @@ export default async function handler(req, res) {
       const csv  = await fetchCSV(SHEET_POSTER_CSV);
       const rows = parseCSV(csv);
       const row  = rows.find(r => r[0]?.trim() === todayName);
-      const imgUrl = row?.[1]?.trim() || KOP_URL;
+      const imgUrl = toDirectImageUrl(row?.[1]?.trim()) || KOP_URL;
       const html = generateHTML(
         `📋 Poster Harian GPI Bersinar — ${todayName}`,
         `Poster ibadah GPI Jemaat Bersinar Pekan Labuhan, ${todayName}. Klik untuk lihat selengkapnya.`,
@@ -129,7 +143,7 @@ export default async function handler(req, res) {
 
       // Gambar HANYA dari artikel ini sendiri (kolom 5 / row[4]).
       // Kalau tidak ada gambar, pakai kop surat — JANGAN ambil gambar artikel lain.
-      const gambar = row?.[4]?.trim() || KOP_URL;
+      const gambar = toDirectImageUrl(row?.[4]?.trim()) || KOP_URL;
 
       const isiPolos = isiSub1.replace(/###|\*\*/g, "").replace(/\*/g, "").substring(0, 150).trim();
       const html = generateHTML(
