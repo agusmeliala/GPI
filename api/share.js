@@ -103,7 +103,9 @@ export default async function handler(req, res) {
       const csv  = await fetchCSV(SHEET_POSTER_CSV);
       const rows = parseCSV(csv);
       const row  = rows.find(r => r[0]?.trim() === todayName);
-      const imgUrl = toDirectImageUrl(row?.[1]?.trim()) || KOP_URL;
+      // Gambar diambil lewat perantara /api/image (domain sendiri) supaya
+      // WhatsApp bisa membacanya. Perantara itu yang mengambil dari Drive.
+      const imgUrl = `${BASE_URL}/api/image?type=poster`;
       const html = generateHTML(
         `📋 Poster Harian GPI Bersinar — ${todayName}`,
         `Poster ibadah GPI Jemaat Bersinar Pekan Labuhan, ${todayName}. Klik untuk lihat selengkapnya.`,
@@ -146,7 +148,8 @@ export default async function handler(req, res) {
 
       // Gambar HANYA dari artikel ini sendiri (kolom 5 / row[4]).
       // Kalau tidak ada gambar, pakai kop surat — JANGAN ambil gambar artikel lain.
-      const gambar = toDirectImageUrl(row?.[4]?.trim()) || KOP_URL;
+      // Gambar artikel juga lewat perantara /api/image (domain sendiri).
+      const gambar = `${BASE_URL}/api/image?type=artikel`;
 
       const isiPolos = isiSub1.replace(/###|\*\*/g, "").replace(/\*/g, "").substring(0, 150).trim();
       const html = generateHTML(
