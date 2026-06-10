@@ -97,6 +97,11 @@ export default async function handler(req, res) {
 
   res.setHeader("Content-Type", "text/html; charset=utf-8");
 
+  // Penyegar gambar: berganti tiap menit. Membuat alamat gambar selalu baru,
+  // sehingga WhatsApp mengambil gambar terbaru (bukan kegagalan/cache lama),
+  // sekaligus otomatis memunculkan poster baru saat gambar harian diganti.
+  const imgVer = Math.floor(Date.now() / 60000);
+
   try {
     // ── POSTER ──────────────────────────────────────────────────────────────
     if (type === "poster") {
@@ -105,7 +110,7 @@ export default async function handler(req, res) {
       const row  = rows.find(r => r[0]?.trim() === todayName);
       // Gambar diambil lewat perantara /api/image (domain sendiri) supaya
       // WhatsApp bisa membacanya. Perantara itu yang mengambil dari Drive.
-      const imgUrl = `${BASE_URL}/api/image?type=poster`;
+      const imgUrl = `${BASE_URL}/api/image?type=poster&v=${imgVer}`;
       const html = generateHTML(
         `📋 Poster Harian GPI Bersinar — ${todayName}`,
         `Poster ibadah GPI Jemaat Bersinar Pekan Labuhan, ${todayName}. Klik untuk lihat selengkapnya.`,
@@ -149,7 +154,7 @@ export default async function handler(req, res) {
       // Gambar HANYA dari artikel ini sendiri (kolom 5 / row[4]).
       // Kalau tidak ada gambar, pakai kop surat — JANGAN ambil gambar artikel lain.
       // Gambar artikel juga lewat perantara /api/image (domain sendiri).
-      const gambar = `${BASE_URL}/api/image?type=artikel`;
+      const gambar = `${BASE_URL}/api/image?type=artikel&v=${imgVer}`;
 
       const isiPolos = isiSub1.replace(/###|\*\*/g, "").replace(/\*/g, "").substring(0, 150).trim();
       const html = generateHTML(
