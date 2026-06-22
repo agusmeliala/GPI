@@ -519,7 +519,8 @@ function closeLightbox() {
 
 function setupLightbox() {
   document.getElementById("lightbox")?.addEventListener("click", (e) => {
-    if (e.target.id === "lightbox") closeLightbox();
+    // Tutup bila klik area gelap (backdrop) ATAU klik gambarnya sendiri (kembali ke semula)
+    if (e.target.id === "lightbox" || e.target.id === "lightbox-img") closeLightbox();
   });
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape") closeLightbox();
