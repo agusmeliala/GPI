@@ -403,7 +403,7 @@ a { text-decoration: none; }
 /* Berhenti saat mouse masuk ke area galeri */
 .gallery-wrapper:hover .gallery-track,
 .gallery-track:hover { 
-  animation-play-state: paused;
+  animation-play-state: paused !important;
   cursor: pointer;
 }
 @keyframes scrollGallery {
